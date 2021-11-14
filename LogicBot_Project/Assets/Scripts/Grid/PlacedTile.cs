@@ -1,3 +1,4 @@
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 public class PlacedTile : MonoBehaviour
@@ -11,6 +12,12 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private Sprite _lightOnSprite;
     [SerializeField] private Sprite _noLightSprite;
 
+    [SerializeField] private GameEvent _resetLevelGameEvent;
+
+    private void OnEnable()
+    {
+        _resetLevelGameEvent.AddListener(TurnLightOff);
+    }
 
     private void Start()
     {
@@ -50,6 +57,11 @@ public class PlacedTile : MonoBehaviour
         return _height;
     }
 
+    private void OnDisable()
+    {
+        _resetLevelGameEvent.RemoveListener(TurnLightOff);
+    }
+    
     public override string ToString()
     {
         return name;

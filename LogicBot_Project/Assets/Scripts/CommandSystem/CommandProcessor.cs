@@ -6,7 +6,7 @@ public class CommandProcessor : Singleton<CommandProcessor>
 {
     private List<BaseCommand> _commandList = new List<BaseCommand>();
     
-    [SerializeField] private GameEvent _resetPlayerPositionGameEvent;
+    [SerializeField] private GameEvent _resetLevelGameEvent;
     
     public void Add(BaseCommand baseCommand)
     {
@@ -26,7 +26,7 @@ public class CommandProcessor : Singleton<CommandProcessor>
             return;
         }
         
-        _resetPlayerPositionGameEvent.Raise();
+        _resetLevelGameEvent.Raise();
         _commandList[0].Execute();
     }
 

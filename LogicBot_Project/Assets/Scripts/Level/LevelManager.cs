@@ -33,6 +33,18 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public PlacedTile GetPlacedTileAt(Vector3 worldPosition)
+    {
+        PlacedTile placedTile = null;
+        GridObject gridObject = _grid.GetGridObject(worldPosition);
+        if (gridObject != null)
+        {
+            placedTile = gridObject.GetPlacedTile();
+        }
+
+        return placedTile;
+    }
+    
     private void RemoveTileFromTheGrid(BaseRuntimeSet<PlacedTile>.RuntimeSetEventArgs<PlacedTile> e)
     {
         Vector3 placedTimeWorldPosition = e.obj.transform.position;
@@ -102,12 +114,4 @@ public class LevelManager : Singleton<LevelManager>
         
         return currentPosition;
     }
-
-    
-    public Vector3 GetNextJump(Vector3 currentPosition, PlayerController.Dir currentDirection)
-    {   
-        //TODO:
-        return currentPosition;
-    }
-    
 }

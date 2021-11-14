@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _jumpPower = 0.7f;
     
-    [SerializeField] private GameEvent _resetPlayerPositionGameEvent;
+    [SerializeField] private GameEvent _resetLevelGameEvent;
 
     [SerializeField] private float _startHeight = 0;
     
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         _startRotation = transform.rotation;
         _startDir = _currentDir;
         _currentHeight = _startHeight;
-        _resetPlayerPositionGameEvent.AddListener(ResetPosition);
+        _resetLevelGameEvent.AddListener(ResetPosition);
     }
     
 
@@ -57,8 +57,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Cannot move, current height = " + _currentHeight + ", tile height = " + tileHeight);
         }
-        
-        
     }
 
     public void TurnRight(Action callback = null)
@@ -122,6 +120,13 @@ public class PlayerController : MonoBehaviour
     public void TurnLightOn(Action callback = null)
     {
         Debug.Log("Turn light on");
+
+        PlacedTile placedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
+        if (placedTile != null)
+        {
+            placedTile.TurnLightOn();
+        }
+        
         callback?.Invoke();
     }
 
@@ -159,6 +164,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        _resetPlayerPositionGameEvent.RemoveListener(ResetPosition);
+        _resetLevelGameEvent.RemoveListener(ResetPosition);
     }
 }

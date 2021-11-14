@@ -235,7 +235,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2248853364395507914}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -262,6 +262,7 @@ MonoBehaviour:
   _lightOffSprite: {fileID: 21300000, guid: 864c66971570d4cd7bc08e922802901b, type: 3}
   _lightOnSprite: {fileID: 21300000, guid: b79c6523db7294f4dba3870191964a2a, type: 3}
   _noLightSprite: {fileID: 21300000, guid: 48fcb109a392b4fbd807a1b8eb60c9db, type: 3}
+  _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
 --- !u!114 &2248853364395507912
 MonoBehaviour:
   m_ObjectHideFlags: 0

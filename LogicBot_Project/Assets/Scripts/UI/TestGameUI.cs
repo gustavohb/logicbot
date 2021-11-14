@@ -7,6 +7,7 @@ public class TestGameUI : MonoBehaviour
     [SerializeField] private Button _turnLeftButton;
     [SerializeField] private Button _turnRightButton;
     [SerializeField] private Button _jumpButton;
+    [SerializeField] private Button _turnLightOnButton;
     [SerializeField] private Button _playButton;
 
     [SerializeField] private PlayerControllerRuntimeSet _playerControllerRuntimeSet;
@@ -17,6 +18,7 @@ public class TestGameUI : MonoBehaviour
         _turnLeftButton.onClick.AddListener(AddTurnLeftCommand);
         _turnRightButton.onClick.AddListener(AddTurnRightCommand);
         _jumpButton.onClick.AddListener(AddJumpCommand);
+        _turnLightOnButton.onClick.AddListener(AddTurnLightOnCommand);
         _playButton.onClick.AddListener(ExecuteCommands);
     }
 
@@ -42,6 +44,12 @@ public class TestGameUI : MonoBehaviour
     {
         TurnRightCommand newTurnRightCommand = new TurnRightCommand(_playerControllerRuntimeSet.GetItemIndex(0));
         CommandProcessor.instance.Add(newTurnRightCommand);
+    }
+
+    public void AddTurnLightOnCommand()
+    {
+        TurnLightOnCommand newTurnLightOnCommand = new TurnLightOnCommand(_playerControllerRuntimeSet.GetItemIndex(0));
+        CommandProcessor.instance.Add(newTurnLightOnCommand);
     }
 
     public void ExecuteCommands()
