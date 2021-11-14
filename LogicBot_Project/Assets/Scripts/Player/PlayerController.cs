@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
@@ -14,51 +15,76 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private FloatVariable _moveDuration;
     [SerializeField] private FloatVariable _turnDuration;
-    
-    [SerializeField] private GameEvent _moveForwardGameEvent;
-    [SerializeField] private GameEvent _turnLeftGameEvent;
-    [SerializeField] private GameEvent _turnRightGameEvent;
+
+    [SerializeField] private GameEvent _resetPlayerPositionGameEvent;
     
     private Dir _currentDir = Dir.Up;
 
+    private Vector3 _startPosition;
+    private Quaternion _startRotation;
+    private Dir _startDir;
+
+
     private void OnEnable()
     {
-        _moveForwardGameEvent.AddListener(MoveForward);
-        _turnLeftGameEvent.AddListener(TurnLeft);
-        _turnRightGameEvent.AddListener(TurnRight);
+        _startPosition = transform.position;
+        _startRotation = transform.rotation;
+        _startDir = _currentDir;
+        _resetPlayerPositionGameEvent.AddListener(ResetPosition);
     }
+    
 
-    public void MoveForward()
+    public void MoveForward(Action callBack = null)
     {
         Debug.Log("Move forward");
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
-        transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear);
+        transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            callBack?.Invoke();
+        });
     }
 
-    public void TurnRight()
+    public void TurnRight(Action callback = null)
     {
         Debug.Log("Turn right");
         _currentDir = GetNextDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _moveDuration.Value).SetEase(Ease.Linear);
+        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
+            () =>
+            {
+                callback?.Invoke();
+            });
     }
 
-    public void TurnLeft()
+    public void TurnLeft(Action callback = null)
     {
         Debug.Log("Turn left");
         _currentDir = GetPreviousDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _moveDuration.Value).SetEase(Ease.Linear);
+        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
+            () =>
+            {
+                callback?.Invoke();
+            });
     }
 
-    public void Jump()
+    public void ResetPosition()
+    {
+        transform.position = _startPosition;
+        transform.rotation = _startRotation;
+        _currentDir = _startDir;
+    }
+    
+    public void Jump(Action callback = null)
     {
         Debug.Log("Jump");
+        callback?.Invoke();
     }
 
-    public void TurnLightOn()
+    public void TurnLightOn(Action callback = null)
     {
         Debug.Log("Turn light on");
+        callback?.Invoke();
     }
 
     private Dir GetNextDir(Dir currentDir)
@@ -92,11 +118,9 @@ public class PlayerController : MonoBehaviour
                 return Dir.Right;
         }
     }
-    
+
     private void OnDisable()
     {
-        _moveForwardGameEvent.RemoveListener(MoveForward);
-        _turnLeftGameEvent.RemoveListener(TurnLeft);
-        _turnRightGameEvent.RemoveListener(TurnRight);
+        _resetPlayerPositionGameEvent.RemoveListener(ResetPosition);
     }
 }

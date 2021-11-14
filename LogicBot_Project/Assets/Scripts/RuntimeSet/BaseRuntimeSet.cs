@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class BaseRuntimeSet<T> : ScriptableObject
 {
 
-    public class RuntimeSetEventArgs<T> : EventArgs
+    public class RuntimeSetEventArgs<TObject> : EventArgs
     {
-        public T obj;
+        public TObject obj;
         public bool removed;
     }
         

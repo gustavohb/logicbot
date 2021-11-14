@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Runtimeset/PlacedTileRuntimeset")]
+[CreateAssetMenu(menuName = "Game/RuntimeSet/PlacedTileRuntimeset")]
 public class PlacedTileRuntimeSet : BaseRuntimeSet<PlacedTile>
 {
 }
