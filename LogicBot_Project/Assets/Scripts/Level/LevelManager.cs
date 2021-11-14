@@ -85,14 +85,17 @@ public class LevelManager : Singleton<LevelManager>
         }
 
         Vector3 nextTileWorldPosition = _grid.GetWorldPosition(nextTileIndex.x, nextTileIndex.y);
+
+        GridObject gridObject = _grid.GetGridObject(nextTileWorldPosition);
         
-        if (_grid.GetGridObject(nextTileWorldPosition).IsOccupied())
+        if (gridObject != null && gridObject.IsOccupied())
         {
             Vector3? nextPosition = _grid.GetWorldPosition(nextTileIndex);
 
             if (nextPosition.HasValue)
             {
-                return nextPosition.Value;
+                float tileHeight = gridObject.GetPlacedTile().GetHeight();
+                return nextPosition.Value + new Vector3(0, tileHeight, 0);
             }
         }
         

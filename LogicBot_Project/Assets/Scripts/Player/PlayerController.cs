@@ -16,32 +16,49 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FloatVariable _moveDuration;
     [SerializeField] private FloatVariable _turnDuration;
 
+    [SerializeField] private float _jumpPower = 0.7f;
+    
     [SerializeField] private GameEvent _resetPlayerPositionGameEvent;
+
+    [SerializeField] private float _startHeight = 0;
     
     private Dir _currentDir = Dir.Up;
 
     private Vector3 _startPosition;
     private Quaternion _startRotation;
     private Dir _startDir;
-
+    private float _currentHeight;
 
     private void OnEnable()
     {
         _startPosition = transform.position;
         _startRotation = transform.rotation;
         _startDir = _currentDir;
+        _currentHeight = _startHeight;
         _resetPlayerPositionGameEvent.AddListener(ResetPosition);
     }
     
 
-    public void MoveForward(Action callBack = null)
+    public void MoveForward(Action callback = null)
     {
         Debug.Log("Move forward");
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
-        transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+
+        float tileHeight = endPosition.y - 1;
+        
+        if (_currentHeight == tileHeight)
         {
-            callBack?.Invoke();
-        });
+            transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                callback?.Invoke();
+            });    
+        }
+        else
+        {
+            Debug.Log("Cannot move, current height = " + _currentHeight + ", tile height = " + tileHeight);
+        }
+        
+        
     }
 
     public void TurnRight(Action callback = null)
@@ -73,12 +90,33 @@ public class PlayerController : MonoBehaviour
         transform.position = _startPosition;
         transform.rotation = _startRotation;
         _currentDir = _startDir;
+        _currentHeight = _startHeight;
     }
     
     public void Jump(Action callback = null)
     {
         Debug.Log("Jump");
-        callback?.Invoke();
+        Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
+
+        float tileHeight = endPosition.y - 1;
+        
+        if (tileHeight != _currentHeight && Mathf.Abs(tileHeight - _currentHeight) <= 0.5f)
+        {
+            transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                _currentHeight = tileHeight;
+                callback?.Invoke();
+            });    
+        }
+        else
+        {
+            transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                callback?.Invoke();
+            });  
+            Debug.Log("Cannot jump, current height = " + _currentHeight + ", tile height = " + tileHeight);
+        }
+
     }
 
     public void TurnLightOn(Action callback = null)

@@ -87,7 +87,8 @@ public class GridXZ<TGridObject>
     {
         if (cellIndex.x >= 0 && cellIndex.y >= 0 && cellIndex.x < _width && cellIndex.y < _height)
         {
-            return new Vector3(cellIndex.x, 0, cellIndex.y) * _cellSize + _originPosition + new Vector3(_cellSize, _cellSize, _cellSize) * .5f; // TODO: Need to handle y position
+            return new Vector3(cellIndex.x, 0, cellIndex.y) * _cellSize + _originPosition +
+                   new Vector3(_cellSize, _cellSize, _cellSize) * .5f; // TODO: Need to handle y position
         }
 
         return null;

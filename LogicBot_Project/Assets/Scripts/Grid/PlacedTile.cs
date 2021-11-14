@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlacedTile : MonoBehaviour
 {
     [SerializeField] private bool _isLightTile = false;
-    [SerializeField] private int _height = 0;
+    [SerializeField] private float _height = 0;
 
     [SerializeField] private SpriteRenderer _topSpriteRenderer;
 
@@ -45,7 +45,7 @@ public class PlacedTile : MonoBehaviour
         }
     }
     
-    public int GetHeight()
+    public float GetHeight()
     {
         return _height;
     }
