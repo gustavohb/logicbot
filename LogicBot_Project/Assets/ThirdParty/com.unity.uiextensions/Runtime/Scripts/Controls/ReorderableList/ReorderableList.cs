@@ -110,7 +110,7 @@ namespace UnityEngine.UI.Extensions
                 Debug.LogError("You need to have a Graphic control (such as an Image) for the list [" + name + "] to be droppable", gameObject);
                 return;
             }
-
+            
             Refresh();
         }
 

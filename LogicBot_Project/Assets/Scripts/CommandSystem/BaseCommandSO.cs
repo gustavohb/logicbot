@@ -5,15 +5,9 @@ using UnityEngine;
 public abstract class BaseCommandSO : ScriptableObject
 {
     public BaseCommandSO nextCommand;
-    
-    protected PlayerController _playerController;
+
+    public PlayerControllerRuntimeSet playerControllerRuntimeSet;
 
     public abstract void Execute();
 
-    public virtual void SetPlayerController(PlayerController playerController)
-    {
-        _playerController = playerController;
-    }
-    
-    
 }

@@ -395,7 +395,10 @@ namespace UnityEngine.UI.Extensions
                     _draggingObject.SetParent(_currentReorderableListRaycasted.Content, false);
                     _draggingObject.rotation = _currentReorderableListRaycasted.transform.rotation;
                     _draggingObject.SetSiblingIndex(_fakeElement.GetSiblingIndex());
-
+                    
+                    //Fix bug
+                    _currentReorderableListRaycasted.OnElementAdded.Invoke(args);
+                    
                     //If the item is transferable, it can be dragged out again
                     if (IsTransferable)
                     {
@@ -405,7 +408,7 @@ namespace UnityEngine.UI.Extensions
                     // Force refreshing both lists because otherwise we get inappropriate FromList in ReorderableListEventStruct 
                     _reorderableList.Refresh();
                     _currentReorderableListRaycasted.Refresh();
-
+                    
                     _reorderableList.OnElementAdded.Invoke(args);
             
                     if (_displacedObject != null)
@@ -539,7 +542,7 @@ namespace UnityEngine.UI.Extensions
                     size = firstChild.GetComponent<RectTransform>().rect.size;
                 }
             }
-
+            
             _draggingObject.sizeDelta = size;
             _fakeElementLE.preferredHeight = _draggingObjectLE.preferredHeight = size.y;
             _fakeElementLE.preferredWidth = _draggingObjectLE.preferredWidth = size.x;

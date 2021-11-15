@@ -1,17 +1,21 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Game/Commands/Jump")]
 public class JumpCommandSO : BaseCommandSO
 {
     public override void Execute()
     {
         Debug.Log("Jump command");
-        if (_playerController == null)
+
+        PlayerController playerController = playerControllerRuntimeSet.GetItemIndex(0);
+        
+        if (playerController == null)
         {
             Debug.LogError("Player controller is null!");
             return;
         }
         
-        _playerController.Jump(() =>
+        playerController.Jump(() =>
         {
             if (nextCommand != null)
             {
