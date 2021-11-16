@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainProgramListCommand: {fileID: 11400000, guid: 339fabf119ad74c6d8b773b7656948df, type: 2}
+  _proc1ListCommand: {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
+  _proc2ListCommand: {fileID: 11400000, guid: 264451f0db24d42dfa647d9240a9dd0c, type: 2}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
 --- !u!4 &177822632
 Transform:
@@ -529,6 +531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 227894105}
+  - component: {fileID: 227894106}
   m_Layer: 5
   m_Name: Proc1
   m_TagString: Untagged
@@ -557,6 +560,21 @@ RectTransform:
   m_AnchoredPosition: {x: 398, y: -412.1267}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &227894106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227894104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f526b96212745c9bc3c30e0c31e439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _programList: {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
+  _reorderableList: {fileID: 303120357}
+  _listContent: {fileID: 1162184634}
 --- !u!1 &303120355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,127 +1327,31 @@ MonoBehaviour:
   maxItems: 12
   OnElementDropped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementGrabbed:
     m_PersistentCalls:
       m_Calls: []
   OnElementRemoved:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementAdded:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementDisplacedFrom:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementDisplacedTo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementDisplacedFromReturned:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementDisplacedToReturned:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnElementDroppedWithMaxItems:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974909118}
-        m_TargetAssemblyTypeName: MainProgramUI, Assembly-CSharp
-        m_MethodName: UpdateProgramList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &388163659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2572,10 +2494,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 974909116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b2ec9c7cbc142af8ef95d11492f0b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 42f526b96212745c9bc3c30e0c31e439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _programList: {fileID: 11400000, guid: 339fabf119ad74c6d8b773b7656948df, type: 2}
+  _reorderableList: {fileID: 388163658}
   _listContent: {fileID: 1768614243}
 --- !u!1 &978629803
 GameObject:
@@ -3380,6 +3303,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1284811068}
+  - component: {fileID: 1284811069}
   m_Layer: 5
   m_Name: Proc2
   m_TagString: Untagged
@@ -3408,6 +3332,21 @@ RectTransform:
   m_AnchoredPosition: {x: 398, y: -628.7783}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &1284811069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284811067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f526b96212745c9bc3c30e0c31e439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _programList: {fileID: 11400000, guid: 264451f0db24d42dfa647d9240a9dd0c, type: 2}
+  _reorderableList: {fileID: 413422658}
+  _listContent: {fileID: 536421139}
 --- !u!1 &1311596963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4850,13 +4789,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502c0dbe486ce43589f77f454e3bceee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveForwardButton: {fileID: 156919151}
-  _turnLeftButton: {fileID: 376557839}
-  _turnRightButton: {fileID: 386048940}
-  _jumpButton: {fileID: 1197726032}
-  _turnLightOnButton: {fileID: 1779968260}
   _playButton: {fileID: 1920934158}
-  _playerControllerRuntimeSet: {fileID: 11400000, guid: d0b026023f250459ab65f865a9c8d498, type: 2}
+  _mainProgramUI: {fileID: 974909118}
+  _proc1UI: {fileID: 227894106}
+  _proc2UI: {fileID: 1284811069}
 --- !u!1 &2089845080
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,6 +51,11 @@ public abstract class BaseRuntimeSet<T> : ScriptableObject
         }
     }
 
+    public T[] GetAll()
+    {
+        return _items.ToArray();
+    }
+
     public int Count()
     {
         if (_items != null) return _items.Count;

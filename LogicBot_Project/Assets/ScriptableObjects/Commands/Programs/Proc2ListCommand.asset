@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Proc2ListCommand
   m_EditorClassIdentifier: 
   nextCommand: {fileID: 0}
+  playerControllerRuntimeSet: {fileID: 0}
+  isCommandList: 1
   commandList: []
