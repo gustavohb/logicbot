@@ -2,7 +2,7 @@ using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestGameUI : MonoBehaviour
+public class GameUI : Singleton<GameUI>
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _stopButton;
@@ -17,9 +17,42 @@ public class TestGameUI : MonoBehaviour
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent onFinishedExecutionGameEvent;
 
+    public ProgramUI _selectedProgramUI;
+
     private void OnEnable()
     {
         onFinishedExecutionGameEvent.AddListener(OnFinishedExecutionHandler);
+        DeselectAllProgramUI();
+        _selectedProgramUI = _mainProgramUI;
+        _selectedProgramUI.SetAsSelected();
+    }
+
+    public void SelectMainProgramUI()
+    {
+        DeselectAllProgramUI();
+        _selectedProgramUI = _mainProgramUI;
+        _selectedProgramUI.SetAsSelected();
+    }
+
+    public void SelectProc1UI()
+    {
+        DeselectAllProgramUI();
+        _selectedProgramUI = _proc1UI;
+        _selectedProgramUI.SetAsSelected();
+    }
+    
+    public void SelectProc2UI()
+    {
+        DeselectAllProgramUI();
+        _selectedProgramUI = _proc2UI;
+        _selectedProgramUI.SetAsSelected();
+    }
+    
+    private void DeselectAllProgramUI()
+    {
+        _mainProgramUI.SetAsDeselected();
+        _proc1UI.SetAsDeselected();
+        _proc2UI.SetAsDeselected();
     }
 
     private void OnFinishedExecutionHandler()
@@ -43,6 +76,11 @@ public class TestGameUI : MonoBehaviour
         _playButton.gameObject.SetActive(false);
         _stopButton.gameObject.SetActive(false);
         _rewindButton.gameObject.SetActive(false);
+    }
+
+    public void AddCommandUIToSelectedProgramUI(CommandUI commandUI)
+    {
+        _selectedProgramUI.AddCommandUI(commandUI);
     }
     
     public void StopExecution()
