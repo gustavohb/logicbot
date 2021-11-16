@@ -31,13 +31,21 @@ public class MoveForwardCommandSO : BaseCommandSO
         for (int i = 0; i < playerControllers.Length; i++)
         {
             int n = i;
-            playerControllers[i].MoveForward(() =>
+            if (callback != null)
             {
-                if (n == 0)
+                playerControllers[i].MoveForward(() =>
                 {
-                    callback?.Invoke();  // Just invoke callback once
-                }
-            });
+                    if (n == 0)
+                    {
+                        callback?.Invoke();  // Just invoke callback once
+                    }
+                });    
+            }
+            else
+            {
+                Debug.Log("Callback is null");
+                playerControllers[i].MoveForward();
+            }
         }
     }
 }

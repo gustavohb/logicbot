@@ -3,6 +3,7 @@ using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     public enum Dir
@@ -21,13 +22,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameEvent _resetLevelGameEvent;
 
     [SerializeField] private float _startHeight = 0;
-    
-    private Dir _currentDir = Dir.Up;
 
+    [SerializeField] private float _animatorWalkingSpeed = 1.5f;
+    [SerializeField] private float _animatorTurnSpeed = 1.0f;
+    
+    private Animator _animator;
+    private Dir _currentDir = Dir.Up;
     private Vector3 _startPosition;
     private Quaternion _startRotation;
     private Dir _startDir;
     private float _currentHeight;
+
+    private bool _isWalking = false;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void OnEnable()
     {
@@ -41,27 +52,57 @@ public class PlayerController : MonoBehaviour
 
     public void MoveForward(Action callback = null)
     {
+        _animator.speed = _animatorWalkingSpeed;
+        
         Debug.Log("Move forward");
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
 
         float tileHeight = endPosition.y - 1;
-        
+        CancelInvoke();
+        PlayWalkingAnimation();
+        Invoke(nameof(StopWalkingAnimation), _moveDuration.Value + 0.01f);
         if (_currentHeight == tileHeight)
         {
+            
             transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
+                _isWalking = false;
+                _animator.SetBool("isWalking", _isWalking);
                 callback?.Invoke();
             });    
         }
         else
         {
             Debug.Log("Cannot move, current height = " + _currentHeight + ", tile height = " + tileHeight);
+            callback?.Invoke();
         }
     }
+
+    private void PlayWalkingAnimation()
+    {
+        Debug.Log("Play walking animation");
+        _isWalking = true;
+        _animator.SetBool("isWalking", _isWalking);
+    }
+
+    private void StopWalkingAnimation()
+    {
+        Debug.Log("Stop walking animation");
+        _isWalking = false;
+        _animator.SetBool("isWalking", _isWalking);
+    }
+    
 
     public void TurnRight(Action callback = null)
     {
         Debug.Log("Turn right");
+
+        _animator.speed = _animatorTurnSpeed;
+        
+        CancelInvoke();
+        PlayWalkingAnimation();
+        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.01f);
+        
         _currentDir = GetNextDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
         transform.DORotate(currentRotation + new Vector3(0, 90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
@@ -74,6 +115,13 @@ public class PlayerController : MonoBehaviour
     public void TurnLeft(Action callback = null)
     {
         Debug.Log("Turn left");
+        
+        _animator.speed = _animatorTurnSpeed;
+        
+        CancelInvoke();
+        PlayWalkingAnimation();
+        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.01f);
+        
         _currentDir = GetPreviousDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
         transform.DORotate(currentRotation + new Vector3(0, -90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
@@ -94,6 +142,7 @@ public class PlayerController : MonoBehaviour
     public void Jump(Action callback = null)
     {
         Debug.Log("Jump");
+        
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
 
         float tileHeight = endPosition.y - 1;
