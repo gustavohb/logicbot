@@ -1,5 +1,4 @@
 using ScriptableObjectArchitecture;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
@@ -24,6 +23,14 @@ public class ProgramUI : MonoBehaviour
             if (clickDestroy == null)
             {
                 args.DroppedObject.gameObject.AddComponent<ClickDestroy>();
+            }
+            
+            ClickAddCommandToSelectedProgram clickAddCommandToSelectedProgram =
+                args.DroppedObject.GetComponent<ClickAddCommandToSelectedProgram>();
+            if (clickAddCommandToSelectedProgram != null)
+            {
+                Debug.Log("Destroyng ClickAddCommandToSelectedProgram component");
+                Destroy(clickAddCommandToSelectedProgram);
             }
         });
     }
