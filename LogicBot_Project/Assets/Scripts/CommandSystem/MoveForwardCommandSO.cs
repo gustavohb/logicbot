@@ -7,6 +7,11 @@ public class MoveForwardCommandSO : BaseCommandSO
 {
     public override void Execute(Action callback)
     {
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         Debug.Log("Move forward command");
 
         if (playerControllerRuntimeSet == null)

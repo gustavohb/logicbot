@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed76be2d7ab3349dc9f9ae5513ad57ce, type: 3}
   m_Name: TurnLeftCommand
   m_EditorClassIdentifier: 
-  nextCommand: {fileID: 0}
   playerControllerRuntimeSet: {fileID: 11400000, guid: d0b026023f250459ab65f865a9c8d498, type: 2}
+  isCommandList: 0
+  parentListCommand: {fileID: 0}
+  stopped: {fileID: 11400000, guid: 010009554fe5344aeb388d022a950c67, type: 2}

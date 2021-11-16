@@ -6,6 +6,11 @@ public class TurnRightCommandSO : BaseCommandSO
 {
     public override void Execute(Action callback)
     {
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         Debug.Log("Turn right command");
 
         if (playerControllerRuntimeSet == null)

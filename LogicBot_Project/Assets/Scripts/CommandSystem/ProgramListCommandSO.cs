@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Commands/ProgramListCommand")]
@@ -8,6 +9,10 @@ public class ProgramListCommandSO : BaseCommandSO
     public List<BaseCommandSO> commandList = new List<BaseCommandSO>();
 
     private int _currentCommandIndex = 0;
+
+    public bool isMainProgram = false;
+
+    public GameEvent onFinishedExecutionGameEvent;
     
     public void Add(BaseCommandSO baseCommand)
     {
@@ -22,6 +27,12 @@ public class ProgramListCommandSO : BaseCommandSO
     
     public override void Execute(Action callback)
     {
+        Debug.Log("Execute " + name);
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         if (commandList != null && commandList.Count > 0)
         {
             _currentCommandIndex = 0;
@@ -29,10 +40,20 @@ public class ProgramListCommandSO : BaseCommandSO
             firstCommand.parentListCommand = this;
             firstCommand.Execute(ContinueExecution);
         }
+        else if (isMainProgram)
+        {
+            stopped.Value = true;
+            onFinishedExecutionGameEvent.Raise();
+        }
     }
 
     public void ContinueExecution()
     {
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         _currentCommandIndex++;
         if (_currentCommandIndex < commandList.Count)
         {
@@ -47,6 +68,10 @@ public class ProgramListCommandSO : BaseCommandSO
         {
             _currentCommandIndex = 0;
             parentListCommand.ContinueExecution();
+        }
+        else if (isMainProgram)
+        {
+            onFinishedExecutionGameEvent.Raise();
         }
     }
 }

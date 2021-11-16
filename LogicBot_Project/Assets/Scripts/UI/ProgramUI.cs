@@ -22,7 +22,7 @@ public class ProgramUI : MonoBehaviour
     
     public void UpdateProgramList()
     {
-        Debug.Log("Update main program ui");
+        Debug.Log("Update " + name);
         _programList.ClearCommands();
         foreach (Transform commandUITransform in _listContent.transform)
         {

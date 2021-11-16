@@ -6,6 +6,11 @@ public class TurnLightOnCommandSO : BaseCommandSO
 {
     public override void Execute(Action callback)
     {
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         Debug.Log("Turn light on command");
 
         if (playerControllerRuntimeSet == null)

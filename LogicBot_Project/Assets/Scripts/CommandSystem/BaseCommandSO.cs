@@ -1,4 +1,5 @@
 using System;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 [Serializable]
@@ -8,6 +9,8 @@ public abstract class BaseCommandSO : ScriptableObject
 
     public bool isCommandList = false;
     public ProgramListCommandSO parentListCommand;
+
+    public BoolVariable stopped;
     
     public abstract void Execute(Action callback);
 }

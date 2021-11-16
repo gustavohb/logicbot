@@ -6,6 +6,11 @@ public class JumpCommandSO : BaseCommandSO
 {
     public override void Execute(Action callback)
     {
+        if (stopped.Value)
+        {
+            return;
+        }
+        
         Debug.Log("Jump command");
 
         if (playerControllerRuntimeSet == null)
