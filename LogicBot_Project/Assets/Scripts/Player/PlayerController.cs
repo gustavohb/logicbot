@@ -28,12 +28,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _animatorWalkingSpeed = 1.5f;
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
+
+    [SerializeField] private Dir _startDir;
     
     private Animator _animator;
-    private Dir _currentDir = Dir.Up;
+    private Dir _currentDir;
     private Vector3 _startPosition;
     private Quaternion _startRotation;
-    private Dir _startDir;
     private float _currentHeight;
 
     // Used in turn light method
@@ -51,12 +52,33 @@ public class PlayerController : MonoBehaviour
     {
         _startPosition = transform.position;
         _startRotation = transform.rotation;
-        _startDir = _currentDir;
+        _currentDir = CalculateStartDir();
         _currentHeight = _startHeight;
         _resetLevelGameEvent.AddListener(ResetPosition);
     }
-    
 
+    private Dir CalculateStartDir()
+    {
+        if (_startRotation == Quaternion.Euler(0, 0, 0))
+        {
+            _startDir = Dir.Up;
+        }
+        else if (_startRotation == Quaternion.Euler(0, 90, 0))
+        {
+            _startDir = Dir.Right;
+        }
+        else if (_startRotation == Quaternion.Euler(0, 180, 0))
+        {
+            _startDir = Dir.Down;
+        }
+        else if (_startRotation == Quaternion.Euler(0, 270, 0))
+        {
+            _startDir = Dir.Left;
+        }
+
+        return _startDir;
+    }
+    
     public void MoveForward(Action callback = null)
     {
         _animator.speed = _animatorWalkingSpeed;

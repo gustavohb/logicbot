@@ -7,6 +7,8 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private float _cellSize = 1f;
     [SerializeField] private Transform _gridOriginTransform;
 
+    [SerializeField] private bool _showDebugLines = true;
+    
     [SerializeField] private PlacedTileRuntimeSet _placedTileRuntimeSet;
     
     private GridXZ<GridObject> _grid;
@@ -16,6 +18,7 @@ public class LevelManager : Singleton<LevelManager>
         base.Awake();
         _grid = new GridXZ<GridObject>(_gridWidth, _gridHeight, _cellSize,
             _gridOriginTransform != null ? _gridOriginTransform.position : Vector3.zero,
+            _showDebugLines,
             (GridXZ<GridObject> g, int x, int y) => new GridObject(g, x, y));
         
         _placedTileRuntimeSet.onRuntimeSetChanged += PlacedTileRuntimeSetOnRuntimeSetChanged;
@@ -71,7 +74,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            Debug.LogError("Cannot add " + e.obj.ToString() + " to the grid!");
+            Debug.LogError("Cannot add " + e.obj.ToString() + " to the grid, position is already occupied!");
         }
     }
 

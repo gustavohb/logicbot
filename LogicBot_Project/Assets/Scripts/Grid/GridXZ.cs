@@ -18,7 +18,7 @@ public class GridXZ<TGridObject>
     private Vector3 _originPosition;
     private TGridObject[,] _gridArray;
 
-    public GridXZ(int width, int height, float cellSize, Vector3 originPosition,
+    public GridXZ(int width, int height, float cellSize, Vector3 originPosition, bool showDebug,
         Func<GridXZ<TGridObject>, int, int, TGridObject> createGridObject)
     {
         _width = width;
@@ -36,7 +36,6 @@ public class GridXZ<TGridObject>
             }
         }
 
-        bool showDebug = true;
         if (showDebug)
         {
             TextMeshPro[,] debugTextArray = new TextMeshPro[width, height];
