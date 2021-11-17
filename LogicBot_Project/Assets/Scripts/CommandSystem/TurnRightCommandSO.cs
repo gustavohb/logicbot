@@ -26,6 +26,11 @@ public class TurnRightCommandSO : BaseCommandSO
             Debug.LogError("Player controllers are null!");
             return;
         }
+        
+        if (_commandUI != null)
+        {
+            _commandUI.SetAsExecuting();
+        }
 
         
         for (int i = 0; i < playerControllers.Length; i++)
@@ -36,6 +41,10 @@ public class TurnRightCommandSO : BaseCommandSO
                 if (n == 0)
                 {
                     callback?.Invoke();  // Just invoke callback once
+                    if (_commandUI != null)
+                    {
+                        _commandUI.SetAsNotExecuting();
+                    }
                 }
             });
         }

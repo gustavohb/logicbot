@@ -27,6 +27,11 @@ public class JumpCommandSO : BaseCommandSO
             return;
         }
 
+        if (_commandUI != null)
+        {
+            _commandUI.SetAsExecuting();
+        }
+        
         for (int i = 0; i < playerControllers.Length; i++)
         {
             int n = i;
@@ -35,6 +40,10 @@ public class JumpCommandSO : BaseCommandSO
                 if (n == 0)
                 {
                     callback?.Invoke();  // Just invoke callback once
+                    if (_commandUI != null)
+                    {
+                        _commandUI.SetAsNotExecuting();
+                    }
                 }
             });
         }

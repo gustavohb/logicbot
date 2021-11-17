@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
@@ -16,7 +18,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private FloatVariable _moveDuration;
     [SerializeField] private FloatVariable _turnDuration;
-
+    [SerializeField] private FloatVariable _turnLightDuration;
+    
     [SerializeField] private float _jumpPower = 0.7f;
     
     [SerializeField] private GameEvent _resetLevelGameEvent;
@@ -33,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private Dir _startDir;
     private float _currentHeight;
 
+    // Used in turn light method
+    private PlacedTile _currentPlacedTile;
+    private Action _currentCallback;
+    
     private bool _isWalking = false;
 
     private void Awake()
@@ -78,6 +85,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void PlayTurnLightAnimation()
+    {
+        Debug.Log("Play turn light animation");
+        //TODO:
+    }
+    
     private void PlayWalkingAnimation()
     {
         Debug.Log("Play walking animation");
@@ -165,20 +178,30 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    
     public void TurnLightOn(Action callback = null)
     {
         Debug.Log("Turn light on");
-
-        PlacedTile placedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
-        if (placedTile != null)
-        {
-            placedTile.TurnLightOn();
-        }
-        
-        callback?.Invoke();
+        _currentCallback = callback;
+        _currentPlacedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
+        StartCoroutine(nameof(TurnLightRoutine));
+        Debug.Log("Turn light ended");
     }
 
+    private IEnumerator TurnLightRoutine()
+    {
+        Debug.Log("Turn light routine");
+        yield return new WaitForSeconds(.15f);
+        PlayTurnLightAnimation();
+        if (_currentPlacedTile != null)
+        {
+            _currentPlacedTile.TurnLightOn();
+        }
+        yield return new WaitForSeconds(_turnLightDuration.Value);
+        _currentCallback?.Invoke();
+        Debug.Log("Current callback invoked");
+    }
+    
     private Dir GetNextDir(Dir currentDir)
     {
         switch (currentDir)

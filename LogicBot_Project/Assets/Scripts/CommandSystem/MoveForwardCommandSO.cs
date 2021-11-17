@@ -28,24 +28,25 @@ public class MoveForwardCommandSO : BaseCommandSO
             return;
         }
 
+        if (_commandUI != null)
+        {
+            _commandUI.SetAsExecuting();
+        }
+        
         for (int i = 0; i < playerControllers.Length; i++)
         {
             int n = i;
-            if (callback != null)
+            playerControllers[i].MoveForward(() =>
             {
-                playerControllers[i].MoveForward(() =>
+                if (n == 0)
                 {
-                    if (n == 0)
+                    callback?.Invoke();  // Just invoke callback once
+                    if (_commandUI != null)
                     {
-                        callback?.Invoke();  // Just invoke callback once
+                        _commandUI.SetAsNotExecuting();
                     }
-                });    
-            }
-            else
-            {
-                Debug.Log("Callback is null");
-                playerControllers[i].MoveForward();
-            }
+                }
+            });    
         }
     }
 }

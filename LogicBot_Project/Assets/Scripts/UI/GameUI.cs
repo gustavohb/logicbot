@@ -17,7 +17,7 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent onFinishedExecutionGameEvent;
 
-    public ProgramUI _selectedProgramUI;
+    private ProgramUI _selectedProgramUI;
 
     private void OnEnable()
     {
