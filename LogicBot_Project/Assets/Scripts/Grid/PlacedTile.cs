@@ -1,3 +1,4 @@
+using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
@@ -13,6 +14,22 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private Sprite _noLightSprite;
 
     [SerializeField] private GameEvent _resetLevelGameEvent;
+
+    [SerializeField] private FloatVariable _startYPosition;
+    [SerializeField] private FloatVariable _animationDuration;
+
+    [SerializeField] private FloatVariable _cellSize;
+    
+    private Vector3 _endPosition;
+
+    private Transform _transform;
+    
+    private void Awake()
+    {
+        _transform = transform;
+        _endPosition = transform.position;
+        _transform.position = new Vector3(_endPosition.x, _startYPosition.Value, _endPosition.z);
+    }
 
     private void OnEnable()
     {
@@ -31,6 +48,24 @@ public class PlacedTile : MonoBehaviour
         }
     }
 
+    public void HideTile()
+    {
+        _transform.position = new Vector3(_endPosition.x, _startYPosition.Value, _endPosition.z);
+    }
+    
+    public void ShowTile(float delay)
+    {
+        // Reset start position
+        HideTile();
+        // Wait before execution
+        this.Wait(delay, AnimateTileToEndPosition);
+    }
+
+    private void AnimateTileToEndPosition()
+    {
+        _transform.DOMoveY(_endPosition.y, _animationDuration.Value).SetEase(Ease.OutBack);
+    }
+    
     public bool isLightTile
     {
         get => _isLightTile;
@@ -60,6 +95,16 @@ public class PlacedTile : MonoBehaviour
     private void OnDisable()
     {
         _resetLevelGameEvent.RemoveListener(TurnLightOff);
+    }
+
+    public Vector3 GetTileTopCenterWorldPosition()
+    {
+        return new Vector3(transform.position.x + (_cellSize.Value / 2), _height + 1, transform.position.z + (_cellSize.Value / 2));
+    }
+
+    public Vector3 GetTileTopCenterLocalPosition()
+    {
+        return new Vector3((_cellSize.Value / 2), _height + 1, (_cellSize.Value / 2));
     }
     
     public override string ToString()

@@ -15,16 +15,27 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] private BoolVariable _stopped;
 
     [SerializeField] private GameEvent _resetLevelGameEvent;
-    [SerializeField] private GameEvent onFinishedExecutionGameEvent;
+    [SerializeField] private GameEvent _reloadLevelGameEvent;
+    [SerializeField] private GameEvent _onFinishedExecutionGameEvent;
 
     private ProgramUI _selectedProgramUI;
 
     private void OnEnable()
     {
-        onFinishedExecutionGameEvent.AddListener(OnFinishedExecutionHandler);
+        _onFinishedExecutionGameEvent.AddListener(OnFinishedExecutionHandler);
+        _reloadLevelGameEvent.AddListener(OnReloadLevel);
         DeselectAllProgramUI();
         _selectedProgramUI = _mainProgramUI;
         _selectedProgramUI.SetAsSelected();
+    }
+    
+    private void Start()
+    {
+        _playButton.onClick.AddListener(ExecuteCommands);
+        _stopButton.onClick.AddListener(StopExecution);
+        _rewindButton.onClick.AddListener(RewindExecution);
+        DisableAllButtons();
+        _playButton.gameObject.SetActive(true);
     }
 
     public void SelectMainProgramUI()
@@ -62,14 +73,7 @@ public class GameUI : Singleton<GameUI>
         _rewindButton.gameObject.SetActive(true);
     }
 
-    private void Start()
-    {
-        _playButton.onClick.AddListener(ExecuteCommands);
-        _stopButton.onClick.AddListener(StopExecution);
-        _rewindButton.onClick.AddListener(RewindExecution);
-        DisableAllButtons();
-        _playButton.gameObject.SetActive(true);
-    }
+    
 
     private void DisableAllButtons()
     {
@@ -110,8 +114,20 @@ public class GameUI : Singleton<GameUI>
         CallCommandProcessorToExecuteCommands();
     }
 
+    private void OnReloadLevel()
+    {
+        DisableAllButtons();
+        _playButton.gameObject.SetActive(true);
+    }
+    
     private void CallCommandProcessorToExecuteCommands()
     {
         CommandProcessor.instance.ExecuteCommands();
+    }
+
+    private void OnDisable()
+    {
+        _onFinishedExecutionGameEvent.RemoveListener(OnFinishedExecutionHandler);
+        _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
     }
 }

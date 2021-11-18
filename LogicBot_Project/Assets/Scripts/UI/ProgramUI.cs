@@ -14,7 +14,14 @@ public class ProgramUI : MonoBehaviour
 
     [SerializeField] private Image _titleBackgroundImage;
     [SerializeField] private Image _backgroundImage;
-    
+
+    [SerializeField] private GameEvent _reloadLevelGameEvent;
+
+    private void OnEnable()
+    {
+        _reloadLevelGameEvent.AddListener(OnReloadLevel);
+    }
+
     private void Start()
     {
         _reorderableList.OnElementAdded.AddListener((args) =>
@@ -82,5 +89,28 @@ public class ProgramUI : MonoBehaviour
         Debug.Log(name + "deselected");
         _titleBackgroundImage.color = _deselectedColor.Value;
         _backgroundImage.color = _deselectedColor.Value;
+    }
+
+    private void OnReloadLevel()
+    {
+        ClearProgramListUI();
+    }
+
+    public void ClearProgramListUI()
+    {
+        foreach (Transform commandUITransform in _listContent.transform)
+        {
+            if (commandUITransform == _listContent.transform) continue;
+            CommandUI commandUI = commandUITransform.GetComponent<CommandUI>();
+            if (commandUI != null)
+            {
+                Destroy(commandUI.gameObject);
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
     }
 }

@@ -61,6 +61,14 @@ public class GridXZ<TGridObject>
             };
         }
     }
+    
+    public TGridObject this[int i, int j]
+    {
+        get
+        {
+            return _gridArray[i, j];
+        }
+    }
 
     public int GetWidth()
     {
