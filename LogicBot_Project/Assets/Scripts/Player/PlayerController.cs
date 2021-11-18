@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
@@ -30,9 +29,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
 
     [SerializeField] private Dir _startDir;
+
+    [SerializeField] private Transform _startTileTransform;
     
     private Animator _animator;
-    private Dir _currentDir;
+    [SerializeField] private Dir _currentDir;
     private Vector3 _startPosition;
     private Quaternion _startRotation;
     private float _currentHeight;
@@ -46,17 +47,50 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        //transform.parent = _startTileTransform;
+        
+        //_startRotation = transform.rotation;
+        //_currentDir = CalculateStartDir();
+        //_currentHeight = _startHeight;
+        
     }
 
     private void OnEnable()
     {
         _startPosition = transform.position;
-        _startRotation = transform.rotation;
-        _currentDir = CalculateStartDir();
-        _currentHeight = _startHeight;
         _resetLevelGameEvent.AddListener(ResetPosition);
     }
 
+    public void SetStartDir(Dir dir)
+    {
+        _startDir = dir;
+        _currentDir = _startDir;
+        _startRotation = CalculateRotationFromDir(_startDir);
+        transform.rotation = _startRotation;
+    }
+
+    public void SetStartHeight(float height)
+    {
+        _startHeight = height;
+        _currentHeight = _startHeight;
+    }
+
+    private Quaternion CalculateRotationFromDir(Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+            case Dir.Up:
+                return Quaternion.identity;
+            case Dir.Right:
+                return Quaternion.Euler(0, 90, 0);
+            case Dir.Down:
+                return Quaternion.Euler(0, 180, 0);
+            case Dir.Left:
+                return Quaternion.Euler(0, 270, 0);
+        }
+    }
+    
     private Dir CalculateStartDir()
     {
         if (_startRotation == Quaternion.Euler(0, 0, 0))
@@ -172,6 +206,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = _startRotation;
         _currentDir = _startDir;
         _currentHeight = _startHeight;
+        //transform.parent = _startTileTransform;
     }
     
     public void Jump(Action callback = null)
