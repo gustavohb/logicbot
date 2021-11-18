@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,10 +14,15 @@ public class ProgramUI : MonoBehaviour
     [SerializeField] private ColorVariable _deselectedColor;
 
     [SerializeField] private Image _titleBackgroundImage;
-    [SerializeField] private Image _backgroundImage;
 
     [SerializeField] private GameEvent _reloadLevelGameEvent;
 
+    [SerializeField] private Transform _backgroundTransform;
+
+    [SerializeField] private Image _whiteBackgroundImagePrefab;
+
+    private List<Image> _backgroundImages = new List<Image>();
+    
     private void OnEnable()
     {
         _reloadLevelGameEvent.AddListener(OnReloadLevel);
@@ -59,6 +65,11 @@ public class ProgramUI : MonoBehaviour
 
     public void AddCommandUI(CommandUI commandUI)
     {
+        if (_reorderableList.IsFull())
+        {
+            return;
+        }
+        
         CommandUI newCommandUI = Instantiate(commandUI, _listContent); // Maybe instantiate it in another place
         ClickDestroy clickDestroy = newCommandUI.GetComponent<ClickDestroy>();
         if (clickDestroy == null)
@@ -81,14 +92,22 @@ public class ProgramUI : MonoBehaviour
     {
         Debug.Log(name + "selected");
         _titleBackgroundImage.color = _selectedColor.Value;
-        _backgroundImage.color = _selectedColor.Value;
+        
+        foreach (Image backgroundImage in _backgroundImages)
+        {
+            backgroundImage.color =_selectedColor.Value;
+        }
+        
     }
 
     public void SetAsDeselected()
     {
         Debug.Log(name + "deselected");
         _titleBackgroundImage.color = _deselectedColor.Value;
-        _backgroundImage.color = _deselectedColor.Value;
+        foreach (Image backgroundImage in _backgroundImages)
+        {
+            backgroundImage.color = _deselectedColor.Value;
+        }
     }
 
     private void OnReloadLevel()
@@ -112,5 +131,31 @@ public class ProgramUI : MonoBehaviour
     private void OnDisable()
     {
         _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
+    }
+
+    private void DestroyAllBackgroundImages()
+    {
+        foreach (Image backgroundImage in _backgroundImages)
+        {
+            _backgroundImages.Remove(backgroundImage);
+            Destroy(backgroundImage.gameObject);
+        }
+    }
+    
+    
+    public void SetCommandsLimitTo(int maxItems)
+    {
+        _reorderableList.maxItems = maxItems;
+        DestroyAllBackgroundImages();
+        CreateBackgroundImages(maxItems);
+    }
+
+    private void CreateBackgroundImages(int maxItems)
+    {
+        for (int i = 0; i < maxItems; i++)
+        {
+            Image newBackgroundImage = Instantiate(_whiteBackgroundImagePrefab, _backgroundTransform);
+            _backgroundImages.Add(newBackgroundImage);
+        }
     }
 }

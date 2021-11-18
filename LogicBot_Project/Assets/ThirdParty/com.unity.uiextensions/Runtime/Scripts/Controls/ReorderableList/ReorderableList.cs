@@ -114,6 +114,10 @@ namespace UnityEngine.UI.Extensions
             Refresh();
         }
 
+        public bool IsFull()
+        {
+            return Content.childCount >= maxItems;
+        }
 
         #region Nested type: ReorderableListEventStruct
 

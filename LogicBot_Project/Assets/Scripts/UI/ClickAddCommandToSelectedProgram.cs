@@ -16,6 +16,13 @@ public class ClickAddCommandToSelectedProgram : MonoBehaviour
 
     private void AddCommandUIToSelectedProgramUI()
     {
-        GameUI.instance.AddCommandUIToSelectedProgramUI(_commandUI);
+        if (_commandUI == null)
+        {
+            Debug.LogError("Command UI is null!");
+        }
+        else
+        {
+            GameUI.instance.AddCommandUIToSelectedProgramUI(_commandUI);    
+        }
     }
 }

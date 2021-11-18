@@ -18,8 +18,26 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] private GameEvent _reloadLevelGameEvent;
     [SerializeField] private GameEvent _onFinishedExecutionGameEvent;
 
+    [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
+
+    private LevelDataSO _currentLevelData;
+    
     private ProgramUI _selectedProgramUI;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
+    }
+
+    private void SetCurrentLevelData(LevelDataSO levelData)
+    {
+        _currentLevelData = levelData;
+        UpdateUI();
+    }
+    
+    
     private void OnEnable()
     {
         _onFinishedExecutionGameEvent.AddListener(OnFinishedExecutionHandler);
@@ -72,9 +90,7 @@ public class GameUI : Singleton<GameUI>
         DisableAllButtons();
         _rewindButton.gameObject.SetActive(true);
     }
-
     
-
     private void DisableAllButtons()
     {
         _playButton.gameObject.SetActive(false);
@@ -84,7 +100,14 @@ public class GameUI : Singleton<GameUI>
 
     public void AddCommandUIToSelectedProgramUI(CommandUI commandUI)
     {
-        _selectedProgramUI.AddCommandUI(commandUI);
+        if (_selectedProgramUI == null)
+        {
+            Debug.LogError("Selected program UI is null!");
+        }
+        else
+        {
+            _selectedProgramUI.AddCommandUI(commandUI);    
+        }
     }
     
     public void StopExecution()
@@ -125,9 +148,24 @@ public class GameUI : Singleton<GameUI>
         CommandProcessor.instance.ExecuteCommands();
     }
 
+    private void UpdateUI()
+    {
+        Debug.Log("Update UI'");
+        _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.mainCommands.Count);
+        _mainProgramUI.SetAsSelected();
+        _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.proc1Commands.Count);
+        _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);
+    }
+
     private void OnDisable()
     {
         _onFinishedExecutionGameEvent.RemoveListener(OnFinishedExecutionHandler);
         _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        _setCurrentLevelDataGameEvent.RemoveListener(SetCurrentLevelData);
     }
 }

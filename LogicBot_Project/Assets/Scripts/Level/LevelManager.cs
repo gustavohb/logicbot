@@ -14,14 +14,18 @@ public class LevelManager : Singleton<LevelManager>
     
     [SerializeField] private bool _showDebugLines = true;
     [SerializeField] private PlacedTileRuntimeSet _placedTileRuntimeSet;
-
-    [SerializeField] private PlacedTile _playerStartTile;
-    [SerializeField] private PlayerController.Dir _playerStartDir;
     [SerializeField] private Transform _playerPrefab;
-
+    [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
+    [SerializeField] private LevelDataSO _startLevelDataTest;
+    
+    private PlacedTile _playerStartTile;
+    private PlayerController.Dir _playerStartDir;
+    private LevelDataSO _currentLevelData;
     private Transform _playerTransform;
     
     private GridXZ<GridObject> _grid;
+
+    private LevelTiles _currentLevelTiles;
     
     protected override void Awake()
     {
@@ -33,28 +37,27 @@ public class LevelManager : Singleton<LevelManager>
         
         _placedTileRuntimeSet.onRuntimeSetChanged += PlacedTileRuntimeSetOnRuntimeSetChanged;
 
-        
+        _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
     }
 
+    private void SetCurrentLevelData(LevelDataSO levelData)
+    {
+        _currentLevelData = levelData;
+        _playerStartDir = levelData.playerStartDir; //TODO: Move to appropriated place
+        InstantiateLevelTiles(); //TODO: Move to appropriated place
+        this.Wait(1, ShowGrid); //TODO: Move to appropriated place
+    }
+    
     private void OnEnable()
     {
-        if (_playerPrefab != null)
-        {
-            _playerTransform = Instantiate(_playerPrefab, _playerStartTile.transform, true);
-            _playerTransform.position = _playerStartTile.GetTileTopCenterWorldPosition();
-            PlayerController playerController = _playerTransform.GetComponent<PlayerController>();
-            playerController.SetStartDir(_playerStartDir);
-            _playerTransform.localPosition = _playerStartTile.GetTileTopCenterLocalPosition();
-        }
         _reloadLevelGameEvent.AddListener(ReloadLevel);
     }
 
     private void Start()
     {
-        HideGrid();
-        this.Wait(1, ShowGrid);
+        //HideGrid();
+        _setCurrentLevelDataGameEvent.Raise(_startLevelDataTest);
     }
-
     
     private void ReloadLevel()
     {
@@ -149,7 +152,34 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
     }
-    
+
+
+    private void InstantiateLevelTiles()
+    {
+        if (_currentLevelTiles != null)
+        {
+            Destroy(_currentLevelTiles.gameObject);
+            _currentLevelTiles = null;
+        }
+
+        if (_playerTransform != null)
+        {
+            Destroy(_playerTransform.gameObject);
+            _playerTransform = null;
+        }
+        
+        _currentLevelTiles = Instantiate(_currentLevelData.levelTiles);
+        _playerStartTile = _currentLevelTiles.playerStartTile;
+        
+        if (_playerPrefab != null)
+        {
+            _playerTransform = Instantiate(_playerPrefab, _playerStartTile.transform, true);
+            _playerTransform.position = _playerStartTile.GetTileTopCenterWorldPosition();
+            PlayerController playerController = _playerTransform.GetComponent<PlayerController>();
+            playerController.SetStartDir(_playerStartDir);
+            _playerTransform.localPosition = _playerStartTile.GetTileTopCenterLocalPosition();
+        }
+    }
     
     private void PlacedTileRuntimeSetOnRuntimeSetChanged(object sender, BaseRuntimeSet<PlacedTile>.RuntimeSetEventArgs<PlacedTile> e)
     {
@@ -249,4 +279,10 @@ public class LevelManager : Singleton<LevelManager>
     {
         _reloadLevelGameEvent.RemoveListener(ReloadLevel);
     }
+
+    private void OnDestroy()
+    {
+        _setCurrentLevelDataGameEvent.RemoveListener(SetCurrentLevelData);
+    }
+    
 }
