@@ -72,7 +72,6 @@ public class LevelManager : Singleton<LevelManager>
         int n = _grid.GetWidth();
         int m = _grid.GetHeight();
         
-        int i = 0;
         int row = 0, col = 0;
         bool up = true;
         

@@ -597,8 +597,6 @@ MonoBehaviour:
   _reloadLevelGameEvent: {fileID: 11400000, guid: 2cf8951ae67114e1c91735ba0d0ed229, type: 2}
   _showDebugLines: 0
   _placedTileRuntimeSet: {fileID: 11400000, guid: 34cfda671f64444f1a26583fe6d84714, type: 2}
-  _playerStartTile: {fileID: 0}
-  _playerStartDir: 1
   _playerPrefab: {fileID: 568489346919038783, guid: 89a5a1bf210404c0586d8786ded727d8, type: 3}
   _setCurrentLevelDataGameEvent: {fileID: 11400000, guid: d1641c21ac92b45a9a04cebb4f564614, type: 2}
   _startLevelDataTest: {fileID: 11400000, guid: 64559670f8f5e40f1a5a97ee17ac7065, type: 2}
@@ -1352,7 +1350,7 @@ MonoBehaviour:
   IsDraggable: 1
   CloneDraggedObject: 0
   IsDropable: 1
-  IsDisplacable: 1
+  IsDisplacable: 0
   EqualizeSizesOnDrag: 1
   maxItems: 12
   OnElementDropped:
@@ -4051,7 +4049,7 @@ MonoBehaviour:
   IsDraggable: 1
   CloneDraggedObject: 0
   IsDropable: 1
-  IsDisplacable: 1
+  IsDisplacable: 0
   EqualizeSizesOnDrag: 1
   maxItems: 12
   OnElementDropped:
@@ -4068,7 +4066,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1967021496}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: SelectMainProgramUI
+        m_MethodName: SelectProc2UI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5599,7 +5597,7 @@ MonoBehaviour:
   IsDraggable: 1
   CloneDraggedObject: 0
   IsDropable: 1
-  IsDisplacable: 1
+  IsDisplacable: 0
   EqualizeSizesOnDrag: 1
   maxItems: 12
   OnElementDropped:
@@ -5616,7 +5614,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1967021496}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: SelectMainProgramUI
+        m_MethodName: SelectProc1UI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

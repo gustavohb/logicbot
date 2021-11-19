@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Dir _startDir;
 
-    [SerializeField] private Transform _startTileTransform;
+    [SerializeField] private float _jumpDelay = 0.1f;
     
     private Animator _animator;
     [SerializeField] private Dir _currentDir;
@@ -47,12 +47,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        //transform.parent = _startTileTransform;
-        
-        //_startRotation = transform.rotation;
-        //_currentDir = CalculateStartDir();
-        //_currentHeight = _startHeight;
-        
     }
 
     private void OnEnable()
@@ -206,13 +200,18 @@ public class PlayerController : MonoBehaviour
         transform.rotation = _startRotation;
         _currentDir = _startDir;
         _currentHeight = _startHeight;
-        //transform.parent = _startTileTransform;
     }
+    
     
     public void Jump(Action callback = null)
     {
         Debug.Log("Jump");
-        
+        _currentCallback = callback;
+        _animator.SetTrigger("jump");
+    }
+
+    public void ExecuteJump()
+    {
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
 
         float tileHeight = endPosition.y - 1;
@@ -222,18 +221,20 @@ public class PlayerController : MonoBehaviour
             transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _currentHeight = tileHeight;
-                callback?.Invoke();
-            });    
+                _currentCallback?.Invoke();
+                //_currentCallback = null;
+            });
         }
         else
         {
-            transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
-            {
-                callback?.Invoke();
-            });  
+            transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(
+                () =>
+                {
+                    _currentCallback?.Invoke();
+                    //_currentCallback = null;
+                });
             Debug.Log("Cannot jump, current height = " + _currentHeight + ", tile height = " + tileHeight);
         }
-
     }
     
     public void TurnLightOn(Action callback = null)
