@@ -12,7 +12,7 @@ public static class MonoBehaviourExtensions
     private static IEnumerator ExecuteAction(float delay, Action action)
     {
         yield return new WaitForSecondsRealtime(delay);
-        action.Invoke();
+        action?.Invoke();
         yield break;
     }
 }

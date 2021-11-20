@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f700e8bacd1473b8eb3e9fbd7d8b29, type: 3}
-  m_Name: TestLevelData
+  m_Script: {fileID: 11500000, guid: 7a78c7052899406438e9fc79486b45c0, type: 3}
+  m_Name: LevelCompletedGameEvent
   m_EditorClassIdentifier: 
-  solution: {fileID: 11400000, guid: 2723438cb32334bf1a1de68828631edd, type: 2}
-  levelTiles: {fileID: 716667781, guid: 33c55fe26e8d8423e8750fcc400d4499, type: 3}
-  playerStartDir: 1

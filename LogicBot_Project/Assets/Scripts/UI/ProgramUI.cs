@@ -135,10 +135,13 @@ public class ProgramUI : MonoBehaviour
 
     private void DestroyAllBackgroundImages()
     {
-        foreach (Image backgroundImage in _backgroundImages)
+        if (_backgroundImages != null)
         {
-            _backgroundImages.Remove(backgroundImage);
-            Destroy(backgroundImage.gameObject);
+            foreach (Image backgroundImage in _backgroundImages)
+            {
+                Destroy(backgroundImage.gameObject);
+            }
+            _backgroundImages.Clear();
         }
     }
     

@@ -5,8 +5,7 @@ public class AddPlacedTileToRuntimeSet : MonoBehaviour
 {
 
     [SerializeField] private PlacedTileRuntimeSet _runtimeSet = default;
-
-
+    
     private PlacedTile _placedTile;
     private void Awake()
     {

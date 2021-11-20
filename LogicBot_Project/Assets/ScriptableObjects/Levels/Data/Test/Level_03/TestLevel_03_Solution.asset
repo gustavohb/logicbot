@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0026fc0dba945a5a63f0f514cee1eb, type: 3}
+  m_Name: TestLevel_03_Solution
+  m_EditorClassIdentifier: 
+  mainCommands:
+  - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
+  - {fileID: 11400000, guid: d645c26b93bc1400daa894b420b2c88d, type: 2}
+  - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
+  - {fileID: 11400000, guid: d645c26b93bc1400daa894b420b2c88d, type: 2}
+  - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
+  - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
+  proc1Commands: []
+  proc2Commands: []

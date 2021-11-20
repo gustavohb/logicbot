@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jump: {fileID: 11400000, guid: fb708252624af4a8aa2d632dc2013340, type: 2}
   footstep: {fileID: 11400000, guid: 81e11e147f1c54432a800d8668b7b70c, type: 2}
-  turnLightOn: {fileID: 0}
+  turnLightOn: {fileID: 11400000, guid: 65940ce66069b4697b05812b89fb5281, type: 2}
   _sfxEventChannel: {fileID: 11400000, guid: 3c9dc540432b44f4b9b1b00d9aaac3ef, type: 2}
   _audioConfig: {fileID: 11400000, guid: c321aceeddede4b95bd8b0265660b292, type: 2}
 --- !u!1001 &2113458095792349205

@@ -19,6 +19,8 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private FloatVariable _animationDuration;
 
     [SerializeField] private FloatVariable _cellSize;
+
+    [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
     
     private Vector3 _endPosition;
 
@@ -34,6 +36,10 @@ public class PlacedTile : MonoBehaviour
     private void OnEnable()
     {
         _resetLevelGameEvent.AddListener(TurnLightOff);
+        if (_isLightTile)
+        {
+            _lightTilesRuntimeSet.AddToList(this);
+        }
     }
 
     private void Start()
@@ -52,6 +58,11 @@ public class PlacedTile : MonoBehaviour
     {
         _transform.position = new Vector3(_endPosition.x, _startYPosition.Value, _endPosition.z);
     }
+
+    public void HideTile(float delay)
+    {
+        this.Wait(delay, AnimateTileToStartPosition);
+    }
     
     public void ShowTile(float delay)
     {
@@ -65,6 +76,12 @@ public class PlacedTile : MonoBehaviour
     {
         _transform.DOMoveY(_endPosition.y, _animationDuration.Value).SetEase(Ease.OutBack);
     }
+
+    private void AnimateTileToStartPosition()
+    {
+        _transform.DOMoveY(_startYPosition, _animationDuration.Value).SetEase(Ease.InBack);
+    }
+    
     
     public bool isLightTile
     {
@@ -76,6 +93,7 @@ public class PlacedTile : MonoBehaviour
         if (_isLightTile)
         {
             _topSpriteRenderer.sprite = _lightOnSprite;
+            _lightTilesRuntimeSet.RemoveFromList(this);
         }
     }
 
@@ -84,6 +102,7 @@ public class PlacedTile : MonoBehaviour
         if (_isLightTile)
         {
             _topSpriteRenderer.sprite = _lightOffSprite;
+            _lightTilesRuntimeSet.AddToList(this);
         }
     }
     
@@ -94,6 +113,7 @@ public class PlacedTile : MonoBehaviour
 
     private void OnDisable()
     {
+        _lightTilesRuntimeSet.RemoveFromList(this);
         _resetLevelGameEvent.RemoveListener(TurnLightOff);
     }
 

@@ -1,22 +1,43 @@
+using System;
 using UnityEngine;
 using ScriptableObjectArchitecture;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    [Header("Grid Settings")]
     [SerializeField] private int _gridWidth = 10;
     [SerializeField] private int _gridHeight = 10;
     [SerializeField] private FloatVariable _cellSize;
     [SerializeField] private Transform _gridOriginTransform;
+    [SerializeField] private bool _showDebugLines = true;
+    
+    [Header("References")]
+    [SerializeField] private PlacedTileRuntimeSet _placedTileRuntimeSet;
+    [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
+    [SerializeField] private LevelRepositorySO _levelRepository;    
+    [SerializeField] private Transform _playerPrefab;
 
+    [Header("Variables")] 
+    [SerializeField] private BoolVariable _isShowingTiles;
+    [SerializeField] private BoolVariable _isHidingTiles;
+    [SerializeField] private BoolVariable _isLevelCompleted;
+    [SerializeField] private IntVariable _currentLevelIndex;
+    
+    [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent _reloadLevelGameEvent;
-    
-    
-    [SerializeField] private bool _showDebugLines = true;
-    [SerializeField] private PlacedTileRuntimeSet _placedTileRuntimeSet;
-    [SerializeField] private Transform _playerPrefab;
     [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
-    [SerializeField] private LevelDataSO _startLevelDataTest;
+    [SerializeField] private GameEvent _levelCompletedGameEvent;
+    [SerializeField] private GameEvent _loadNextLevelGameEvent;
+    
+    [Header("SFX")]
+    [SerializeField] private AudioCueEventChannelSO _sfxEventChannel = default;
+    [SerializeField] private AudioConfigurationSO _audioConfig = default;
+
+    [SerializeField] private AudioCueSO _showTilesSFX;
+    [SerializeField] private AudioCueSO _hideTilesSFX;
+    [SerializeField] private AudioCueSO _levelCompletedSFX;
+    
     
     private PlacedTile _playerStartTile;
     private PlayerController.Dir _playerStartDir;
@@ -38,44 +59,95 @@ public class LevelManager : Singleton<LevelManager>
         _placedTileRuntimeSet.onRuntimeSetChanged += PlacedTileRuntimeSetOnRuntimeSetChanged;
 
         _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
+        
+        _isHidingTiles.Value = false;
+        _isShowingTiles.Value = false;
     }
 
     private void SetCurrentLevelData(LevelDataSO levelData)
     {
         _currentLevelData = levelData;
         _playerStartDir = levelData.playerStartDir; //TODO: Move to appropriated place
-        InstantiateLevelTiles(); //TODO: Move to appropriated place
-        this.Wait(1, ShowGrid); //TODO: Move to appropriated place
+        this.Wait(1f, InstantiateLevelTiles); //TODO: Move to appropriated place
+        this.Wait(1.5f, ShowGrid); //TODO: Move to appropriated place
+    }
+
+    private void CheckIfLevelIsCompleted()
+    {
+        if (_lightTilesRuntimeSet.Count() == 0)
+        {
+            PlayAudio(_levelCompletedSFX, _audioConfig, Vector3.zero);
+            _isLevelCompleted.Value = true;
+            _levelCompletedGameEvent.Raise();
+        }
     }
     
     private void OnEnable()
     {
         _reloadLevelGameEvent.AddListener(ReloadLevel);
+        _loadNextLevelGameEvent.AddListener(LoadNextLevel);
+        _lightTilesRuntimeSet.onRuntimeSetChanged += LightTilesRuntimeSet_OnRuntimeSetChanged;
+    }
+
+    private void LightTilesRuntimeSet_OnRuntimeSetChanged(object sender, BaseRuntimeSet<PlacedTile>.RuntimeSetEventArgs<PlacedTile> e)
+    {
+        CheckIfLevelIsCompleted();
     }
 
     private void Start()
     {
-        //HideGrid();
-        _setCurrentLevelDataGameEvent.Raise(_startLevelDataTest);
+        this.Wait(1f, RaiseSetCurrentLevelDataGameEvent);
+        _isLevelCompleted.Value = false;
+        _currentLevelIndex.Value = 0; // Just for test
+        _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
+    }
+
+    private void RaiseSetCurrentLevelDataGameEvent()
+    {
+        _setCurrentLevelDataGameEvent.Raise(_currentLevelData);
     }
     
     private void ReloadLevel()
     {
         _resetLevelGameEvent.Raise();
-        HideGrid();
         ShowGrid();
     }
-    
-    
+
+    public void LoadNextLevel()
+    {
+        Debug.Log("Load next level");
+        _isLevelCompleted.Value = false;
+        _currentLevelIndex.Value++;
+        HideTiles(() =>
+        {
+            if (_currentLevelIndex.Value < _levelRepository.levelList.Count)
+            {
+                _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
+                RaiseSetCurrentLevelDataGameEvent();
+                ShowGrid();
+            }
+        });
+    }
+
+
     public void ShowGrid()
     {
+        if (_isShowingTiles.Value || _isHidingTiles.Value)
+        {
+            return;
+        }
+
+        _isShowingTiles.Value = true;
+        
+        ResetPlayerPosition();
+        
         int n = _grid.GetWidth();
         int m = _grid.GetHeight();
         
         int row = 0, col = 0;
         bool up = true;
         
-        float delayFactor = 0.025f;
+        float delayFactor = 0.01f;
 
         while (row < m && col < n)
         {
@@ -135,9 +207,16 @@ public class LevelManager : Singleton<LevelManager>
 
             up = !up;
         }
+        
+        this.Wait(0.3f, PlayShowTilesSound);
+        
+        this.Wait(delayFactor * m * n, () =>
+        {
+            _isShowingTiles.Value = false;
+        });
     }
 
-    public void HideGrid()
+    public void HideGridImmediately()
     {
         for (int i = 0; i < _grid.GetWidth(); i++)
         {
@@ -150,6 +229,104 @@ public class LevelManager : Singleton<LevelManager>
                 }
             }
         }
+    }
+    
+    public void HideTiles(Action callback)
+    {
+        if (_isHidingTiles.Value || _isShowingTiles.Value)
+        {
+            return;
+        }
+
+        _isHidingTiles.Value = true;
+
+        if (_playerTransform != null)
+        {
+            GridObject gridObject = _grid.GetGridObject(_playerTransform.position);
+            if (gridObject != null)
+            {
+                PlacedTile placedTile = gridObject.GetPlacedTile();
+                if (placedTile != null)
+                {
+                    _playerTransform.parent = placedTile.transform;
+                }
+            }
+        }
+        
+        int n = _grid.GetWidth();
+        int m = _grid.GetHeight();
+        
+        int row = 0, col = 0;
+        bool up = true;
+        
+        float delayFactor = 0.01f;
+
+        while (row < m && col < n)
+        {
+            PlacedTile currentPlacedTile = null;
+            if (up)
+            {
+                while (row > 0 && col < n - 1)
+                {
+                    currentPlacedTile = _grid[row, col].GetPlacedTile();
+                    if (currentPlacedTile != null)
+                    {
+                        currentPlacedTile.HideTile(delayFactor * row * col);
+                    }
+                    row--;
+                    col++;
+                }
+                currentPlacedTile = _grid[row, col].GetPlacedTile();
+                if (currentPlacedTile != null)
+                {
+                    currentPlacedTile.ShowTile(delayFactor * row * col);
+                }
+                if (col == n - 1)
+                {
+                    row++;
+                }
+                else
+                {
+                    col++;
+                }
+            }
+            else
+            {
+                while (col > 0 && row < m - 1)
+                {
+                    currentPlacedTile = _grid[row, col].GetPlacedTile();
+                    if (currentPlacedTile != null)
+                    {
+                        currentPlacedTile.HideTile(delayFactor * row * col);
+                    }
+                    row++;
+                    col--;
+                }
+                currentPlacedTile = _grid[row, col].GetPlacedTile();
+                if (currentPlacedTile != null)
+                {
+                    currentPlacedTile.HideTile(delayFactor * row * col);
+                }
+                if (row == m - 1)
+                {
+                    col++;
+                }
+                else
+                {
+                    row++;
+                }
+            }
+
+            up = !up;
+        }
+
+        this.Wait(0.3f, PlayHideTilesSound);
+        
+        this.Wait(delayFactor * m * n, () =>
+        {
+            callback?.Invoke();
+            _isHidingTiles.Value = false;
+        });
     }
 
 
@@ -169,14 +346,25 @@ public class LevelManager : Singleton<LevelManager>
         
         _currentLevelTiles = Instantiate(_currentLevelData.levelTiles);
         _playerStartTile = _currentLevelTiles.playerStartTile;
-        
+
         if (_playerPrefab != null)
         {
             _playerTransform = Instantiate(_playerPrefab, _playerStartTile.transform, true);
-            _playerTransform.position = _playerStartTile.GetTileTopCenterWorldPosition();
+        }
+        
+        ResetPlayerPosition();
+    }
+
+    private void ResetPlayerPosition()
+    {
+        if (_playerTransform != null && _playerStartTile != null)
+        {
+            _playerTransform.localPosition = _playerStartTile.GetTileTopCenterLocalPosition();
+            
             PlayerController playerController = _playerTransform.GetComponent<PlayerController>();
             playerController.SetStartDir(_playerStartDir);
-            _playerTransform.localPosition = _playerStartTile.GetTileTopCenterLocalPosition();
+            playerController.SetStartPosition(_playerStartTile.GetTileTopCenterWorldPosition());
+
         }
     }
     
@@ -274,9 +462,19 @@ public class LevelManager : Singleton<LevelManager>
         return currentPosition;
     }
     
+    private void PlayShowTilesSound() => PlayAudio(_showTilesSFX, _audioConfig, transform.position);
+    
+    private void PlayHideTilesSound() => PlayAudio(_hideTilesSFX, _audioConfig, transform.position);
+
+    private void PlayAudio(AudioCueSO audioCue, AudioConfigurationSO audioConfiguration, Vector3 positionInSpace = default)
+    {
+        _sfxEventChannel.RaisePlayEvent(audioCue, audioConfiguration, positionInSpace);
+    }
+    
     private void OnDisable()
     {
         _reloadLevelGameEvent.RemoveListener(ReloadLevel);
+        _loadNextLevelGameEvent.RemoveListener(LoadNextLevel);
     }
 
     private void OnDestroy()

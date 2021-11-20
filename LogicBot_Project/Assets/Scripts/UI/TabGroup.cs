@@ -28,6 +28,14 @@ public class TabGroup : MonoBehaviour
         _tabButtons.Add(button);
     }
 
+    public void SelectedTab(int tabIndex)
+    {
+        if (tabIndex > 0 && tabIndex < _tabButtons.Count)
+        {
+            OnTabSelected(_tabButtons[tabIndex]);
+        }
+    }
+    
 
     [CanBeNull]
     public TabButton GetSelectedTab()

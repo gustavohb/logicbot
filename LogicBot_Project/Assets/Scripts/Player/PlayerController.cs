@@ -51,8 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        _startPosition = transform.position;
-        _resetLevelGameEvent.AddListener(ResetPosition);
+        _resetLevelGameEvent.AddListener(ResetPositionAndRotation);
     }
 
     public void SetStartDir(Dir dir)
@@ -61,6 +60,11 @@ public class PlayerController : MonoBehaviour
         _currentDir = _startDir;
         _startRotation = CalculateRotationFromDir(_startDir);
         transform.rotation = _startRotation;
+    }
+
+    public void SetStartPosition(Vector3 startPosition)
+    {
+        _startPosition = startPosition;
     }
 
     public void SetStartHeight(float height)
@@ -117,7 +121,7 @@ public class PlayerController : MonoBehaviour
         float tileHeight = endPosition.y - 1;
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _moveDuration.Value + 0.01f);
+        Invoke(nameof(StopWalkingAnimation), _moveDuration.Value + 0.1f);
         if (_currentHeight == tileHeight)
         {
             
@@ -164,7 +168,7 @@ public class PlayerController : MonoBehaviour
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.01f);
+        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.1f);
         
         _currentDir = GetNextDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
@@ -183,7 +187,7 @@ public class PlayerController : MonoBehaviour
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.01f);
+        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.1f);
         
         _currentDir = GetPreviousDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
@@ -194,7 +198,7 @@ public class PlayerController : MonoBehaviour
             });
     }
 
-    public void ResetPosition()
+    public void ResetPositionAndRotation()
     {
         transform.position = _startPosition;
         transform.rotation = _startRotation;
@@ -294,6 +298,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        _resetLevelGameEvent.RemoveListener(ResetPosition);
+        _resetLevelGameEvent.RemoveListener(ResetPositionAndRotation);
     }
 }

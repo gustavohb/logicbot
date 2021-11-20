@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/LevelSolution")]
+[CreateAssetMenu(menuName = "Game/Level/LevelSolution")]
 public class LevelSolutionSO : ScriptableObject
 {
     public List<BaseCommandSO> mainCommands = new List<BaseCommandSO>();

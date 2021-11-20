@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/LevelData")]
+[CreateAssetMenu(menuName = "Game/Level/LevelData")]
 public class LevelDataSO : ScriptableObject
 {
     public LevelSolutionSO solution;
