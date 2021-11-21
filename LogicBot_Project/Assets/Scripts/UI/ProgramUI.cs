@@ -21,11 +21,14 @@ public class ProgramUI : MonoBehaviour
 
     [SerializeField] private Image _whiteBackgroundImagePrefab;
 
+    private RectTransform _reordableListRectTransform;
+    
     private List<Image> _backgroundImages = new List<Image>();
     
     private void OnEnable()
     {
         _reloadLevelGameEvent.AddListener(OnReloadLevel);
+        _reordableListRectTransform = _reorderableList.GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -160,5 +163,9 @@ public class ProgramUI : MonoBehaviour
             Image newBackgroundImage = Instantiate(_whiteBackgroundImagePrefab, _backgroundTransform);
             _backgroundImages.Add(newBackgroundImage);
         }
+
+        Vector2 newSizeDelta = new Vector2(83.7f * 4f, 83.7f * Mathf.CeilToInt((float)_backgroundImages.Count / 4f));
+
+        _reordableListRectTransform.sizeDelta  = newSizeDelta;
     }
 }

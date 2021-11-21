@@ -121,8 +121,16 @@ public class GameUI : Singleton<GameUI>
     private void DeselectAllProgramUI()
     {
         _mainProgramUI.SetAsDeselected();
-        _proc1UI.SetAsDeselected();
-        _proc2UI.SetAsDeselected();
+        if (_proc1UI != null)
+        {
+            _proc1UI.SetAsDeselected();    
+        }
+
+        if (_proc2UI != null)
+        {
+            _proc2UI.SetAsDeselected();    
+        }
+        
     }
 
     private void OnFinishedExecutionHandler()
@@ -190,15 +198,45 @@ public class GameUI : Singleton<GameUI>
         ClearCommandProgramLists();
         _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.mainCommands.Count);
         _mainProgramUI.SetAsSelected();
-        _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.proc1Commands.Count);
-        _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);
+        if (_proc1UI != null)
+        {
+            if (_currentLevelData.solution.proc1Commands.Count == 0)
+            {
+                _proc1UI.gameObject.SetActive(false);
+            }
+            else
+            {
+                _proc1UI.gameObject.SetActive(true);
+                _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.proc1Commands.Count);
+            }
+        }
+
+        if (_proc2UI != null)
+        {
+            if (_currentLevelData.solution.proc2Commands.Count == 0)
+            {
+                _proc2UI.gameObject.SetActive(false);
+            }
+            else
+            {
+                _proc2UI.gameObject.SetActive(true);
+                _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);
+            }  
+        }
     }
 
     private void ClearCommandProgramLists()
     {
         _mainProgramUI.ClearProgramListUI();
-        _proc1UI.ClearProgramListUI();
-        _proc2UI.ClearProgramListUI();
+        if (_proc1UI != null)
+        {
+            _proc1UI.ClearProgramListUI();    
+        }
+
+        if (_proc2UI != null)
+        {
+            _proc2UI.ClearProgramListUI();    
+        }
     }
     
 
