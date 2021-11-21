@@ -2,7 +2,7 @@ using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommandSelectUI : MonoBehaviour
+public class CommandSelectionUI : MonoBehaviour
 {
     [Header("Buttons")]
     [SerializeField] private Button _moveForwardButton;
@@ -58,27 +58,25 @@ public class CommandSelectUI : MonoBehaviour
     private void UpdateUI()
     {
         DisableAllButtons();
-        if (_currentLevelSolution.mainCommands.Contains(_moveForwardCommand) ||
-            _currentLevelSolution.proc1Commands.Contains(_moveForwardCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_moveForwardCommand))
-        {
-            _moveForwardButtonGO.SetActive(true);
-        }
+        // Move forward - always appear
+        _moveForwardButtonGO.SetActive(true);
         
+        // Turn light on - always appear
+        _turnLightOnButtonGO.SetActive(true);
+        
+        // Turns
         if (_currentLevelSolution.mainCommands.Contains(_turnLeftCommand) ||
             _currentLevelSolution.proc1Commands.Contains(_turnLeftCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_turnLeftCommand))
-        {
-            _turnLeftButtonGO.SetActive(true);
-        }
-        
-        if (_currentLevelSolution.mainCommands.Contains(_turnRightCommand) ||
+            _currentLevelSolution.proc2Commands.Contains(_turnLeftCommand) ||
+            _currentLevelSolution.mainCommands.Contains(_turnRightCommand) ||
             _currentLevelSolution.proc1Commands.Contains(_turnRightCommand) ||
             _currentLevelSolution.proc2Commands.Contains(_turnRightCommand))
         {
+            _turnLeftButtonGO.SetActive(true);
             _turnRightButtonGO.SetActive(true);
         }
         
+        // Jump
         if (_currentLevelSolution.mainCommands.Contains(_jumpCommand) ||
             _currentLevelSolution.proc1Commands.Contains(_jumpCommand) ||
             _currentLevelSolution.proc2Commands.Contains(_jumpCommand))
@@ -86,18 +84,13 @@ public class CommandSelectUI : MonoBehaviour
             _jumpButtonGO.SetActive(true);
         }
         
-        if (_currentLevelSolution.mainCommands.Contains(_turnLightOnCommand) ||
-            _currentLevelSolution.proc1Commands.Contains(_turnLightOnCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_turnLightOnCommand))
-        {
-            _turnLightOnButtonGO.SetActive(true);
-        }
-
+        // Proc1
         if (_currentLevelSolution.proc1Commands.Count > 0)
         {
             _proc1ButtonGO.SetActive(true);
         }
         
+        // Proc2
         if (_currentLevelSolution.proc2Commands.Count > 0)
         {
             _proc2ButtonGO.SetActive(true);
