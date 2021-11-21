@@ -45,7 +45,6 @@ public class ProgramUI : MonoBehaviour
                 args.DroppedObject.GetComponent<ClickAddCommandToSelectedProgram>();
             if (clickAddCommandToSelectedProgram != null)
             {
-                Debug.Log("Destroyng ClickAddCommandToSelectedProgram component");
                 Destroy(clickAddCommandToSelectedProgram);
             }
         });
@@ -84,7 +83,6 @@ public class ProgramUI : MonoBehaviour
             newCommandUI.GetComponent<ClickAddCommandToSelectedProgram>();
         if (clickAddCommandToSelectedProgram != null)
         {
-            Debug.Log("Destroyng ClickAddCommandToSelectedProgram component");
             Destroy(clickAddCommandToSelectedProgram);
         }
         
@@ -93,7 +91,7 @@ public class ProgramUI : MonoBehaviour
 
     public void SetAsSelected()
     {
-        Debug.Log(name + "selected");
+        Debug.Log(name + " selected");
         _titleBackgroundImage.color = _selectedColor.Value;
         
         foreach (Image backgroundImage in _backgroundImages)
@@ -105,7 +103,7 @@ public class ProgramUI : MonoBehaviour
 
     public void SetAsDeselected()
     {
-        Debug.Log(name + "deselected");
+        Debug.Log(name + " deselected");
         _titleBackgroundImage.color = _deselectedColor.Value;
         foreach (Image backgroundImage in _backgroundImages)
         {
