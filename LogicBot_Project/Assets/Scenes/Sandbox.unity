@@ -3781,7 +3781,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1967021496}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: SelectMainProgramUI
+        m_MethodName: SelectProc2UI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5682,7 +5682,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1967021496}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: SelectMainProgramUI
+        m_MethodName: SelectProc1UI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
