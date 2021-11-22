@@ -477,8 +477,9 @@ public class LevelManager : Singleton<LevelManager>
         _loadNextLevelGameEvent.RemoveListener(LoadNextLevel);
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         _setCurrentLevelDataGameEvent.RemoveListener(SetCurrentLevelData);
     }
     

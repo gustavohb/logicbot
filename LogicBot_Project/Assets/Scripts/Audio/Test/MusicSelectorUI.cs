@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TabGroup))]
+[RequireComponent(typeof(TabGroupUI))]
 public class MusicSelectorUI : MonoBehaviour
 {
     [SerializeField] private List<AudioCueSO> _musicList = new List<AudioCueSO>();
@@ -10,11 +10,11 @@ public class MusicSelectorUI : MonoBehaviour
     [SerializeField] private AudioCueEventChannelSO _playMusicOn = default;
     [SerializeField] private AudioConfigurationSO _audioConfig = default;
     
-    private TabGroup _tabGroup;
+    private TabGroupUI _tabGroupUI;
 
     private void Awake()
     {
-        _tabGroup = GetComponent<TabGroup>();
+        _tabGroupUI = GetComponent<TabGroupUI>();
     }
 
     private void Start()
@@ -35,16 +35,16 @@ public class MusicSelectorUI : MonoBehaviour
                 newMusicButtonTransform.transform.Find("number").GetComponent<TextMeshProUGUI>();
             musicTextNumber.SetText((i + 1).ToString());
             
-            TabButton tabButton = newMusicButtonTransform.GetComponent<TabButton>();
-            
+            TabButtonUI tabButtonUI = newMusicButtonTransform.GetComponent<TabButtonUI>();
+            tabButtonUI.SetTabGroup(_tabGroupUI);
             int musicNum = i;
-            tabButton.onSelected.AddListener(() =>
+            tabButtonUI.onSelected.AddListener(() =>
             {
                 _playMusicOn.RaisePlayEvent(_musicList[musicNum], _audioConfig);  
             });            
-            _tabGroup.Subscribe(tabButton);
+            _tabGroupUI.Subscribe(tabButtonUI);
         }
-        _tabGroup.ResetTabs();
-        _tabGroup.SelectedTab(5);
+        _tabGroupUI.ResetTabs();
+        _tabGroupUI.SelectedTab(5);
     }
 }

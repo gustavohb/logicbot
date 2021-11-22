@@ -14,30 +14,28 @@ public class PlayerController : MonoBehaviour
         Left,
         Up,
     }
-
+    
+    [Header("Settings/Variables")]
     [SerializeField] private FloatVariable _moveDuration;
     [SerializeField] private FloatVariable _turnDuration;
     [SerializeField] private FloatVariable _turnLightDuration;
-    
     [SerializeField] private float _jumpPower = 0.7f;
-    
-    [SerializeField] private GameEvent _resetLevelGameEvent;
-
-    [SerializeField] private float _startHeight = 0;
-
     [SerializeField] private float _animatorWalkingSpeed = 1.5f;
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
 
-    [SerializeField] private Dir _startDir;
-
-    [SerializeField] private float _jumpDelay = 0.1f;
+    [Header("Events")]
+    [SerializeField] private GameEvent _resetLevelGameEvent;
     
     private Animator _animator;
-    [SerializeField] private Dir _currentDir;
+    
+    private Dir _startDir;
+    private Dir _currentDir;
+    private float _startHeight = 0;
     private Vector3 _startPosition;
     private Quaternion _startRotation;
     private float _currentHeight;
-
+    private Transform _transform;
+    
     // Used in turn light method
     private PlacedTile _currentPlacedTile;
     private Action _currentCallback;
@@ -47,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _transform = transform;
     }
 
     private void OnEnable()
@@ -87,28 +86,6 @@ public class PlayerController : MonoBehaviour
             case Dir.Left:
                 return Quaternion.Euler(0, 270, 0);
         }
-    }
-    
-    private Dir CalculateStartDir()
-    {
-        if (_startRotation == Quaternion.Euler(0, 0, 0))
-        {
-            _startDir = Dir.Up;
-        }
-        else if (_startRotation == Quaternion.Euler(0, 90, 0))
-        {
-            _startDir = Dir.Right;
-        }
-        else if (_startRotation == Quaternion.Euler(0, 180, 0))
-        {
-            _startDir = Dir.Down;
-        }
-        else if (_startRotation == Quaternion.Euler(0, 270, 0))
-        {
-            _startDir = Dir.Left;
-        }
-
-        return _startDir;
     }
     
     public void MoveForward(Action callback = null)
@@ -200,8 +177,8 @@ public class PlayerController : MonoBehaviour
 
     public void ResetPositionAndRotation()
     {
-        transform.position = _startPosition;
-        transform.rotation = _startRotation;
+        _transform.position = _startPosition;
+        _transform.rotation = _startRotation;
         _currentDir = _startDir;
         _currentHeight = _startHeight;
     }
@@ -222,7 +199,7 @@ public class PlayerController : MonoBehaviour
         
         if (tileHeight != _currentHeight && Mathf.Abs(tileHeight - _currentHeight) <= 0.5f)
         {
-            transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            _transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _currentHeight = tileHeight;
                 _currentCallback?.Invoke();
@@ -231,7 +208,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(
+            _transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(
                 () =>
                 {
                     _currentCallback?.Invoke();

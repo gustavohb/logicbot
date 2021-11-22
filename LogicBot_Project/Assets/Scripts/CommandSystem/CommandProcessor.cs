@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class CommandProcessor : Singleton<CommandProcessor>
 {
+    [Header("Program Lists")]
     [SerializeField] private ProgramListCommandSO _mainProgramListCommand;
     [SerializeField] private ProgramListCommandSO _proc1ListCommand;
     [SerializeField] private ProgramListCommandSO _proc2ListCommand;
 
+    [Header("Variables")]
     [SerializeField] private BoolVariable _stopped;
     
+    [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent onFinishedExecutionGameEvent;
+    
     private void OnEnable()
     {
         ClearAllCommands();
