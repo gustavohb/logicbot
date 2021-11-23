@@ -39,6 +39,7 @@ public class GameUI : Singleton<GameUI>
     {
         base.Awake();
         _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
+        DisableAllProgramListUI();
     }
 
     private void SetCurrentLevelData(LevelDataSO levelData)
@@ -134,6 +135,13 @@ public class GameUI : Singleton<GameUI>
         
     }
 
+    private void DisableAllProgramListUI()
+    {
+        _mainProgramUI.gameObject.SetActive(false);
+        _proc1UI.gameObject.SetActive(false);
+        _proc2UI.gameObject.SetActive(false);
+    }
+    
     private void OnFinishedExecutionHandler()
     {
         _stopped.Value = true;
@@ -195,11 +203,24 @@ public class GameUI : Singleton<GameUI>
 
     private void UpdateUI()
     {
-        
         Debug.Log("Update UI'");
         ClearCommandProgramLists();
-        _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.mainCommands.Count);
+        
+        _mainProgramUI.gameObject.SetActive(true);
+        
+        if (_currentLevelData.solution.possibleCommandQtyInMainCommands >=
+            _currentLevelData.solution.mainCommands.Count)
+        {
+            _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.possibleCommandQtyInMainCommands);
+        }
+        else
+        {
+            Debug.LogWarning("Possible command quantity in MAIN is less than solution");
+            _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.mainCommands.Count);    
+        }
+
         _mainProgramUI.SetAsSelected();
+        
         if (_proc1UI != null)
         {
             if (_currentLevelData.solution.proc1Commands.Count == 0)
@@ -209,7 +230,17 @@ public class GameUI : Singleton<GameUI>
             else
             {
                 _proc1UI.gameObject.SetActive(true);
-                _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.proc1Commands.Count);
+                if (_currentLevelData.solution.possibleCommandQtyInProc1Commands >=
+                    _currentLevelData.solution.proc1Commands.Count)
+                {
+                    _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.possibleCommandQtyInProc1Commands);
+                }
+                else
+                {
+                    Debug.LogWarning("Possible command quantity in PROC 1 is less than solution");
+                    _proc1UI.SetCommandsLimitTo(_currentLevelData.solution.proc1Commands.Count);    
+                }
+                
             }
         }
 
@@ -222,7 +253,18 @@ public class GameUI : Singleton<GameUI>
             else
             {
                 _proc2UI.gameObject.SetActive(true);
-                _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);
+                
+                
+                if (_currentLevelData.solution.possibleCommandQtyInProc2Commands >=
+                    _currentLevelData.solution.proc2Commands.Count)
+                {
+                    _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.possibleCommandQtyInProc2Commands);
+                }
+                else
+                {
+                    Debug.LogWarning("Possible command quantity in PROC 2 is less than solution");
+                    _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);    
+                }
             }  
         }
  

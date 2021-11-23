@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0026fc0dba945a5a63f0f514cee1eb, type: 3}
   m_Name: TestLevel_03_Solution
   m_EditorClassIdentifier: 
+  possibleCommandQtyInMainCommands: 12
+  possibleCommandQtyInProc1Commands: 0
+  possibleCommandQtyInProc2Commands: 0
   mainCommands:
   - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
   - {fileID: 11400000, guid: d645c26b93bc1400daa894b420b2c88d, type: 2}
