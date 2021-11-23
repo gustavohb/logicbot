@@ -16,6 +16,7 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] private ProgramUI _proc2UI;
 
     [Header("References")] 
+    [SerializeField] private VerticalLayoutGroup _programVerticalLayoutGroup;
     [SerializeField] private GameObject _levelCompletedPanel;
     
     
@@ -194,6 +195,7 @@ public class GameUI : Singleton<GameUI>
 
     private void UpdateUI()
     {
+        
         Debug.Log("Update UI'");
         ClearCommandProgramLists();
         _mainProgramUI.SetCommandsLimitTo(_currentLevelData.solution.mainCommands.Count);
@@ -223,6 +225,12 @@ public class GameUI : Singleton<GameUI>
                 _proc2UI.SetCommandsLimitTo(_currentLevelData.solution.proc2Commands.Count);
             }  
         }
+ 
+        // Quick fix to trigger layout rebuild
+        this.Wait(.2f, () =>
+        {
+            LayoutRebuilder.MarkLayoutForRebuild (_programVerticalLayoutGroup.transform as RectTransform);    
+        });
     }
 
     private void ClearCommandProgramLists()
