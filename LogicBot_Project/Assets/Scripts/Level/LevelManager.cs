@@ -364,7 +364,7 @@ public class LevelManager : Singleton<LevelManager>
             PlayerController playerController = _playerTransform.GetComponent<PlayerController>();
             playerController.SetStartDir(_playerStartDir);
             playerController.SetStartPosition(_playerStartTile.GetTileTopCenterWorldPosition());
-
+            playerController.SetStartHeight(_playerStartTile.GetHeight());
         }
     }
     
