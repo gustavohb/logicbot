@@ -203,7 +203,6 @@ public class PlayerController : MonoBehaviour
             {
                 _currentHeight = tileHeight;
                 _currentCallback?.Invoke();
-                //_currentCallback = null;
             });
         }
         else
