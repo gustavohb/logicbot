@@ -6774,6 +6774,7 @@ MonoBehaviour:
   _mainProgramUI: {fileID: 974909118}
   _proc1UI: {fileID: 1587247988}
   _proc2UI: {fileID: 1053073545}
+  _programVerticalLayoutGroup: {fileID: 2128136050}
   _levelCompletedPanel: {fileID: 1435060233}
   _stopped: {fileID: 11400000, guid: 010009554fe5344aeb388d022a950c67, type: 2}
   _isLevelCompleted: {fileID: 11400000, guid: 10f552f26a61c46b3857ebc92d568690, type: 2}
@@ -7143,7 +7144,7 @@ MonoBehaviour:
     m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 30
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
