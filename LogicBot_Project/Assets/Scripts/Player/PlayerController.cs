@@ -19,16 +19,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FloatVariable _moveDuration;
     [SerializeField] private FloatVariable _turnDuration;
     [SerializeField] private FloatVariable _turnLightDuration;
+    [SerializeField] private FloatVariable _changeColorDuration;
     [SerializeField] private float _jumpPower = 0.7f;
     [SerializeField] private float _animatorWalkingSpeed = 1.5f;
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
     [SerializeField] private ColorVariable _defaultColor;
+
+    [Header("References")] 
+    [SerializeField] private Renderer _renderer;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
     
-    [HideInInspector]
+    //[HideInInspector]
     public ColorVariable currentColor;
 
     private Animator _animator;
@@ -47,6 +51,8 @@ public class PlayerController : MonoBehaviour
     
     private bool _isWalking = false;
 
+    private ColorVariable _currentTileColor;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -57,11 +63,14 @@ public class PlayerController : MonoBehaviour
     {
         _resetLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
+        SetPlayerColor(_defaultColor);
     }
 
     private void SetPlayerColor(ColorVariable color)
     {
+        Debug.Log("Set player material");
         currentColor = color;
+        _renderer.material.color = currentColor.Value;
         //TODO: Change player color
     }
 
@@ -131,6 +140,12 @@ public class PlayerController : MonoBehaviour
     private void PlayTurnLightAnimation()
     {
         Debug.Log("Play turn light animation");
+        //TODO:
+    }
+    
+    private void PlayChangeColorAnimation()
+    {
+        Debug.Log("Play change color animation");
         //TODO:
     }
     
@@ -236,8 +251,42 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Turn light on");
         _currentCallback = callback;
         _currentPlacedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
-        StartCoroutine(nameof(TurnLightRoutine));
-        Debug.Log("Turn light ended");
+
+        if (_currentPlacedTile.isLightTile)
+        {
+            StartCoroutine(nameof(TurnLightRoutine));    
+        }
+        else if (_currentPlacedTile.isColorSetter)
+        {
+            ChangePlayerColorTo(_currentPlacedTile.GetColor());
+        }
+    }
+
+    private void ChangePlayerColorTo(ColorVariable color)
+    {
+        _currentTileColor = color;
+        StartCoroutine(ChangePlayerColorRoutine());
+    }
+
+    private IEnumerator ChangePlayerColorRoutine()
+    {
+        Debug.Log("Change player color");
+        yield return new WaitForSeconds(.15f);
+        PlayChangeColorAnimation();
+
+        if (currentColor != _defaultColor)
+        {
+            currentColor = _defaultColor;
+        }
+        else
+        {
+            currentColor = _currentTileColor;
+        }
+        
+        _setCurrentPlayerColorGameEvent.Raise(currentColor);
+        
+        yield return new WaitForSeconds(_changeColorDuration.Value);
+        _currentCallback?.Invoke();
     }
 
     private IEnumerator TurnLightRoutine()
@@ -251,7 +300,6 @@ public class PlayerController : MonoBehaviour
         }
         yield return new WaitForSeconds(_turnLightDuration.Value);
         _currentCallback?.Invoke();
-        Debug.Log("Current callback invoked");
     }
     
     private Dir GetNextDir(Dir currentDir)

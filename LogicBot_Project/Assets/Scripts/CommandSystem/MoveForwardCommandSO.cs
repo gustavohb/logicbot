@@ -12,7 +12,7 @@ public class MoveForwardCommandSO : BaseCommandSO
             return;
         }
         
-        if (currentPlayerColor != commandColor)
+        if (currentPlayerColor != commandColor && commandColor != defaultPlayerColor)
         {
             callback?.Invoke();
             return;

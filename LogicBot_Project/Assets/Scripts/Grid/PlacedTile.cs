@@ -4,28 +4,46 @@ using UnityEngine;
 
 public class PlacedTile : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private bool _isColorSetter = false;
     [SerializeField] private bool _isLightTile = false;
     [SerializeField] private float _height = 0;
 
+    [Header("References")]
     [SerializeField] private SpriteRenderer _topSpriteRenderer;
 
+    [Header("Sprites")]
     [SerializeField] private Sprite _lightOffSprite;
     [SerializeField] private Sprite _lightOnSprite;
     [SerializeField] private Sprite _noLightSprite;
-
-    [SerializeField] private GameEvent _resetLevelGameEvent;
-
+    [SerializeField] private Sprite _conditionalSprite;
+    
+    [Header("Variables")]
     [SerializeField] private FloatVariable _startYPosition;
     [SerializeField] private FloatVariable _animationDuration;
-
     [SerializeField] private FloatVariable _cellSize;
-
+    [SerializeField] private ColorVariable _color;
+    
+    [Header("Events")]
+    [SerializeField] private GameEvent _resetLevelGameEvent;
+    
+    [Header("Runtime Sets")]
     [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
     
-    private Vector3 _endPosition;
-
-    private Transform _transform;
     
+    public bool isLightTile
+    {
+        get => _isLightTile;
+    }
+    
+    public bool isColorSetter
+    {
+        get => _isColorSetter;
+    }
+    
+    private Vector3 _endPosition;
+    private Transform _transform;
+
     private void Awake()
     {
         _transform = transform;
@@ -44,6 +62,11 @@ public class PlacedTile : MonoBehaviour
 
     private void Start()
     {
+        if (_isColorSetter && _isLightTile)
+        {
+            Debug.LogError("A tile cannot be both conditional setter and light");
+        }
+
         if (_isLightTile)
         {
             _topSpriteRenderer.sprite = _lightOffSprite;
@@ -51,6 +74,11 @@ public class PlacedTile : MonoBehaviour
         else
         {
             _topSpriteRenderer.sprite = _noLightSprite;
+        }
+        
+        if (_isColorSetter)
+        {
+            _topSpriteRenderer.sprite = _conditionalSprite;
         }
     }
 
@@ -82,12 +110,6 @@ public class PlacedTile : MonoBehaviour
         _transform.DOMoveY(_startYPosition, _animationDuration.Value).SetEase(Ease.InBack);
     }
     
-    
-    public bool isLightTile
-    {
-        get => _isLightTile;
-    }
-
     public void TurnLightOn()
     {
         if (_isLightTile)
@@ -130,5 +152,10 @@ public class PlacedTile : MonoBehaviour
     public override string ToString()
     {
         return name;
+    }
+
+    public ColorVariable GetColor()
+    {
+        return _color;
     }
 }

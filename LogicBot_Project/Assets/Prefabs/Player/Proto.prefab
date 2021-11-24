@@ -69,10 +69,12 @@ MonoBehaviour:
   _moveDuration: {fileID: 11400000, guid: b3a87f960965944c59deb8383226a86c, type: 2}
   _turnDuration: {fileID: 11400000, guid: 04e44973ec7654d6eabd698f79dcd594, type: 2}
   _turnLightDuration: {fileID: 11400000, guid: cd2c484014ebd498b8ca68ae9b58d569, type: 2}
+  _changeColorDuration: {fileID: 11400000, guid: edd9df53b1aa5472baa114564efa089d, type: 2}
   _jumpPower: 0.7
   _animatorWalkingSpeed: 1.5
   _animatorTurnSpeed: 1
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
+  _renderer: {fileID: 8854796186724876641}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
   currentColor: {fileID: 0}
@@ -170,5 +172,10 @@ PrefabInstance:
 --- !u!4 &1936050369710589950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46aa0b9b5795349d1b7d0765fd28ddc1, type: 3}
+  m_PrefabInstance: {fileID: 2113458095792349205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8854796186724876641 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1750197354950549132, guid: 46aa0b9b5795349d1b7d0765fd28ddc1, type: 3}
   m_PrefabInstance: {fileID: 2113458095792349205}
   m_PrefabAsset: {fileID: 0}
