@@ -12,6 +12,12 @@ public class MoveForwardCommandSO : BaseCommandSO
             return;
         }
         
+        if (currentPlayerColor != commandColor)
+        {
+            callback?.Invoke();
+            return;
+        }
+        
         Debug.Log("Move forward command");
 
         if (playerControllerRuntimeSet == null)

@@ -13,7 +13,8 @@ public class CommandProcessor : Singleton<CommandProcessor>
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
-    [SerializeField] private GameEvent onFinishedExecutionGameEvent;
+    [SerializeField] private GameEvent _onFinishedExecutionGameEvent;
+    
     
     private void OnEnable()
     {
@@ -28,7 +29,7 @@ public class CommandProcessor : Singleton<CommandProcessor>
         
         if (_mainProgramListCommand == null || _mainProgramListCommand.commandList == null || _mainProgramListCommand.commandList.Count == 0)
         {
-            onFinishedExecutionGameEvent.Raise();
+            _onFinishedExecutionGameEvent.Raise();
             return;
             
         }

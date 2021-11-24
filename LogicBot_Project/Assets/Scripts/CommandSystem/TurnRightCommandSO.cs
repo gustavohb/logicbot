@@ -11,6 +11,12 @@ public class TurnRightCommandSO : BaseCommandSO
             return;
         }
         
+        if (currentPlayerColor != commandColor)
+        {
+            callback?.Invoke();
+            return;
+        }
+        
         Debug.Log("Turn right command");
 
         if (playerControllerRuntimeSet == null)

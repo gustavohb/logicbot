@@ -1,18 +1,20 @@
 using System;
-using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Commands/ProgramListCommand")]
 public class ProgramListCommandSO : BaseCommandSO
 {
-    public List<BaseCommandSO> commandList = new List<BaseCommandSO>();
-
-    private int _currentCommandIndex = 0;
-
+    [Header("Program List Settings")]
     public bool isMainProgram = false;
+    
+    [Header("Program List References")]
+    public CommandListSO commandList;
 
+    [Header("Program List Events")]
     public GameEvent onFinishedExecutionGameEvent;
+    
+    private int _currentCommandIndex = 0;
     
     public void Add(BaseCommandSO baseCommand)
     {
@@ -30,6 +32,12 @@ public class ProgramListCommandSO : BaseCommandSO
         Debug.Log("Execute " + name);
         if (stopped.Value)
         {
+            return;
+        }
+        
+        if (currentPlayerColor != commandColor)
+        {
+            callback?.Invoke();
             return;
         }
         

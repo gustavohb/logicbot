@@ -22,10 +22,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpPower = 0.7f;
     [SerializeField] private float _animatorWalkingSpeed = 1.5f;
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
-
+    [SerializeField] private ColorVariable _defaultColor;
+    
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
+    [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
     
+    [HideInInspector]
+    public ColorVariable currentColor;
+
     private Animator _animator;
     
     private Dir _startDir;
@@ -50,7 +55,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        _resetLevelGameEvent.AddListener(ResetPositionAndRotation);
+        _resetLevelGameEvent.AddListener(ResetPositionRotationAndColor);
+        _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
+    }
+
+    private void SetPlayerColor(ColorVariable color)
+    {
+        currentColor = color;
+        //TODO: Change player color
     }
 
     public void SetStartDir(Dir dir)
@@ -175,22 +187,24 @@ public class PlayerController : MonoBehaviour
             });
     }
 
-    public void ResetPositionAndRotation()
+    public void ResetPositionRotationAndColor()
     {
         _transform.position = _startPosition;
         _transform.rotation = _startRotation;
         _currentDir = _startDir;
         _currentHeight = _startHeight;
+        currentColor = _defaultColor;
+        _setCurrentPlayerColorGameEvent.Raise(currentColor);
     }
-    
-    
+
     public void Jump(Action callback = null)
     {
         Debug.Log("Jump");
         _currentCallback = callback;
         _animator.SetTrigger("jump");
     }
-
+    
+    // Called via animation
     public void ExecuteJump()
     {
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
@@ -274,6 +288,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        _resetLevelGameEvent.RemoveListener(ResetPositionAndRotation);
+        _resetLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
+        _setCurrentPlayerColorGameEvent.RemoveListener(SetPlayerColor);
     }
 }

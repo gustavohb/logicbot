@@ -26,14 +26,14 @@ public class CommandUI : MonoBehaviour
 
     public BaseCommandSO GetCommand()
     {
-        if (!_isProgramList)
-        {
+        //if (!_isProgramList)
+        //{
             BaseCommandSO newBaseCommand = ScriptableObject.Instantiate(_baseCommand); 
             newBaseCommand.SetCommandUI(this);
             return newBaseCommand;
-        }
+        //}
 
-        return _baseCommand;
+        //return _baseCommand;
     }
 
     public void SetAsExecuting()

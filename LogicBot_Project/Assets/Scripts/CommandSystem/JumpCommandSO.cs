@@ -11,6 +11,12 @@ public class JumpCommandSO : BaseCommandSO
             return;
         }
         
+        if (currentPlayerColor != commandColor)
+        {
+            callback?.Invoke();
+            return;
+        }
+        
         Debug.Log("Jump command");
 
         if (playerControllerRuntimeSet == null)
