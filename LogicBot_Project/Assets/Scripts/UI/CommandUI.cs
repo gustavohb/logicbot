@@ -2,7 +2,7 @@ using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Image))]
 public class CommandUI : MonoBehaviour
 {
     [SerializeField] private bool _isProgramList = false;

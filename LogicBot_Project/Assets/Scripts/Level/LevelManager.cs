@@ -21,6 +21,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private BoolVariable _isShowingTiles;
     [SerializeField] private BoolVariable _isHidingTiles;
     [SerializeField] private BoolVariable _isLevelCompleted;
+    [SerializeField] private BoolVariable _stopped;
     [SerializeField] private IntVariable _currentLevelIndex;
     
     [Header("Events")]
@@ -78,6 +79,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             PlayAudio(_levelCompletedSFX, _audioConfig, Vector3.zero);
             _isLevelCompleted.Value = true;
+            _stopped.Value = true;
             _levelCompletedGameEvent.Raise();
         }
     }

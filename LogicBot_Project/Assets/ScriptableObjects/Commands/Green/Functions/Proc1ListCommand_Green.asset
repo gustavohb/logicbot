@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245a6473c8702476f94763ae6bbd2fa1, type: 3}
+  m_Name: Proc1ListCommand_Green
+  m_EditorClassIdentifier: 
+  isCommandList: 1
+  parentListCommand: {fileID: 0}
+  stopped: {fileID: 11400000, guid: 010009554fe5344aeb388d022a950c67, type: 2}
+  commandColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
+  currentPlayerColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
+  defaultPlayerColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
+  setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
+  playerControllerRuntimeSet: {fileID: 11400000, guid: d0b026023f250459ab65f865a9c8d498, type: 2}
+  isMainProgram: 0
+  commandList: {fileID: 11400000, guid: 4b54af4139e1f43dc8ca7e0d7fcbcec5, type: 2}
+  onFinishedExecutionGameEvent: {fileID: 0}

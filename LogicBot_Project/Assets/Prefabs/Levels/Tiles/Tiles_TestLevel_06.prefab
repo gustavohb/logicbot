@@ -492,7 +492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158482, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_Icon

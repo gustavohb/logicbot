@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37f7adeea8d5df4aa3f5c6e8ff76260, type: 3}
   m_Name: GreenCommandColorVariable
   m_EditorClassIdentifier: 
-  _value: {r: 0.39551443, g: 0.8301887, b: 0.74697334, a: 1}
+  _value: {r: 0, g: 1, b: 0.57643056, a: 1}
   _readOnly: 1
   _raiseWarning: 1
   _isClamped: 0
