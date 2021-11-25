@@ -222,7 +222,8 @@ public class GameUI : Singleton<GameUI>
         
         if (_proc1UI != null)
         {
-            if (_currentLevelData.solution.proc1Commands.Count == 0)
+            if (_currentLevelData.solution.proc1Commands.Count == 0 
+                && _currentLevelData.solution.possibleCommandQtyInProc1Commands == 0)
             {
                 _proc1UI.gameObject.SetActive(false);
             }
@@ -245,7 +246,8 @@ public class GameUI : Singleton<GameUI>
 
         if (_proc2UI != null)
         {
-            if (_currentLevelData.solution.proc2Commands.Count == 0)
+            if (_currentLevelData.solution.proc2Commands.Count == 0 
+                && _currentLevelData.solution.possibleCommandQtyInProc2Commands == 0)
             {
                 _proc2UI.gameObject.SetActive(false);
             }

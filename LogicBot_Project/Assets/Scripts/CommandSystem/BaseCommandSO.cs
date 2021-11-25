@@ -7,7 +7,8 @@ public abstract class BaseCommandSO : ScriptableObject
 {
     [Header("Settings")]
     public bool isCommandList = false;
-
+    public bool isBreakCommand = false;
+    
     [HideInInspector]
     public ProgramListCommandSO parentListCommand;
     

@@ -40,7 +40,7 @@ public class ProgramListCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
+
         if (commandList != null && commandList.Count > 0)
         {
             _currentCommandIndex = 0;
@@ -66,6 +66,12 @@ public class ProgramListCommandSO : BaseCommandSO
         if (_currentCommandIndex < commandList.Count)
         {
             BaseCommandSO nextCommand = commandList[_currentCommandIndex];
+            
+            if (nextCommand.isBreakCommand && nextCommand.parentListCommand == null) // Why only works when add nextCommand.parentListCommand == null 
+            {
+                nextCommand.parentListCommand = parentListCommand;
+            }
+            
             if (nextCommand.isCommandList)
             {
                 nextCommand.parentListCommand = this;

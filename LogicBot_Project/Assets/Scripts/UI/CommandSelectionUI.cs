@@ -12,7 +12,8 @@ public class CommandSelectionUI : MonoBehaviour
     [SerializeField] private Button _turnLightOnButtonDefault;
     [SerializeField] private Button _proc1ButtonDefault;
     [SerializeField] private Button _proc2ButtonDefault;
-
+    [SerializeField] private Button _breakButtonDefault;
+    
     [Header("Green Command Buttons")]
     [SerializeField] private Button _moveForwardButtonGreen;
     [SerializeField] private Button _turnLeftButtonGreen;
@@ -21,6 +22,7 @@ public class CommandSelectionUI : MonoBehaviour
     [SerializeField] private Button _turnLightOnButtonGreen;
     [SerializeField] private Button _proc1ButtonGreen;
     [SerializeField] private Button _proc2ButtonGreen;
+    [SerializeField] private Button _breakButtonGreen;
     
     [Header("Pink Command Buttons")]
     [SerializeField] private Button _moveForwardButtonPink;
@@ -30,6 +32,7 @@ public class CommandSelectionUI : MonoBehaviour
     [SerializeField] private Button _turnLightOnButtonPink;
     [SerializeField] private Button _proc1ButtonPink;
     [SerializeField] private Button _proc2ButtonPink;
+    [SerializeField] private Button _breakButtonPink;
     
     [Header("Default Commands")]
     [SerializeField] private BaseCommandSO _moveForwardCommandDefault;
@@ -39,8 +42,12 @@ public class CommandSelectionUI : MonoBehaviour
     [SerializeField] private BaseCommandSO _turnLightOnCommandDefault;
     [SerializeField] private BaseCommandSO _proc1CommandDefault;
     [SerializeField] private BaseCommandSO _proc2CommandDefault;
-
-
+    
+    [Header("Break Commands")]
+    [SerializeField] private BaseCommandSO _breakCommandDefault;
+    [SerializeField] private BaseCommandSO _breakCommandGreen;
+    [SerializeField] private BaseCommandSO _breakCommandPink;
+    
     [Header("Change Color Tab Buttons")] 
     [SerializeField] private GameObject _greenPaintBrushTabButton;
     [SerializeField] private GameObject _pinkPaintBrushTabButton;
@@ -74,9 +81,18 @@ public class CommandSelectionUI : MonoBehaviour
         bool useGreenCommands = _currentLevelSolution.UseColorCommands(_greenCommandColor);
         bool usePinkCommands = _currentLevelSolution.UseColorCommands(_pinkCommandColor);
 
+        if (_currentLevelSolution.Contains(_breakCommandDefault)
+            || _currentLevelSolution.Contains(_breakCommandGreen)
+            || _currentLevelSolution.Contains(_breakCommandPink))
+        {
+            _breakButtonDefault.gameObject.SetActive(true);
+            _breakButtonGreen.gameObject.SetActive(true);
+            _breakButtonPink.gameObject.SetActive(true);
+        }
+        
         if (useGreenCommands || usePinkCommands)
         {
-            EnableAllButtons();
+            EnableAllButtonsButBreakOnes();
             if (useGreenCommands)
             {
                 _greenPaintBrushTabButton.SetActive(true);
@@ -88,7 +104,7 @@ public class CommandSelectionUI : MonoBehaviour
 
             return;
         }
-        
+
         // Move forward - always appear
         _moveForwardButtonDefault.gameObject.SetActive(true);
         
@@ -141,9 +157,14 @@ public class CommandSelectionUI : MonoBehaviour
         _turnLightOnButtonDefault.gameObject.SetActive(false);
         _proc1ButtonDefault.gameObject.SetActive(false);
         _proc2ButtonDefault.gameObject.SetActive(false);
+        
+        // Break buttons
+        _breakButtonDefault.gameObject.SetActive(false);
+        _breakButtonGreen.gameObject.SetActive(false);
+        _breakButtonPink.gameObject.SetActive(false);
     }
 
-    private void EnableAllButtons()
+    private void EnableAllButtonsButBreakOnes()
     {
         // Default
         _moveForwardButtonDefault.gameObject.SetActive(true);

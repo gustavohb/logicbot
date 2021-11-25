@@ -226,7 +226,9 @@ public class PlayerController : MonoBehaviour
 
         float tileHeight = endPosition.y - 1;
         
-        if (tileHeight != _currentHeight && Mathf.Abs(tileHeight - _currentHeight) <= 0.5f)
+        
+        if ((tileHeight != _currentHeight) && (Mathf.Abs(tileHeight - _currentHeight) <= 0.5f) 
+            || tileHeight < _currentHeight)
         {
             _transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
@@ -251,14 +253,14 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Turn light on");
         _currentCallback = callback;
         _currentPlacedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
-
-        if (_currentPlacedTile.isLightTile)
-        {
-            StartCoroutine(nameof(TurnLightRoutine));    
-        }
-        else if (_currentPlacedTile.isColorSetter)
+        
+        if (_currentPlacedTile.isColorSetter)
         {
             ChangePlayerColorTo(_currentPlacedTile.GetColor());
+        }
+        else
+        {
+            StartCoroutine(nameof(TurnLightRoutine));   
         }
     }
 
