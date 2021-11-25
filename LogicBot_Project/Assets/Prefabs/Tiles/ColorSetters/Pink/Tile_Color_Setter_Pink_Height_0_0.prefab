@@ -218,7 +218,7 @@ MonoBehaviour:
   _lightOffSprite: {fileID: 21300000, guid: 864c66971570d4cd7bc08e922802901b, type: 3}
   _lightOnSprite: {fileID: 21300000, guid: b79c6523db7294f4dba3870191964a2a, type: 3}
   _noLightSprite: {fileID: 21300000, guid: 48fcb109a392b4fbd807a1b8eb60c9db, type: 3}
-  _conditionalSprite: {fileID: 21300000, guid: 99d20252e6fc544e284628435edf5fe9, type: 3}
+  _conditionalSprite: {fileID: 21300000, guid: 97097ea8579674a8c836f6bded106cf0, type: 3}
   _startYPosition: {fileID: 11400000, guid: 3bba1980d72964392b3ea1e24633467b, type: 2}
   _animationDuration: {fileID: 11400000, guid: b4416e54649cb447db41ad203842def0, type: 2}
   _cellSize: {fileID: 11400000, guid: da0a0758ca4724426941c5bf0bbe6c54, type: 2}

@@ -4,25 +4,51 @@ using UnityEngine.UI;
 
 public class CommandSelectionUI : MonoBehaviour
 {
-    [Header("Buttons")]
-    [SerializeField] private Button _moveForwardButton;
-    [SerializeField] private Button _turnLeftButton;
-    [SerializeField] private Button _turnRightButton;
-    [SerializeField] private Button _jumpButton;
-    [SerializeField] private Button _turnLightOnButton;
-    [SerializeField] private Button _proc1Button;
-    [SerializeField] private Button _proc2Button;
+    [Header("Default Command Buttons")]
+    [SerializeField] private Button _moveForwardButtonDefault;
+    [SerializeField] private Button _turnLeftButtonDefault;
+    [SerializeField] private Button _turnRightButtonDefault;
+    [SerializeField] private Button _jumpButtonDefault;
+    [SerializeField] private Button _turnLightOnButtonDefault;
+    [SerializeField] private Button _proc1ButtonDefault;
+    [SerializeField] private Button _proc2ButtonDefault;
 
-    [Header("Commands")]
-    [SerializeField] private BaseCommandSO _moveForwardCommand;
-    [SerializeField] private BaseCommandSO _turnLeftCommand;
-    [SerializeField] private BaseCommandSO _turnRightCommand;
-    [SerializeField] private BaseCommandSO _jumpCommand;
-    [SerializeField] private BaseCommandSO _turnLightOnCommand;
-    [SerializeField] private BaseCommandSO _proc1Command;
-    [SerializeField] private BaseCommandSO _proc2Command;
+    [Header("Green Command Buttons")]
+    [SerializeField] private Button _moveForwardButtonGreen;
+    [SerializeField] private Button _turnLeftButtonGreen;
+    [SerializeField] private Button _turnRightButtonGreen;
+    [SerializeField] private Button _jumpButtonGreen;
+    [SerializeField] private Button _turnLightOnButtonGreen;
+    [SerializeField] private Button _proc1ButtonGreen;
+    [SerializeField] private Button _proc2ButtonGreen;
+    
+    [Header("Pink Command Buttons")]
+    [SerializeField] private Button _moveForwardButtonPink;
+    [SerializeField] private Button _turnLeftButtonPink;
+    [SerializeField] private Button _turnRightButtonPink;
+    [SerializeField] private Button _jumpButtonPink;
+    [SerializeField] private Button _turnLightOnButtonPink;
+    [SerializeField] private Button _proc1ButtonPink;
+    [SerializeField] private Button _proc2ButtonPink;
+    
+    [Header("Default Commands")]
+    [SerializeField] private BaseCommandSO _moveForwardCommandDefault;
+    [SerializeField] private BaseCommandSO _turnLeftCommandDefault;
+    [SerializeField] private BaseCommandSO _turnRightCommandDefault;
+    [SerializeField] private BaseCommandSO _jumpCommandDefault;
+    [SerializeField] private BaseCommandSO _turnLightOnCommandDefault;
+    [SerializeField] private BaseCommandSO _proc1CommandDefault;
+    [SerializeField] private BaseCommandSO _proc2CommandDefault;
 
 
+    [Header("Change Color Tab Buttons")] 
+    [SerializeField] private GameObject _greenPaintBrushTabButton;
+    [SerializeField] private GameObject _pinkPaintBrushTabButton;
+    
+    [Header("Color Variables")] 
+    [SerializeField] private ColorVariable _greenCommandColor;
+    [SerializeField] private ColorVariable _pinkCommandColor;
+    
     private LevelSolutionSO _currentLevelSolution;
     private LevelDataSO _currentLevelData;
     
@@ -44,54 +70,106 @@ public class CommandSelectionUI : MonoBehaviour
     private void UpdateUI()
     {
         DisableAllButtons();
+
+        bool useGreenCommands = _currentLevelSolution.UseColorCommands(_greenCommandColor);
+        bool usePinkCommands = _currentLevelSolution.UseColorCommands(_pinkCommandColor);
+
+        if (useGreenCommands || usePinkCommands)
+        {
+            EnableAllButtons();
+            if (useGreenCommands)
+            {
+                _greenPaintBrushTabButton.SetActive(true);
+            }
+            if (usePinkCommands)
+            {
+                _pinkPaintBrushTabButton.SetActive(true);
+            }
+
+            return;
+        }
+        
         // Move forward - always appear
-        _moveForwardButton.gameObject.SetActive(true);
+        _moveForwardButtonDefault.gameObject.SetActive(true);
         
         // Turn light on - always appear
-        _turnLightOnButton.gameObject.SetActive(true);
+        _turnLightOnButtonDefault.gameObject.SetActive(true);
         
         // Turns
-        if (_currentLevelSolution.mainCommands.Contains(_turnLeftCommand) ||
-            _currentLevelSolution.proc1Commands.Contains(_turnLeftCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_turnLeftCommand) ||
-            _currentLevelSolution.mainCommands.Contains(_turnRightCommand) ||
-            _currentLevelSolution.proc1Commands.Contains(_turnRightCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_turnRightCommand))
+        if (_currentLevelSolution.mainCommands.Contains(_turnLeftCommandDefault) ||
+            _currentLevelSolution.proc1Commands.Contains(_turnLeftCommandDefault) ||
+            _currentLevelSolution.proc2Commands.Contains(_turnLeftCommandDefault) ||
+            _currentLevelSolution.mainCommands.Contains(_turnRightCommandDefault) ||
+            _currentLevelSolution.proc1Commands.Contains(_turnRightCommandDefault) ||
+            _currentLevelSolution.proc2Commands.Contains(_turnRightCommandDefault))
         {
-            _turnLeftButton.gameObject.SetActive(true);
-            _turnRightButton.gameObject.SetActive(true);
+            _turnLeftButtonDefault.gameObject.SetActive(true);
+            _turnRightButtonDefault.gameObject.SetActive(true);
         }
         
         // Jump
-        if (_currentLevelSolution.mainCommands.Contains(_jumpCommand) ||
-            _currentLevelSolution.proc1Commands.Contains(_jumpCommand) ||
-            _currentLevelSolution.proc2Commands.Contains(_jumpCommand))
+        if (_currentLevelSolution.mainCommands.Contains(_jumpCommandDefault) ||
+            _currentLevelSolution.proc1Commands.Contains(_jumpCommandDefault) ||
+            _currentLevelSolution.proc2Commands.Contains(_jumpCommandDefault))
         {
-            _jumpButton.gameObject.SetActive(true);
+            _jumpButtonDefault.gameObject.SetActive(true);
         }
         
         // Proc1
         if (_currentLevelSolution.proc1Commands.Count > 0)
         {
-            _proc1Button.gameObject.SetActive(true);
+            _proc1ButtonDefault.gameObject.SetActive(true);
         }
         
         // Proc2
         if (_currentLevelSolution.proc2Commands.Count > 0)
         {
-            _proc2Button.gameObject.SetActive(true);
+            _proc2ButtonDefault.gameObject.SetActive(true);
         }
     }
     
     
     private void DisableAllButtons()
     {
-        _moveForwardButton.gameObject.SetActive(false);
-        _turnLeftButton.gameObject.SetActive(false);
-        _turnRightButton.gameObject.SetActive(false);
-        _jumpButton.gameObject.SetActive(false);
-        _turnLightOnButton.gameObject.SetActive(false);
-        _proc1Button.gameObject.SetActive(false);
-        _proc2Button.gameObject.SetActive(false);
+        _greenPaintBrushTabButton.SetActive(false);
+        _pinkPaintBrushTabButton.SetActive(false);
+        
+        _moveForwardButtonDefault.gameObject.SetActive(false);
+        _turnLeftButtonDefault.gameObject.SetActive(false);
+        _turnRightButtonDefault.gameObject.SetActive(false);
+        _jumpButtonDefault.gameObject.SetActive(false);
+        _turnLightOnButtonDefault.gameObject.SetActive(false);
+        _proc1ButtonDefault.gameObject.SetActive(false);
+        _proc2ButtonDefault.gameObject.SetActive(false);
+    }
+
+    private void EnableAllButtons()
+    {
+        // Default
+        _moveForwardButtonDefault.gameObject.SetActive(true);
+        _turnLeftButtonDefault.gameObject.SetActive(true);
+        _turnRightButtonDefault.gameObject.SetActive(true);
+        _jumpButtonDefault.gameObject.SetActive(true);
+        _turnLightOnButtonDefault.gameObject.SetActive(true);
+        _proc1ButtonDefault.gameObject.SetActive(true);
+        _proc2ButtonDefault.gameObject.SetActive(true);
+        
+        // Green
+        _moveForwardButtonGreen.gameObject.SetActive(true);
+        _turnLeftButtonGreen.gameObject.SetActive(true);
+        _turnRightButtonGreen.gameObject.SetActive(true);
+        _jumpButtonGreen.gameObject.SetActive(true);
+        _turnLightOnButtonGreen.gameObject.SetActive(true);
+        _proc1ButtonGreen.gameObject.SetActive(true);
+        _proc2ButtonGreen.gameObject.SetActive(true);
+        
+        // Pink
+        _moveForwardButtonPink.gameObject.SetActive(true);
+        _turnLeftButtonPink.gameObject.SetActive(true);
+        _turnRightButtonPink.gameObject.SetActive(true);
+        _jumpButtonPink.gameObject.SetActive(true);
+        _turnLightOnButtonPink.gameObject.SetActive(true);
+        _proc1ButtonPink.gameObject.SetActive(true);
+        _proc2ButtonPink.gameObject.SetActive(true);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9377ffeb64ba30478a995a8ffc78ae8, type: 3}
   m_Name: StartTileYPosition
   m_EditorClassIdentifier: 
-  _value: -8
+  _value: -12
   _readOnly: 0
   _raiseWarning: 1
   _isClamped: 0

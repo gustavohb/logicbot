@@ -18,12 +18,9 @@ MonoBehaviour:
   mainCommands:
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   proc1Commands:
-  - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
   - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
-  - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
-  - {fileID: 11400000, guid: 9d78564c2c634443c87d9ca67539ea61, type: 2}
-  - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
-  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
-  - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
+  - {fileID: 11400000, guid: 8768c2ba637b640508f4341a0191dc9c, type: 2}
+  - {fileID: 11400000, guid: a09ff6e484f3e47ddb5be41ae977beb4, type: 2}
+  - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   proc2Commands: []

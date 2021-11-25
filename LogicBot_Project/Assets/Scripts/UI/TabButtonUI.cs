@@ -8,6 +8,10 @@ public class TabButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 {
     [SerializeField] private TabGroupUI _tabGroupUI;
 
+    public Sprite idleSprite;
+    public Sprite hoverSprite;
+    public Sprite activeSprite;
+
     public UnityEvent onSelected;
     public UnityEvent onDeselected;
 

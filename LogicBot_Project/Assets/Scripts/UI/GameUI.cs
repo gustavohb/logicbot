@@ -132,7 +132,6 @@ public class GameUI : Singleton<GameUI>
         {
             _proc2UI.SetAsDeselected();    
         }
-        
     }
 
     private void DisableAllProgramListUI()
@@ -271,7 +270,8 @@ public class GameUI : Singleton<GameUI>
         // Quick fix to trigger layout rebuild
         this.Wait(.2f, () =>
         {
-            LayoutRebuilder.MarkLayoutForRebuild (_programVerticalLayoutGroup.transform as RectTransform);    
+            LayoutRebuilder.MarkLayoutForRebuild (_programVerticalLayoutGroup.transform as RectTransform);
+            SelectMainProgramUI();
         });
     }
 
