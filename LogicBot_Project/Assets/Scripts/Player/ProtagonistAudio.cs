@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ProtagonistAudio : MonoBehaviour
 {
-    [SerializeField] private AudioCueSO jump, footstep, turnLightOn;
+    [SerializeField] private AudioCueSO jump, footstep, turnLightOn, changeColor;
 
     
     [SerializeField] private AudioCueEventChannelSO _sfxEventChannel = default;
@@ -16,4 +16,5 @@ public class ProtagonistAudio : MonoBehaviour
     public void PlayFootstep() => PlayAudio(footstep, _audioConfig, transform.position);
     public void PlayJump() => PlayAudio(jump, _audioConfig, transform.position);
     public void PlayTurnLightOn() => PlayAudio(turnLightOn, _audioConfig, transform.position);
+    public void PlayChangeColor() => PlayAudio(changeColor, _audioConfig, transform.position);
 }

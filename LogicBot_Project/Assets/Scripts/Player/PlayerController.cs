@@ -23,8 +23,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpPower = 0.7f;
     [SerializeField] private float _animatorWalkingSpeed = 1.5f;
     [SerializeField] private float _animatorTurnSpeed = 1.0f;
+    
     [SerializeField] private ColorVariable _defaultColor;
+    [SerializeField] private ColorVariable _greenColor;
+    [SerializeField] private ColorVariable _pinkColor;
 
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem _changeToDefaultColorEffect;
+    [SerializeField] private ParticleSystem _changeToGreenColorEffect;
+    [SerializeField] private ParticleSystem _changeToPinkColorEffect;
+    
     [Header("References")] 
     [SerializeField] private Renderer _renderer;
     
@@ -52,11 +60,12 @@ public class PlayerController : MonoBehaviour
     private bool _isWalking = false;
 
     private ColorVariable _currentTileColor;
-
+    private ProtagonistAudio _audio;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _transform = transform;
+        _audio = GetComponent<ProtagonistAudio>();
     }
 
     private void OnEnable()
@@ -71,7 +80,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Set player material");
         currentColor = color;
         _renderer.material.color = currentColor.Value;
-        //TODO: Change player color
     }
 
     public void SetStartDir(Dir dir)
@@ -276,14 +284,30 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(.15f);
         PlayChangeColorAnimation();
 
+        if (_audio != null)
+        {
+            _audio.PlayChangeColor();
+        }
+        
         if (currentColor != _defaultColor)
         {
             currentColor = _defaultColor;
+            _changeToDefaultColorEffect.Play();
         }
         else
         {
             currentColor = _currentTileColor;
+            if (currentColor == _greenColor)
+            {
+                _changeToGreenColorEffect.Play();
+            }
+            else if (currentColor == _pinkColor)
+            {
+                _changeToPinkColorEffect.Play();
+            }
         }
+        
+        yield return new WaitForSeconds(.15f);
         
         _setCurrentPlayerColorGameEvent.Raise(currentColor);
         
