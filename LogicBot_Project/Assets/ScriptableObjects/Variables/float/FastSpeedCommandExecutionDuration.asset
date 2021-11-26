@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9377ffeb64ba30478a995a8ffc78ae8, type: 3}
-  m_Name: TurnLightDuration
+  m_Name: FastSpeedCommandExecutionDuration
   m_EditorClassIdentifier: 
-  _value: 0.2
+  _value: 0.05
   _readOnly: 0
   _raiseWarning: 1
   _isClamped: 0

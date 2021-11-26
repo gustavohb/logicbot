@@ -67,13 +67,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a944baa0180245949e1992cf7c8c65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveDuration: {fileID: 11400000, guid: b3a87f960965944c59deb8383226a86c, type: 2}
-  _turnDuration: {fileID: 11400000, guid: 04e44973ec7654d6eabd698f79dcd594, type: 2}
-  _turnLightDuration: {fileID: 11400000, guid: cd2c484014ebd498b8ca68ae9b58d569, type: 2}
-  _changeColorDuration: {fileID: 11400000, guid: edd9df53b1aa5472baa114564efa089d, type: 2}
+  _normalSpeedCommandExecutionDuration: {fileID: 11400000, guid: 615c0dd0fcec34ceebbd5c25661a9798, type: 2}
+  _fastSpeedCommandExecutionDuration: {fileID: 11400000, guid: 65b566f478acf47c799c978e7b7205b0, type: 2}
+  _isFastModeEnabled: {fileID: 11400000, guid: 530b27fab08504bbf9377837be4fe0b4, type: 2}
   _jumpPower: 0.7
-  _animatorWalkingSpeed: 1.5
-  _animatorTurnSpeed: 1
+  _normalAnimatorJumpSpeed: 1.5
+  _fastAnimatorJumpSpeed: 4
+  _normalAnimatorWalkingSpeed: 1.5
+  _fastAnimatorWalkingSpeed: 4
+  _normalAnimatorTurnSpeed: 1.5
+  _fastAnimatorTurnSpeed: 4
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
   _pinkColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
@@ -83,6 +86,7 @@ MonoBehaviour:
   _renderer: {fileID: 8854796186724876641}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
+  _setCommandDurationEvent: {fileID: 11400000, guid: b2a28c72c8d194e9ea9b6fcf832fbb04, type: 2}
   currentColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
 --- !u!114 &29580650731182283
 MonoBehaviour:

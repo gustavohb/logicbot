@@ -14,15 +14,22 @@ public class PlayerController : MonoBehaviour
         Left,
         Up,
     }
-    
-    [Header("Settings/Variables")]
-    [SerializeField] private FloatVariable _moveDuration;
-    [SerializeField] private FloatVariable _turnDuration;
-    [SerializeField] private FloatVariable _turnLightDuration;
-    [SerializeField] private FloatVariable _changeColorDuration;
+
+    [Header("Settings/Variables")] 
+    [SerializeField] private FloatVariable _normalSpeedCommandExecutionDuration;
+    [SerializeField] private FloatVariable _fastSpeedCommandExecutionDuration;
+    [SerializeField] private BoolVariable _isFastModeEnabled;
     [SerializeField] private float _jumpPower = 0.7f;
-    [SerializeField] private float _animatorWalkingSpeed = 1.5f;
-    [SerializeField] private float _animatorTurnSpeed = 1.0f;
+
+    [SerializeField] private float _normalAnimatorJumpSpeed = 1.5f;
+    [SerializeField] private float _fastAnimatorJumpSpeed = 4.0f;
+    
+    [SerializeField] private float _normalAnimatorWalkingSpeed = 1.5f;
+    [SerializeField] private float _fastAnimatorWalkingSpeed = 4.0f;
+
+    [SerializeField] private float _normalAnimatorTurnSpeed = 1.5f;
+    [SerializeField] private float _fastAnimatorTurnSpeed = 4.0f;
+
     
     [SerializeField] private ColorVariable _defaultColor;
     [SerializeField] private ColorVariable _greenColor;
@@ -39,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
+    [SerializeField] private FloatGameEvent _setCommandDurationEvent;
     
     //[HideInInspector]
     public ColorVariable currentColor;
@@ -61,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private ColorVariable _currentTileColor;
     private ProtagonistAudio _audio;
+
+    private float _currentCommandDuration;
+    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -72,7 +83,17 @@ public class PlayerController : MonoBehaviour
     {
         _resetLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
+        _setCommandDurationEvent.AddListener(SetCommandDuration);
         SetPlayerColor(_defaultColor);
+
+        if (_isFastModeEnabled.Value)
+        {
+            SetCommandDuration(_fastSpeedCommandExecutionDuration.Value);
+        }
+        else
+        {
+            SetCommandDuration(_normalSpeedCommandExecutionDuration.Value);
+        }
     }
 
     private void SetPlayerColor(ColorVariable color)
@@ -82,6 +103,11 @@ public class PlayerController : MonoBehaviour
         _renderer.material.color = currentColor.Value;
     }
 
+    private void SetCommandDuration(float duration)
+    {
+        _currentCommandDuration = duration;
+    }
+    
     public void SetStartDir(Dir dir)
     {
         _startDir = dir;
@@ -119,7 +145,7 @@ public class PlayerController : MonoBehaviour
     
     public void MoveForward(Action callback = null)
     {
-        _animator.speed = _animatorWalkingSpeed;
+        _animator.speed = _isFastModeEnabled.Value ? _fastAnimatorWalkingSpeed : _normalAnimatorWalkingSpeed;
         
         Debug.Log("Move forward");
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
@@ -127,11 +153,11 @@ public class PlayerController : MonoBehaviour
         float tileHeight = endPosition.y - 1;
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _moveDuration.Value + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
         if (_currentHeight == tileHeight)
         {
             
-            transform.DOMove(endPosition, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            transform.DOMove(endPosition, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _isWalking = false;
                 _animator.SetBool("isWalking", _isWalking);
@@ -176,15 +202,15 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Turn right");
 
-        _animator.speed = _animatorTurnSpeed;
+        _animator.speed = _isFastModeEnabled.Value ?  _fastAnimatorTurnSpeed : _normalAnimatorTurnSpeed;
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
         
         _currentDir = GetNextDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
+        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
             () =>
             {
                 callback?.Invoke();
@@ -195,15 +221,15 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Turn left");
         
-        _animator.speed = _animatorTurnSpeed;
+        _animator.speed = _isFastModeEnabled.Value ? _fastAnimatorTurnSpeed : _normalAnimatorTurnSpeed;
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _turnDuration.Value + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
         
         _currentDir = GetPreviousDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _turnDuration.Value).SetEase(Ease.Linear).OnComplete(
+        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
             () =>
             {
                 callback?.Invoke();
@@ -238,7 +264,7 @@ public class PlayerController : MonoBehaviour
         if ((tileHeight != _currentHeight) && (Mathf.Abs(tileHeight - _currentHeight) <= 0.5f) 
             || tileHeight < _currentHeight)
         {
-            _transform.DOJump(endPosition, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
+            _transform.DOJump(endPosition, _jumpPower, 1, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _currentHeight = tileHeight;
                 _currentCallback?.Invoke();
@@ -246,7 +272,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _transform.DOJump(transform.position, _jumpPower, 1, _moveDuration.Value).SetEase(Ease.Linear).OnComplete(
+            _transform.DOJump(transform.position, _jumpPower, 1, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
                 () =>
                 {
                     _currentCallback?.Invoke();
@@ -281,7 +307,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ChangePlayerColorRoutine()
     {
         Debug.Log("Change player color");
-        yield return new WaitForSeconds(.15f);
+        yield return new WaitForSeconds(_currentCommandDuration / 2);
         PlayChangeColorAnimation();
 
         if (_audio != null)
@@ -307,24 +333,24 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        yield return new WaitForSeconds(.15f);
+        yield return new WaitForSeconds(_currentCommandDuration / 2);
         
         _setCurrentPlayerColorGameEvent.Raise(currentColor);
         
-        yield return new WaitForSeconds(_changeColorDuration.Value);
+        yield return new WaitForSeconds(_currentCommandDuration);
         _currentCallback?.Invoke();
     }
 
     private IEnumerator TurnLightRoutine()
     {
         Debug.Log("Turn light routine");
-        yield return new WaitForSeconds(.15f);
+        yield return new WaitForSeconds(_currentCommandDuration / 2);
         PlayTurnLightAnimation();
         if (_currentPlacedTile != null)
         {
             _currentPlacedTile.TurnLightOn();
         }
-        yield return new WaitForSeconds(_turnLightDuration.Value);
+        yield return new WaitForSeconds(_currentCommandDuration);
         _currentCallback?.Invoke();
     }
     
@@ -364,5 +390,6 @@ public class PlayerController : MonoBehaviour
     {
         _resetLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.RemoveListener(SetPlayerColor);
+        _setCommandDurationEvent.RemoveListener(SetCommandDuration);
     }
 }
