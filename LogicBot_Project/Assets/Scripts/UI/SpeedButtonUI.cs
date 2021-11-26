@@ -23,8 +23,16 @@ public class SpeedButtonUI : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(ToggleSpeed);
-        
+
         UpdateUI();
+    }
+
+    private void Start()
+    {
+        if (_isFastModeEnabled.Value)
+        {
+            ToggleSpeed();
+        }
     }
 
     private void ToggleSpeed()
