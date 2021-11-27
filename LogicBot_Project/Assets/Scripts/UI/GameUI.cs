@@ -171,7 +171,10 @@ public class GameUI : Singleton<GameUI>
         }
         else
         {
-            _selectedProgramUI.AddCommandUI(commandUI);    
+            if (_selectedProgramUI.isActiveAndEnabled)
+            {
+                _selectedProgramUI.AddCommandUI(commandUI);    
+            }
         }
     }
     
@@ -216,8 +219,7 @@ public class GameUI : Singleton<GameUI>
             DisableAllProgramListUI();
             return;
         }
-        
-        Debug.Log("Update UI'");
+
         ClearCommandProgramLists();
         
         _mainProgramUI.gameObject.SetActive(true);
@@ -283,9 +285,9 @@ public class GameUI : Singleton<GameUI>
                 }
             }  
         }
- 
+
         // Quick fix to trigger layout rebuild
-        this.Wait(.2f, () =>
+        this.Wait(.01f, () =>
         {
             LayoutRebuilder.MarkLayoutForRebuild (_programVerticalLayoutGroup.transform as RectTransform);
             SelectMainProgramUI();

@@ -16,8 +16,6 @@ public class TurnLightOnCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
-        Debug.Log("Turn light on command");
 
         if (playerControllerRuntimeSet == null)
         {

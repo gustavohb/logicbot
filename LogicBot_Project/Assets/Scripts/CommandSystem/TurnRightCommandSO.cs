@@ -16,8 +16,6 @@ public class TurnRightCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
-        Debug.Log("Turn right command");
 
         if (playerControllerRuntimeSet == null)
         {

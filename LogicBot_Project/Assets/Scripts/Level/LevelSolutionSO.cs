@@ -22,6 +22,7 @@ public class LevelSolutionSO : ScriptableObject
     public bool UseColorCommands(ColorVariable color)
     {
         bool useColorCommands = false;
+        
         foreach (BaseCommandSO baseCommand in mainCommands)
         {
             if (baseCommand.commandColor == color)
@@ -29,6 +30,7 @@ public class LevelSolutionSO : ScriptableObject
                 useColorCommands = true;
             }
         }
+        
         foreach (BaseCommandSO baseCommand in proc1Commands)
         {
             if (baseCommand.commandColor == color)
@@ -43,15 +45,6 @@ public class LevelSolutionSO : ScriptableObject
             {
                 useColorCommands = true;
             }
-        }
-
-        if (useColorCommands)
-        {
-            Debug.Log("Current solution uses color commands");
-        }
-        else
-        {
-            Debug.Log("Current solution does NOT use color commands");
         }
         
         return useColorCommands;

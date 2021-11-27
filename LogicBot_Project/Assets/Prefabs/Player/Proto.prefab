@@ -70,12 +70,13 @@ MonoBehaviour:
   _normalSpeedCommandExecutionDuration: {fileID: 11400000, guid: 615c0dd0fcec34ceebbd5c25661a9798, type: 2}
   _fastSpeedCommandExecutionDuration: {fileID: 11400000, guid: 65b566f478acf47c799c978e7b7205b0, type: 2}
   _isFastModeEnabled: {fileID: 11400000, guid: 530b27fab08504bbf9377837be4fe0b4, type: 2}
+  _isLoadingLevel: {fileID: 11400000, guid: 37eb1a4f8edcf4dd7ba24eafe2abd65b, type: 2}
   _jumpPower: 0.7
-  _normalAnimatorJumpSpeed: 1.5
+  _normalAnimatorJumpSpeed: 2
   _fastAnimatorJumpSpeed: 4
-  _normalAnimatorWalkingSpeed: 1.5
+  _normalAnimatorWalkingSpeed: 2
   _fastAnimatorWalkingSpeed: 4
-  _normalAnimatorTurnSpeed: 1.5
+  _normalAnimatorTurnSpeed: 2
   _fastAnimatorTurnSpeed: 4
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}

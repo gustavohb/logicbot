@@ -106,7 +106,6 @@ public class ProgramUI : MonoBehaviour
     
     public void UpdateProgramList()
     {
-        Debug.Log("Update " + name);
         _programList.ClearCommands();
         foreach (Transform commandUITransform in _listContent.transform)
         {
@@ -170,19 +169,16 @@ public class ProgramUI : MonoBehaviour
 
     public void SetAsSelected()
     {
-        Debug.Log(name + " selected");
         _titleBackgroundImage.color = _selectedColor.Value;
         
         foreach (Image backgroundImage in _backgroundImages)
         {
             backgroundImage.color =_selectedColor.Value;
         }
-        
     }
 
     public void SetAsDeselected()
     {
-        Debug.Log(name + " deselected");
         _titleBackgroundImage.color = _deselectedColor.Value;
         foreach (Image backgroundImage in _backgroundImages)
         {

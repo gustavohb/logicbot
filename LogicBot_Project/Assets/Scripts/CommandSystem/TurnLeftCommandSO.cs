@@ -17,8 +17,6 @@ public class TurnLeftCommandSO : BaseCommandSO
             return;
         }
         
-        Debug.Log("Turn left command");
-
         if (playerControllerRuntimeSet == null)
         {
             Debug.LogError("Player runtime set is not set!");

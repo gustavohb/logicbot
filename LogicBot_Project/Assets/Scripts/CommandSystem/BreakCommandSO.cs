@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -17,8 +16,6 @@ public class BreakCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
-        Debug.Log("Break command");
 
         if (_commandUI != null)
         {
@@ -27,7 +24,6 @@ public class BreakCommandSO : BaseCommandSO
 
         if (parentListCommand != null)
         {
-            Debug.Log("Continue execution " + parentListCommand.name);
             parentListCommand.ContinueExecution();    
         }
     }

@@ -69,6 +69,7 @@ public class LevelManager : Singleton<LevelManager>
         _isHidingTiles.Value = false;
         _isShowingTiles.Value = false;
         _isLoadingLevel.Value = false;
+        _isLevelCompleted.Value = false;
         _currentLevelIndex.Value = -1;
     }
 
@@ -121,7 +122,12 @@ public class LevelManager : Singleton<LevelManager>
     
     private void ReloadLevel()
     {
+        if (_isLoadingLevel.Value)
+        {
+            return;
+        }
         _resetLevelGameEvent.Raise();
+        _isLoadingLevel.Value = true;
         ShowGrid();
     }
 
@@ -237,7 +243,7 @@ public class LevelManager : Singleton<LevelManager>
         
         this.Wait(0.3f, PlayShowTilesSound);
         
-        this.Wait(delayFactor * m * n, () =>
+        this.Wait(delayFactor * m * n + 1f, () =>
         {
             _isShowingTiles.Value = false;
             _isLoadingLevel.Value = false;

@@ -25,8 +25,7 @@ public abstract class BaseCommandSO : ScriptableObject
     public PlayerControllerRuntimeSet playerControllerRuntimeSet;
     
     protected CommandUI _commandUI;
-    protected Action _callback;
-    
+
     protected void OnEnable()
     {
         setCurrentPlayerColorGameEvent.AddListener(SetCurrentPlayerColor);
@@ -39,7 +38,6 @@ public abstract class BaseCommandSO : ScriptableObject
 
     protected void SetCurrentPlayerColor(ColorVariable playerColor)
     {
-        Debug.Log("Setting Current Player Color at " + name);
         currentPlayerColor = playerColor;
     }
 

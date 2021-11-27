@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public static class MonoBehaviourExtensions 
+public static class MonoBehaviourExtensions
 {
     public static void Wait(this MonoBehaviour monoBehaviour, float delay, Action action)
     {

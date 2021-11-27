@@ -16,8 +16,6 @@ public class JumpCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
-        Debug.Log("Jump command");
 
         if (playerControllerRuntimeSet == null)
         {

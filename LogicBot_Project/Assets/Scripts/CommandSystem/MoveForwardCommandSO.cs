@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -17,8 +16,6 @@ public class MoveForwardCommandSO : BaseCommandSO
             callback?.Invoke();
             return;
         }
-        
-        Debug.Log("Move forward command");
 
         if (playerControllerRuntimeSet == null)
         {
