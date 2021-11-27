@@ -13,6 +13,10 @@ public class ProgramUI : MonoBehaviour
     [SerializeField] private ColorVariable _selectedColor;
     [SerializeField] private ColorVariable _deselectedColor;
 
+    [SerializeField] private BoolVariable _hasValidProgram;
+
+    [SerializeField] private BoolVariable _isLoadingLevel;
+    
     [SerializeField] private Image _titleBackgroundImage;
 
     [SerializeField] private GameEvent _reloadLevelGameEvent;
@@ -21,6 +25,8 @@ public class ProgramUI : MonoBehaviour
 
     [SerializeField] private Image _whiteBackgroundImagePrefab;
 
+    
+    
     private RectTransform _reordableListRectTransform;
     
     private List<Image> _backgroundImages = new List<Image>();
@@ -33,19 +39,67 @@ public class ProgramUI : MonoBehaviour
 
     private void Start()
     {
+        if (_hasValidProgram != null)
+        {
+            _hasValidProgram.Value = false;
+            _hasValidProgram.Raise();
+        }
+        
         _reorderableList.OnElementAdded.AddListener((args) =>
         {
+
+            if (_hasValidProgram != null)
+            {
+                _hasValidProgram.Value = true;
+            }
+            
             ClickDestroy clickDestroy = args.DroppedObject.GetComponent<ClickDestroy>();
             if (clickDestroy == null)
             {
-                args.DroppedObject.gameObject.AddComponent<ClickDestroy>();
+                clickDestroy = args.DroppedObject.gameObject.AddComponent<ClickDestroy>();
             }
+            else
+            {
+                clickDestroy.onDestroy = null;
+            }
+
+            clickDestroy.onDestroy += () =>
+            {
+                if (_hasValidProgram != null)
+                {
+                    if (_reorderableList.Content.childCount <= 1)
+                    {
+                        _hasValidProgram.Value = false;
+                    }
+                    else
+                    {
+                        _hasValidProgram.Value = true;
+                    }
+                }
+            };
+            
             
             ClickAddCommandToSelectedProgram clickAddCommandToSelectedProgram =
                 args.DroppedObject.GetComponent<ClickAddCommandToSelectedProgram>();
             if (clickAddCommandToSelectedProgram != null)
             {
                 Destroy(clickAddCommandToSelectedProgram);
+            }
+        });
+        
+        
+        _reorderableList.OnElementRemoved.AddListener((_) =>
+        {
+            if (_hasValidProgram != null)
+            {
+                if (_reorderableList.Content.childCount > 0)
+                {
+                    _hasValidProgram.Value = true;
+                }
+                else
+                {
+                    _hasValidProgram.Value = false;
+                }
             }
         });
     }
@@ -76,14 +130,39 @@ public class ProgramUI : MonoBehaviour
         ClickDestroy clickDestroy = newCommandUI.GetComponent<ClickDestroy>();
         if (clickDestroy == null)
         {
-            newCommandUI.gameObject.AddComponent<ClickDestroy>();
+            clickDestroy = newCommandUI.gameObject.AddComponent<ClickDestroy>();
+        }
+        else
+        {
+            clickDestroy.onDestroy = null;
         }
 
+        clickDestroy.onDestroy += () =>
+        {
+            if (_hasValidProgram != null)
+            {
+                if (_reorderableList.Content.childCount <= 1)
+                {
+                    _hasValidProgram.Value = false;
+                }
+                else
+                {
+                    _hasValidProgram.Value = true;
+                }
+            }
+        };
+        
+        
         ClickAddCommandToSelectedProgram clickAddCommandToSelectedProgram =
             newCommandUI.GetComponent<ClickAddCommandToSelectedProgram>();
         if (clickAddCommandToSelectedProgram != null)
         {
             Destroy(clickAddCommandToSelectedProgram);
+        }
+        
+        if (_hasValidProgram != null)
+        {
+            _hasValidProgram.Value = true;
         }
         
         _reorderableList.Refresh();
@@ -118,6 +197,10 @@ public class ProgramUI : MonoBehaviour
 
     public void ClearProgramListUI()
     {
+        if (_hasValidProgram != null)
+        {
+            _hasValidProgram.Value = false;
+        }
         foreach (Transform commandUITransform in _listContent.transform)
         {
             if (commandUITransform == _listContent.transform) continue;

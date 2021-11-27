@@ -23,11 +23,13 @@ public class GameUI : Singleton<GameUI>
     [Header("Variables")]
     [SerializeField] private BoolVariable _stopped;
     [SerializeField] private BoolVariable _isLevelCompleted;
+    [SerializeField] private BoolVariable _isLoadingLevel;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent _reloadLevelGameEvent;
     [SerializeField] private GameEvent _loadNextLevelEvent;
+    [SerializeField] private IntGameEvent _loadLevelEvent;
     [SerializeField] private GameEvent _levelCompletedGameEvent;
     [SerializeField] private GameEvent _onFinishedExecutionGameEvent;
     [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
@@ -40,6 +42,7 @@ public class GameUI : Singleton<GameUI>
         base.Awake();
         _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
         DisableAllProgramListUI();
+        _isLoadingLevel.AddListener(UpdateUI);
     }
 
     private void SetCurrentLevelData(LevelDataSO levelData)
@@ -54,9 +57,15 @@ public class GameUI : Singleton<GameUI>
         _reloadLevelGameEvent.AddListener(OnReloadLevel);
         _levelCompletedGameEvent.AddListener(OnLevelCompleted);
         _loadNextLevelEvent.AddListener(OnLoadNextLevel);
+        _loadLevelEvent.AddListener(OnLoadLevel);
         DeselectAllProgramUI();
         _selectedProgramUI = _mainProgramUI;
         _selectedProgramUI.SetAsSelected();
+    }
+
+    private void OnLoadLevel(int leveIndex)
+    {
+        ShowPlayButton();
     }
 
     private void OnLoadNextLevel()
@@ -202,6 +211,12 @@ public class GameUI : Singleton<GameUI>
 
     private void UpdateUI()
     {
+        if (_isLoadingLevel.Value || _currentLevelData == null)
+        {
+            DisableAllProgramListUI();
+            return;
+        }
+        
         Debug.Log("Update UI'");
         ClearCommandProgramLists();
         
@@ -298,11 +313,13 @@ public class GameUI : Singleton<GameUI>
         _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
         _levelCompletedGameEvent.RemoveListener(OnLevelCompleted);
         _loadNextLevelEvent.RemoveListener(OnLoadNextLevel);
+        _loadLevelEvent.RemoveListener(OnLoadLevel);
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        _isLoadingLevel.RemoveListener(UpdateUI);
         _setCurrentLevelDataGameEvent.RemoveListener(SetCurrentLevelData);
     }
 }

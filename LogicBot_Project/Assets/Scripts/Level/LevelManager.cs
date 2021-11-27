@@ -20,9 +20,11 @@ public class LevelManager : Singleton<LevelManager>
     [Header("Variables")] 
     [SerializeField] private BoolVariable _isShowingTiles;
     [SerializeField] private BoolVariable _isHidingTiles;
+    [SerializeField] private BoolVariable _isLoadingLevel;
     [SerializeField] private BoolVariable _isLevelCompleted;
     [SerializeField] private BoolVariable _stopped;
     [SerializeField] private IntVariable _currentLevelIndex;
+    [SerializeField] private IntVariable _totalLevels;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
@@ -30,6 +32,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
     [SerializeField] private GameEvent _levelCompletedGameEvent;
     [SerializeField] private GameEvent _loadNextLevelGameEvent;
+    [SerializeField] private IntGameEvent _loadLevelGameEvent;
     
     [Header("SFX")]
     [SerializeField] private AudioCueEventChannelSO _sfxEventChannel = default;
@@ -61,8 +64,12 @@ public class LevelManager : Singleton<LevelManager>
 
         _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
         
+        _totalLevels.Value = _levelRepository.levelList.Count;
+        
         _isHidingTiles.Value = false;
         _isShowingTiles.Value = false;
+        _isLoadingLevel.Value = false;
+        _currentLevelIndex.Value = -1;
     }
 
     private void SetCurrentLevelData(LevelDataSO levelData)
@@ -75,7 +82,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void CheckIfLevelIsCompleted()
     {
-        if (_lightTilesRuntimeSet.Count() == 0)
+        if (_lightTilesRuntimeSet.Count() == 0 && !_isLoadingLevel.Value)
         {
             PlayAudio(_levelCompletedSFX, _audioConfig, Vector3.zero);
             _isLevelCompleted.Value = true;
@@ -88,6 +95,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         _reloadLevelGameEvent.AddListener(ReloadLevel);
         _loadNextLevelGameEvent.AddListener(LoadNextLevel);
+        _loadLevelGameEvent.AddListener(LoadLevel);
         _lightTilesRuntimeSet.onRuntimeSetChanged += LightTilesRuntimeSet_OnRuntimeSetChanged;
     }
 
@@ -98,10 +106,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
+        /*
         this.Wait(1f, RaiseSetCurrentLevelDataGameEvent);
         _isLevelCompleted.Value = false;
         _currentLevelIndex.Value = 0; // Just for test
         _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
+        */
     }
 
     private void RaiseSetCurrentLevelDataGameEvent()
@@ -113,6 +123,21 @@ public class LevelManager : Singleton<LevelManager>
     {
         _resetLevelGameEvent.Raise();
         ShowGrid();
+    }
+
+    public void LoadLevel(int levelIndex)
+    {
+        if (levelIndex >= 0 && levelIndex < _levelRepository.levelList.Count)
+        {
+            _isLoadingLevel.Value = true;
+            _currentLevelIndex.Value = levelIndex;
+            HideTiles(() =>
+            {
+                _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
+                RaiseSetCurrentLevelDataGameEvent();
+                //ShowGrid();
+            });
+        }
     }
 
     public void LoadNextLevel()
@@ -215,6 +240,7 @@ public class LevelManager : Singleton<LevelManager>
         this.Wait(delayFactor * m * n, () =>
         {
             _isShowingTiles.Value = false;
+            _isLoadingLevel.Value = false;
         });
     }
 
@@ -237,6 +263,12 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (_isHidingTiles.Value || _isShowingTiles.Value)
         {
+            return;
+        }
+
+        if (_placedTileRuntimeSet.Count() == 0)
+        {
+            callback?.Invoke();
             return;
         }
 
@@ -281,7 +313,8 @@ public class LevelManager : Singleton<LevelManager>
                 currentPlacedTile = _grid[row, col].GetPlacedTile();
                 if (currentPlacedTile != null)
                 {
-                    currentPlacedTile.ShowTile(delayFactor * row * col);
+                    //currentPlacedTile.ShowTile(delayFactor * row * col);
+                    currentPlacedTile.HideTile(delayFactor * row * col);
                 }
                 if (col == n - 1)
                 {
@@ -477,6 +510,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         _reloadLevelGameEvent.RemoveListener(ReloadLevel);
         _loadNextLevelGameEvent.RemoveListener(LoadNextLevel);
+        _loadLevelGameEvent.RemoveListener(LoadLevel);
     }
 
     protected override void OnDestroy()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 public class TabGroupUI : MonoBehaviour
@@ -13,8 +14,20 @@ public class TabGroupUI : MonoBehaviour
     [SerializeField] private Color _activeColor = Color.white;
     
     [SerializeField] private GameObject _defaultObject;
+
+    [SerializeField] private BoolVariable _isDisable;
+
+    [SerializeField] private IntVariable _currentSelectedTabIndex;
     
     private TabButtonUI _selectedTab;
+
+    private void OnEnable()
+    {
+        if (_currentSelectedTabIndex != null)
+        {
+            _currentSelectedTabIndex.AddListener(SelectTab);    
+        }
+    }
 
     public void Subscribe(TabButtonUI buttonUI)
     {
@@ -26,11 +39,18 @@ public class TabGroupUI : MonoBehaviour
         _tabButtons.Add(buttonUI);
     }
 
-    public void SelectedTab(int tabIndex)
+    public void SelectTab(int tabIndex)
     {
-        if (tabIndex > 0 && tabIndex < _tabButtons.Count)
+        if (tabIndex >= 0 && tabIndex < _tabButtons.Count)
         {
-            OnTabSelected(_tabButtons[tabIndex]);
+            if (_isDisable != null && _isDisable.Value)
+            {
+                return;
+            }
+            else
+            {
+                OnTabSelected(_tabButtons[tabIndex]);
+            }
         }
     }
     
@@ -61,6 +81,11 @@ public class TabGroupUI : MonoBehaviour
 
     public void OnTabSelected(TabButtonUI buttonUI)
     {
+        if (_isDisable != null && _isDisable.Value)
+        {
+            return;
+        }
+        
         if (_defaultObject != null && buttonUI == _selectedTab)
         {
             _selectedTab.targetGraphic.sprite = _selectedTab.idleSprite;
@@ -87,8 +112,11 @@ public class TabGroupUI : MonoBehaviour
         _selectedTab.targetGraphic.color = _activeColor;
         int index = buttonUI.transform.GetSiblingIndex();
 
-        DisableAllObjectsToSwap();
-        _objectsToSwap[index].SetActive(true);
+        if (_objectsToSwap != null && _objectsToSwap.Count > 0 && index < _objectsToSwap.Count)
+        {
+            DisableAllObjectsToSwap();
+            _objectsToSwap[index].SetActive(true);    
+        }
     }
 
     private void DisableAllObjectsToSwap()
@@ -99,6 +127,12 @@ public class TabGroupUI : MonoBehaviour
         }
     }
 
+    public void UpdateUI()
+    {
+        ResetTabs();
+        
+    }
+    
     public void ResetTabs(bool resetAllTab = false)
     {
         foreach (TabButtonUI button in _tabButtons)
@@ -112,6 +146,14 @@ public class TabGroupUI : MonoBehaviour
                 button.targetGraphic.sprite = button.idleSprite;    
             }
             button.targetGraphic.color = _idleColor;
+        }
+    }
+    
+    private void OnDisable()
+    {
+        if (_currentSelectedTabIndex != null)
+        {
+            _currentSelectedTabIndex.RemoveListener(SelectTab);
         }
     }
 }
