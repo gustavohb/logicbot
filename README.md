@@ -1,5 +1,7 @@
 # LogicBot
 
+![Screen Shot 2021-11-27 at 15 13 48](https://user-images.githubusercontent.com/3193712/143698970-70b615af-9346-4013-b608-a170890a420f.png)
+
 ## About
 
 This project is a learning exercise. I am trying to recreate the same mechanics seen in the mobile game [Lightbot](https://lightbot.com/).
