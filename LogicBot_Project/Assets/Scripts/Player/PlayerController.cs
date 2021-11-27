@@ -21,16 +21,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BoolVariable _isFastModeEnabled;
     [SerializeField] private float _jumpPower = 0.7f;
 
-    [SerializeField] private float _normalAnimatorJumpSpeed = 1.5f;
+    [SerializeField] private float _normalAnimatorJumpSpeed = 2.0f;
     [SerializeField] private float _fastAnimatorJumpSpeed = 4.0f;
     
-    [SerializeField] private float _normalAnimatorWalkingSpeed = 1.5f;
+    [SerializeField] private float _normalAnimatorWalkingSpeed = 2.0f;
     [SerializeField] private float _fastAnimatorWalkingSpeed = 4.0f;
 
-    [SerializeField] private float _normalAnimatorTurnSpeed = 1.5f;
+    [SerializeField] private float _normalAnimatorTurnSpeed = 2.0f;
     [SerializeField] private float _fastAnimatorTurnSpeed = 4.0f;
 
-    
     [SerializeField] private ColorVariable _defaultColor;
     [SerializeField] private ColorVariable _greenColor;
     [SerializeField] private ColorVariable _pinkColor;
@@ -98,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
     private void SetPlayerColor(ColorVariable color)
     {
-        Debug.Log("Set player material");
         currentColor = color;
         _renderer.material.color = currentColor.Value;
     }
@@ -142,12 +140,17 @@ public class PlayerController : MonoBehaviour
                 return Quaternion.Euler(0, 270, 0);
         }
     }
+
+    // Used to show current program execution
+    public void DummyExecution(Action callback = null)
+    {
+        this.Wait(_currentCommandDuration, () => callback?.Invoke());
+    }
     
     public void MoveForward(Action callback = null)
     {
         _animator.speed = _isFastModeEnabled.Value ? _fastAnimatorWalkingSpeed : _normalAnimatorWalkingSpeed;
         
-        Debug.Log("Move forward");
         Vector3 endPosition = LevelManager.instance.GetNextPosition(transform.position, _currentDir);
 
         float tileHeight = endPosition.y - 1;
@@ -185,14 +188,12 @@ public class PlayerController : MonoBehaviour
     
     private void PlayWalkingAnimation()
     {
-        Debug.Log("Play walking animation");
         _isWalking = true;
         _animator.SetBool("isWalking", _isWalking);
     }
 
     private void StopWalkingAnimation()
     {
-        Debug.Log("Stop walking animation");
         _isWalking = false;
         _animator.SetBool("isWalking", _isWalking);
     }
@@ -200,8 +201,6 @@ public class PlayerController : MonoBehaviour
 
     public void TurnRight(Action callback = null)
     {
-        Debug.Log("Turn right");
-
         _animator.speed = _isFastModeEnabled.Value ?  _fastAnimatorTurnSpeed : _normalAnimatorTurnSpeed;
         
         CancelInvoke();
@@ -219,8 +218,6 @@ public class PlayerController : MonoBehaviour
 
     public void TurnLeft(Action callback = null)
     {
-        Debug.Log("Turn left");
-        
         _animator.speed = _isFastModeEnabled.Value ? _fastAnimatorTurnSpeed : _normalAnimatorTurnSpeed;
         
         CancelInvoke();
@@ -248,7 +245,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(Action callback = null)
     {
-        Debug.Log("Jump");
+        _animator.speed = _isFastModeEnabled.Value ?  _fastAnimatorJumpSpeed : _normalAnimatorJumpSpeed;
         _currentCallback = callback;
         _animator.SetTrigger("jump");
     }
@@ -284,7 +281,6 @@ public class PlayerController : MonoBehaviour
     
     public void TurnLightOn(Action callback = null)
     {
-        Debug.Log("Turn light on");
         _currentCallback = callback;
         _currentPlacedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
         
@@ -306,7 +302,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ChangePlayerColorRoutine()
     {
-        Debug.Log("Change player color");
         yield return new WaitForSeconds(_currentCommandDuration / 2);
         PlayChangeColorAnimation();
 
@@ -343,7 +338,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TurnLightRoutine()
     {
-        Debug.Log("Turn light routine");
         yield return new WaitForSeconds(_currentCommandDuration / 2);
         PlayTurnLightAnimation();
         if (_currentPlacedTile != null)

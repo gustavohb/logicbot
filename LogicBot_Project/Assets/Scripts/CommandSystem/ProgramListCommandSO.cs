@@ -29,7 +29,6 @@ public class ProgramListCommandSO : BaseCommandSO
     
     public override void Execute(Action callback)
     {
-        Debug.Log("Execute " + name);
         if (stopped.Value)
         {
             return;
@@ -41,12 +40,33 @@ public class ProgramListCommandSO : BaseCommandSO
             return;
         }
 
+        if (_commandUI != null)
+        {
+            _commandUI.SetAsExecuting();
+        }
+        
         if (commandList != null && commandList.Count > 0)
         {
             _currentCommandIndex = 0;
             BaseCommandSO firstCommand = commandList[_currentCommandIndex];
             firstCommand.parentListCommand = this;
-            firstCommand.Execute(ContinueExecution);
+
+            PlayerController playerController = playerControllerRuntimeSet.GetItemIndex(0);
+
+            if (playerController == null)
+            {
+                Debug.LogError("Player controller not found!");
+                return;
+            }
+            
+            playerController.DummyExecution(() =>
+            {
+                if (_commandUI != null)
+                {
+                    _commandUI.SetAsNotExecuting();
+                }
+                firstCommand.Execute(ContinueExecution);
+            });
         }
         else if (isMainProgram)
         {
@@ -61,8 +81,9 @@ public class ProgramListCommandSO : BaseCommandSO
         {
             return;
         }
-        
+
         _currentCommandIndex++;
+        
         if (_currentCommandIndex < commandList.Count)
         {
             BaseCommandSO nextCommand = commandList[_currentCommandIndex];
