@@ -5,7 +5,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class CommandUI : MonoBehaviour
 {
-    [SerializeField] private bool _isProgramList = false;
     [SerializeField] private BaseCommandSO _baseCommand;
 
     [SerializeField] private Image _image;
