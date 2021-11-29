@@ -66,11 +66,13 @@ public class GameUI : Singleton<GameUI>
     private void OnLoadLevel(int leveIndex)
     {
         ShowPlayButton();
+        _levelCompletedPanel.SetActive(false);
     }
 
     private void OnLoadNextLevel()
     {
         ShowPlayButton();
+        _levelCompletedPanel.SetActive(false);
     }
 
     private void ShowPlayButton()

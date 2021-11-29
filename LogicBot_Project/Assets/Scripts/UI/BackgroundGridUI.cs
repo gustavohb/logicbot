@@ -193,7 +193,10 @@ public class BackgroundGridUI : MonoBehaviour
             }
         }
         
-        this.Wait((float)maxDist / 1.4f * _delayFactor, () => HideBackgroundGrid(x, y));
+        this.Wait((float)maxDist / 1.4f * _delayFactor, () =>
+        {
+            HideBackgroundGrid(x, y);
+        });
     }
 
     public void HideBackgroundGrid(int x, int y)
@@ -213,6 +216,11 @@ public class BackgroundGridUI : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     private void AnimateTile(float delay, float duration, Image tileImage, Color endColor, Action onComplete = null)

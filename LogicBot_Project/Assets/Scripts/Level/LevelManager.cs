@@ -139,9 +139,11 @@ public class LevelManager : Singleton<LevelManager>
             _currentLevelIndex.Value = levelIndex;
             HideTiles(() =>
             {
-                _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
-                RaiseSetCurrentLevelDataGameEvent();
-                //ShowGrid();
+                if (_currentLevelIndex.Value >= 0 && _currentLevelIndex.Value < _levelRepository.levelList.Count)
+                {
+                    _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
+                    RaiseSetCurrentLevelDataGameEvent();    
+                }
             });
         }
     }
@@ -153,7 +155,7 @@ public class LevelManager : Singleton<LevelManager>
         _currentLevelIndex.Value++;
         HideTiles(() =>
         {
-            if (_currentLevelIndex.Value < _levelRepository.levelList.Count)
+            if (_currentLevelIndex.Value >= 0 && _currentLevelIndex.Value < _levelRepository.levelList.Count)
             {
                 _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
                 RaiseSetCurrentLevelDataGameEvent();
