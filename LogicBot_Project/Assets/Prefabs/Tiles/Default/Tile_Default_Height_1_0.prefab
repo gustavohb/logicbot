@@ -209,20 +209,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f5155ec42a74a1385df916198b248b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isConditionalSetter: 0
-  _isLightTile: 0
+  _type: 0
   _height: 1
   _topSpriteRenderer: {fileID: 2454028127106655385}
+  _teleportDestinationTile: {fileID: 0}
+  _curvedLineRendererPrefab: {fileID: 4786082481362385473, guid: edf71b30247cc4b46a1f705050f2027d, type: 3}
   _lightOffSprite: {fileID: 21300000, guid: 864c66971570d4cd7bc08e922802901b, type: 3}
   _lightOnSprite: {fileID: 21300000, guid: b79c6523db7294f4dba3870191964a2a, type: 3}
   _noLightSprite: {fileID: 21300000, guid: 48fcb109a392b4fbd807a1b8eb60c9db, type: 3}
   _conditionalSprite: {fileID: 0}
+  _teleportIndicationSprite: {fileID: 21300000, guid: 713e1d579b35b49d99c9300d6844d799, type: 3}
   _startYPosition: {fileID: 11400000, guid: 3bba1980d72964392b3ea1e24633467b, type: 2}
   _animationDuration: {fileID: 11400000, guid: b4416e54649cb447db41ad203842def0, type: 2}
   _cellSize: {fileID: 11400000, guid: da0a0758ca4724426941c5bf0bbe6c54, type: 2}
   _color: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _lightTilesRuntimeSet: {fileID: 11400000, guid: f8ad41a7ff15d4d6a9c9cebaab50634c, type: 2}
+  curvedLineRenderer: {fileID: 0}
 --- !u!114 &2454028126239838830
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -197,7 +197,6 @@ public class PlayerController : MonoBehaviour
         _isWalking = false;
         _animator.SetBool("isWalking", _isWalking);
     }
-    
 
     public void TurnRight(Action callback = null)
     {
@@ -283,14 +282,19 @@ public class PlayerController : MonoBehaviour
     {
         _currentCallback = callback;
         _currentPlacedTile = LevelManager.instance.GetPlacedTileAt(transform.position);
-        
-        if (_currentPlacedTile.isColorSetter)
+
+        switch (_currentPlacedTile.type)
         {
-            ChangePlayerColorTo(_currentPlacedTile.GetColor());
-        }
-        else
-        {
-            StartCoroutine(nameof(TurnLightRoutine));   
+            default:
+            case PlacedTile.PlacedTileType.Light:
+                StartCoroutine(nameof(TurnLightRoutine));
+                break;
+            case PlacedTile.PlacedTileType.ColorSetter:
+                ChangePlayerColorTo(_currentPlacedTile.GetColor());
+                break;
+            case PlacedTile.PlacedTileType.Teleport:
+                StartCoroutine(nameof(TeleportPlayerRoutine));
+                break;
         }
     }
 
@@ -300,6 +304,21 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ChangePlayerColorRoutine());
     }
 
+    private IEnumerator TeleportPlayerRoutine()
+    {
+        PlacedTile teleportPlacedTileDestination = _currentPlacedTile.GetTeleportDestination();
+        Vector3? teleportPosition = LevelManager.instance.GetCurrentTilePosition(teleportPlacedTileDestination.transform.position);
+        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        if (teleportPosition.HasValue)
+        {
+            transform.position = teleportPosition.Value;
+            _currentPlacedTile = teleportPlacedTileDestination;
+            _currentHeight = _currentPlacedTile.GetHeight();
+        }
+        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        _currentCallback?.Invoke();
+    }
+    
     private IEnumerator ChangePlayerColorRoutine()
     {
         yield return new WaitForSeconds(_currentCommandDuration / 2);

@@ -247,9 +247,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5351140647406200484, guid: e9520110e1d9f431ea91cd0fca409f8b, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351140647406200484, guid: e9520110e1d9f431ea91cd0fca409f8b, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5351140647406200487, guid: e9520110e1d9f431ea91cd0fca409f8b, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 5351140647406200487, guid: e9520110e1d9f431ea91cd0fca409f8b, type: 3}
       propertyPath: m_Name
       value: Tile_Height_1_5

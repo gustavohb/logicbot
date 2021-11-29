@@ -462,6 +462,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}

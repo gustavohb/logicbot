@@ -130,7 +130,6 @@ public class TabGroupUI : MonoBehaviour
     public void UpdateUI()
     {
         ResetTabs();
-        
     }
     
     public void ResetTabs(bool resetAllTab = false)
@@ -146,6 +145,19 @@ public class TabGroupUI : MonoBehaviour
                 button.targetGraphic.sprite = button.idleSprite;    
             }
             button.targetGraphic.color = _idleColor;
+        }
+        
+        if (resetAllTab)
+        {
+            Debug.Log("Reset all tabs");
+            if (_selectedTab != null)
+            {
+                _selectedTab.Deselect();
+                _selectedTab = null;
+            }
+            DisableAllObjectsToSwap();
+            _defaultObject.SetActive(true);
+            
         }
     }
     

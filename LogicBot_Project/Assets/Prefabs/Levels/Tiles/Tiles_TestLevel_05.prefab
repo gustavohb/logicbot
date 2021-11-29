@@ -139,6 +139,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -209,6 +213,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -234,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 1.0000002
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -465,6 +473,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -490,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 2.0000002
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -545,6 +557,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
@@ -616,6 +632,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -685,6 +705,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
@@ -818,6 +842,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -950,6 +978,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -975,7 +1007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 2.0000002
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1082,6 +1114,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -1151,6 +1187,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
@@ -1222,6 +1262,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -1247,7 +1291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 2.0000002
       objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158486, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1354,6 +1398,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -1423,6 +1471,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
@@ -1556,6 +1608,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -1626,6 +1682,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
@@ -1695,6 +1755,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339662386322158481, guid: 5732861e06279477ea21d5115a2831b0, type: 3}
       propertyPath: _isLightTile
       value: 1

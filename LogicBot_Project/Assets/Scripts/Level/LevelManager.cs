@@ -463,6 +463,27 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public Vector3? GetCurrentTilePosition(Vector3 currentWorldPosition)
+    {
+        // TODO: Refactor
+        _grid.GetXZ(currentWorldPosition, out int x, out int z);
+        Vector2Int tileIndex = new Vector2Int(x, z);
+        
+        GridObject gridObject = _grid.GetGridObject(currentWorldPosition);
+        
+        if (gridObject != null && gridObject.IsOccupied())
+        {
+            Vector3? currentPosition = _grid.GetWorldPosition(tileIndex);
+            if (currentPosition.HasValue)
+            {
+                float tileHeight = gridObject.GetPlacedTile().GetHeight();
+                return currentPosition.Value + new Vector3(0, tileHeight, 0);
+            }
+        }
+        
+        return null;
+    }
+    
     public Vector3 GetNextPosition(Vector3 currentPosition, PlayerController.Dir currentDirection)
     {   
         //TODO: Refactor

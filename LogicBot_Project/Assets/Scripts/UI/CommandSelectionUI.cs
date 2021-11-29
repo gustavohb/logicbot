@@ -2,6 +2,7 @@ using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(TabGroupUI))]
 public class CommandSelectionUI : MonoBehaviour
 {
     [Header("Default Command Buttons")]
@@ -56,14 +57,16 @@ public class CommandSelectionUI : MonoBehaviour
     [SerializeField] private ColorVariable _greenCommandColor;
     [SerializeField] private ColorVariable _pinkCommandColor;
     
+    [Header("Events")]
+    [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
+
+    private TabGroupUI _tabGroup;
     private LevelSolutionSO _currentLevelSolution;
     private LevelDataSO _currentLevelData;
     
-    [Header("Events")]
-    [SerializeField] private LevelDataGameEvent _setCurrentLevelDataGameEvent;
-    
     private void Awake()
     {
+        _tabGroup = GetComponent<TabGroupUI>();
         _setCurrentLevelDataGameEvent.AddListener(SetCurrentLevelData);
     }
 
@@ -77,7 +80,9 @@ public class CommandSelectionUI : MonoBehaviour
     private void UpdateUI()
     {
         DisableAllButtons();
-
+        
+        _tabGroup.ResetTabs(true);
+        
         bool useGreenCommands = _currentLevelSolution.UseColorCommands(_greenCommandColor);
         bool usePinkCommands = _currentLevelSolution.UseColorCommands(_pinkCommandColor);
 

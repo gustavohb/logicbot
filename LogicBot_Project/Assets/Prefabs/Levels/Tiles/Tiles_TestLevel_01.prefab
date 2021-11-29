@@ -56,9 +56,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
     - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
       propertyPath: _isLightTile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2248853364395507914, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 2248853364395507914, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
       propertyPath: m_Name
       value: Tile_Height_0_0 (10)
@@ -268,6 +276,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2840651800215734214}
     m_Modifications:
+    - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
+      propertyPath: _type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2248853364395507914, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
       propertyPath: m_Name
       value: Tile_Height_0_0 (13)
