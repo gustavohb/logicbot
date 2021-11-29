@@ -20,9 +20,7 @@ MonoBehaviour:
   proc1Commands:
   - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
-  - {fileID: 11400000, guid: a9208a1f4c5a246de9bd61a368461075, type: 2}
-  - {fileID: 11400000, guid: b57071fd588ae417cbc5dbd834fbac4b, type: 2}
-  - {fileID: 11400000, guid: 3ed77c7f12d234e33a03aa028c0f9bda, type: 2}
+  - {fileID: 11400000, guid: 8768c2ba637b640508f4341a0191dc9c, type: 2}
   - {fileID: 11400000, guid: a09ff6e484f3e47ddb5be41ae977beb4, type: 2}
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   proc2Commands: []
