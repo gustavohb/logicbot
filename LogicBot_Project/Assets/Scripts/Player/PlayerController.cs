@@ -176,13 +176,13 @@ public class PlayerController : MonoBehaviour
 
     private void PlayTurnLightAnimation()
     {
-        Debug.Log("Play turn light animation");
+        Debug.LogWarning("Turn light animation is not implemented!");
         //TODO:
     }
     
     private void PlayChangeColorAnimation()
     {
-        Debug.Log("Play change color animation");
+        Debug.LogWarning("Change color animation is not implemented!");
         //TODO:
     }
     

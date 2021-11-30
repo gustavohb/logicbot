@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,7 +57,6 @@ public class CurvedLineRenderer : MonoBehaviour
 
 	public void SetStartPoint(Vector3 position, Transform parent)
 	{
-		Debug.Log("Set start point at" + parent.name);
 		GameObject newGameObject = new GameObject("StartPoint");
 		newGameObject.transform.position = position;
 		newGameObject.transform.parent = parent;
@@ -70,7 +68,6 @@ public class CurvedLineRenderer : MonoBehaviour
 	
 	public void SetMiddlePointParent(Transform parent)
 	{
-		Debug.Log("Set middle point at" + parent.name);
 		GameObject newGameObject = new GameObject("MiddlePoint");
 		newGameObject.transform.position = CalculateMiddlePoint();
 		newGameObject.transform.parent = parent;
@@ -87,7 +84,6 @@ public class CurvedLineRenderer : MonoBehaviour
 	
 	public void SetEndPoint(Vector3 position, Transform parent)
 	{
-		Debug.Log("Set end point at" + parent.name);
 		GameObject newGameObject = new GameObject("EndPoint");
 		newGameObject.transform.position = position;
 		newGameObject.transform.parent = parent;

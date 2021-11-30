@@ -150,7 +150,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadNextLevel()
     {
-        Debug.Log("Load next level");
         _isLevelCompleted.Value = false;
         _currentLevelIndex.Value++;
         HideTiles(() =>

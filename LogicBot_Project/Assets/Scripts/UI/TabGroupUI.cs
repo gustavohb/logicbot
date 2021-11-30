@@ -149,7 +149,6 @@ public class TabGroupUI : MonoBehaviour
         
         if (resetAllTab)
         {
-            Debug.Log("Reset all tabs");
             if (_selectedTab != null)
             {
                 _selectedTab.Deselect();
