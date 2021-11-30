@@ -108,6 +108,7 @@ public class PlacedTile : MonoBehaviour
                     if (currentTeleportDestinationPosition.HasValue)
                     {
                         curvedLineRenderer.SetEndPoint(currentTeleportDestinationPosition.Value + new Vector3(0, _startYPosition.Value, 0), _teleportDestinationTile.transform);
+                        _teleportDestinationTile.SetTeleportDestinationPlacedTile(this);
                         if (currentTeleportDestinationPosition.Value.x + currentTeleportDestinationPosition.Value.z < currentTilePosition.Value.x + currentTilePosition.Value.z)
                         {
                             curvedLineRenderer.SetMiddlePointParent(_teleportDestinationTile.transform);
