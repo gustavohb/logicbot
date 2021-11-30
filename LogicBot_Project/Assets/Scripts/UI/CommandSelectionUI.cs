@@ -137,13 +137,13 @@ public class CommandSelectionUI : MonoBehaviour
         }
         
         // Proc1
-        if (_currentLevelSolution.proc1Commands.Count > 0)
+        if (_currentLevelSolution.proc1Commands.Count > 0 || _currentLevelSolution.possibleCommandQtyInProc1Commands > 0)
         {
             _proc1ButtonDefault.gameObject.SetActive(true);
         }
         
         // Proc2
-        if (_currentLevelSolution.proc2Commands.Count > 0)
+        if (_currentLevelSolution.proc2Commands.Count > 0 || _currentLevelSolution.possibleCommandQtyInProc2Commands > 0)
         {
             _proc2ButtonDefault.gameObject.SetActive(true);
         }
