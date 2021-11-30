@@ -70,7 +70,6 @@ MonoBehaviour:
   _normalSpeedCommandExecutionDuration: {fileID: 11400000, guid: 615c0dd0fcec34ceebbd5c25661a9798, type: 2}
   _fastSpeedCommandExecutionDuration: {fileID: 11400000, guid: 65b566f478acf47c799c978e7b7205b0, type: 2}
   _isFastModeEnabled: {fileID: 11400000, guid: 530b27fab08504bbf9377837be4fe0b4, type: 2}
-  _isLoadingLevel: {fileID: 11400000, guid: 37eb1a4f8edcf4dd7ba24eafe2abd65b, type: 2}
   _jumpPower: 0.7
   _normalAnimatorJumpSpeed: 2
   _fastAnimatorJumpSpeed: 4
@@ -81,6 +80,7 @@ MonoBehaviour:
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
   _pinkColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
+  _dissolveDuration: {fileID: 11400000, guid: fe22a7921c37c43e982a8413ad9d84d6, type: 2}
   _changeToDefaultColorEffect: {fileID: 4258450243717043135}
   _changeToGreenColorEffect: {fileID: 1535461829209538464}
   _changeToPinkColorEffect: {fileID: 1075135818757357150}
@@ -88,6 +88,8 @@ MonoBehaviour:
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
   _setCommandDurationEvent: {fileID: 11400000, guid: b2a28c72c8d194e9ea9b6fcf832fbb04, type: 2}
+  _dissolvePlayerGameEvent: {fileID: 11400000, guid: eb47abccdf6e146e2b298430644b6c7e, type: 2}
+  _condensePlayerGameEvent: {fileID: 11400000, guid: 3915c1aaef91b42d380dfa5d771567f1, type: 2}
   currentColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
 --- !u!114 &29580650731182283
 MonoBehaviour:
@@ -114,10 +116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa84427eb29b4330aea6117419d0980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: {fileID: 11400000, guid: fb708252624af4a8aa2d632dc2013340, type: 2}
-  footstep: {fileID: 11400000, guid: 81e11e147f1c54432a800d8668b7b70c, type: 2}
-  turnLightOn: {fileID: 11400000, guid: 65940ce66069b4697b05812b89fb5281, type: 2}
-  changeColor: {fileID: 11400000, guid: dbe8b81b3948541ab9a26201bd234507, type: 2}
+  _jump: {fileID: 11400000, guid: fb708252624af4a8aa2d632dc2013340, type: 2}
+  _footstep: {fileID: 11400000, guid: 81e11e147f1c54432a800d8668b7b70c, type: 2}
+  _turnLightOn: {fileID: 11400000, guid: 65940ce66069b4697b05812b89fb5281, type: 2}
+  _changeColor: {fileID: 11400000, guid: dbe8b81b3948541ab9a26201bd234507, type: 2}
+  _teleport: {fileID: 11400000, guid: 3168f810eac48466ca97d320fb6e8d55, type: 2}
   _sfxEventChannel: {fileID: 11400000, guid: 3c9dc540432b44f4b9b1b00d9aaac3ef, type: 2}
   _audioConfig: {fileID: 11400000, guid: c321aceeddede4b95bd8b0265660b292, type: 2}
 --- !u!1 &7023220433509544555
@@ -286,11 +289,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46aa0b9b5795349d1b7d0765fd28ddc1, type: 3}
   m_PrefabInstance: {fileID: 2113458095792349205}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3360200909484079660 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3743993344710040121, guid: 46aa0b9b5795349d1b7d0765fd28ddc1, type: 3}
+  m_PrefabInstance: {fileID: 2113458095792349205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &8854796186724876641 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -1750197354950549132, guid: 46aa0b9b5795349d1b7d0765fd28ddc1, type: 3}
   m_PrefabInstance: {fileID: 2113458095792349205}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4561973502911366823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3360200909484079660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19116786e2da40fa9426521d4685651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: {fileID: 11400000, guid: fe22a7921c37c43e982a8413ad9d84d6, type: 2}
+  _dissolvePlayerGameEvent: {fileID: 11400000, guid: eb47abccdf6e146e2b298430644b6c7e, type: 2}
+  _condensePlayerGameEvent: {fileID: 11400000, guid: 3915c1aaef91b42d380dfa5d771567f1, type: 2}
 --- !u!1001 &2801622395130063460
 PrefabInstance:
   m_ObjectHideFlags: 0

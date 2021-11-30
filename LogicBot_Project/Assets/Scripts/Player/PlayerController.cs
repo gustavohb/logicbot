@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ColorVariable _greenColor;
     [SerializeField] private ColorVariable _pinkColor;
 
+    [SerializeField] private FloatVariable _dissolveDuration;
+    
     [Header("Effects")]
     [SerializeField] private ParticleSystem _changeToDefaultColorEffect;
     [SerializeField] private ParticleSystem _changeToGreenColorEffect;
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
     [SerializeField] private FloatGameEvent _setCommandDurationEvent;
+    [SerializeField] private GameEvent _dissolvePlayerGameEvent;
+    [SerializeField] private GameEvent _condensePlayerGameEvent;
     
     //[HideInInspector]
     public ColorVariable currentColor;
@@ -309,14 +313,19 @@ public class PlayerController : MonoBehaviour
     {
         PlacedTile teleportPlacedTileDestination = _currentPlacedTile.GetTeleportDestination();
         Vector3? teleportPosition = LevelManager.instance.GetCurrentTilePosition(teleportPlacedTileDestination.transform.position);
-        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        //yield return new WaitForSeconds(_currentCommandDuration / 2);
+        _dissolvePlayerGameEvent.Raise();
+        _audio.PlayTeleport();
+        yield return new WaitForSeconds(_dissolveDuration.Value);
         if (teleportPosition.HasValue)
         {
             transform.position = teleportPosition.Value;
             _currentPlacedTile = teleportPlacedTileDestination;
             _currentHeight = _currentPlacedTile.GetHeight();
         }
-        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        _condensePlayerGameEvent.Raise();
+        yield return new WaitForSeconds(_dissolveDuration.Value);
+        //yield return new WaitForSeconds(_currentCommandDuration / 2);
         _currentCallback?.Invoke();
     }
     
