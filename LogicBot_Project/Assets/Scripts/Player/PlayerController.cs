@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour
     private void PlayTurnLightAnimation()
     {
         Debug.LogWarning("Turn light animation is not implemented!");
+        _audio.PlayTurnLightOn();
         //TODO:
     }
     
