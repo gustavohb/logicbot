@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestLevel_06_Solution
   m_EditorClassIdentifier: 
   possibleCommandQtyInMainCommands: 1
-  possibleCommandQtyInProc1Commands: 8
+  possibleCommandQtyInProc1Commands: 4
   possibleCommandQtyInProc2Commands: 0
   mainCommands:
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}

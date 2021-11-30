@@ -12,19 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0026fc0dba945a5a63f0f514cee1eb, type: 3}
   m_Name: TestLevel_07_Solution
   m_EditorClassIdentifier: 
-  possibleCommandQtyInMainCommands: 4
+  possibleCommandQtyInMainCommands: 1
   possibleCommandQtyInProc1Commands: 8
   possibleCommandQtyInProc2Commands: 0
   mainCommands:
-  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
-  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   proc1Commands:
+  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
+  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: 5fbae3a89cfa04dc0b0b89255a1fb3d9, type: 2}
   - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: cb1598f6a7bd645e3814e552b52cad6f, type: 2}
-  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
-  - {fileID: 11400000, guid: 9e75851a29a9c48fa923f41aba0a121e, type: 2}
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   proc2Commands: []
