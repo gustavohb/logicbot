@@ -79,7 +79,7 @@ public class PlacedTile : MonoBehaviour
         {
             _currentHeight = _startHeight;
             _lifterBarTransform.DOScaleY(_currentHeight, 0.01f);
-            _lifterTopTransform.DOMoveY(_currentHeight + 1.0f, 0.01f);
+            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, 0.01f);
         }
     }
 
@@ -198,7 +198,7 @@ public class PlacedTile : MonoBehaviour
                 });
             }
             _lifterBarTransform.DOScaleY(_currentHeight, _lifterMoveDuration.Value);
-            _lifterTopTransform.DOMoveY(_currentHeight + 1.0f, _lifterMoveDuration.Value);
+            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, _lifterMoveDuration.Value);
         }
     }
     
