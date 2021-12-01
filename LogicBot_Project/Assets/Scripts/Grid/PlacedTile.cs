@@ -15,11 +15,14 @@ public class PlacedTile : MonoBehaviour
 
     [Header("Settings")] 
     [SerializeField] private PlacedTileType _type = PlacedTileType.Normal;
-    [SerializeField] private float _height = 0;
+    [SerializeField] private float _startHeight = 0;
 
     [Header("References")]
     [SerializeField] private SpriteRenderer _topSpriteRenderer;
     [SerializeField] private PlacedTile _teleportDestinationTile = null;
+
+    [SerializeField] private Transform _lifterTopTransform;
+    [SerializeField] private Transform _lifterBarTransform;
 
     [Header("Prefabs")] 
     [SerializeField] private CurvedLineRenderer _curvedLineRendererPrefab;
@@ -36,17 +39,20 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private FloatVariable _animationDuration;
     [SerializeField] private FloatVariable _cellSize;
     [SerializeField] private ColorVariable _color;
+    [SerializeField] private FloatVariable _lifterMoveDuration;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
     
     [Header("Runtime Sets")]
     [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
-
+    [SerializeField] private PlayerControllerRuntimeSet _playerControllerRuntimeSet;
+    
     [HideInInspector] public CurvedLineRenderer curvedLineRenderer;
     
     public PlacedTileType type => _type;
 
+    private float _currentHeight;
     private Vector3 _endPosition;
     private Transform _transform;
 
@@ -60,14 +66,26 @@ public class PlacedTile : MonoBehaviour
     private void OnEnable()
     {
         _resetLevelGameEvent.AddListener(TurnLightOff);
+        _resetLevelGameEvent.AddListener(ResetLifterHeight);
         if (_type == PlacedTileType.Light)
         {
             _lightTilesRuntimeSet.AddToList(this);
         }
     }
 
+    private void ResetLifterHeight()
+    {
+        if (_type == PlacedTileType.Lifter)
+        {
+            _currentHeight = _startHeight;
+            _lifterBarTransform.DOScaleY(_currentHeight, 0.01f);
+            _lifterTopTransform.DOMoveY(_currentHeight + 1.0f, 0.01f);
+        }
+    }
+
     private void Start()
     {
+        _currentHeight = _startHeight;
         this.Wait(0.1f, Initialize); // Wait for the level manager to be updated
     }
 
@@ -163,7 +181,27 @@ public class PlacedTile : MonoBehaviour
             _topSpriteRenderer.sprite = _lightOnSprite;
             _lightTilesRuntimeSet.RemoveFromList(this);
         }
+        else if (_type == PlacedTileType.Lifter)
+        {
+            _currentHeight += 1.0f;
+            if (_currentHeight > 2.0f)
+            {
+                _currentHeight = 0;
+            }
+
+            PlayerController playerController = _playerControllerRuntimeSet.GetItemIndex(0);
+            if (playerController != null)
+            {
+                playerController.transform.DOMoveY(_currentHeight + 1.0f, _lifterMoveDuration.Value).OnComplete(() =>
+                {
+                    playerController.SetCurrentHeight(_currentHeight);
+                });
+            }
+            _lifterBarTransform.DOScaleY(_currentHeight, _lifterMoveDuration.Value);
+            _lifterTopTransform.DOMoveY(_currentHeight + 1.0f, _lifterMoveDuration.Value);
+        }
     }
+    
     
     
     public void TurnLightOff()
@@ -177,23 +215,24 @@ public class PlacedTile : MonoBehaviour
     
     public float GetHeight()
     {
-        return _height;
+        return _startHeight;
     }
 
     private void OnDisable()
     {
         _lightTilesRuntimeSet.RemoveFromList(this);
         _resetLevelGameEvent.RemoveListener(TurnLightOff);
+        _resetLevelGameEvent.RemoveListener(ResetLifterHeight);
     }
 
     public Vector3 GetTileTopCenterWorldPosition()
     {
-        return new Vector3(transform.position.x + (_cellSize.Value / 2), _height + 1, transform.position.z + (_cellSize.Value / 2));
+        return new Vector3(transform.position.x + (_cellSize.Value / 2), _startHeight + 1, transform.position.z + (_cellSize.Value / 2));
     }
 
     public Vector3 GetTileTopCenterLocalPosition()
     {
-        return new Vector3((_cellSize.Value / 2), _height + 1, (_cellSize.Value / 2));
+        return new Vector3((_cellSize.Value / 2), _startHeight + 1, (_cellSize.Value / 2));
     }
     
     public override string ToString()

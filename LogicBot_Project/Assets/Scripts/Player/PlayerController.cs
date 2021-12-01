@@ -282,6 +282,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Cannot jump, current height = " + _currentHeight + ", tile height = " + tileHeight);
         }
     }
+
+    public void SetCurrentHeight(float height)
+    {
+        _currentHeight = height;
+    }
     
     public void TurnLightOn(Action callback = null)
     {
