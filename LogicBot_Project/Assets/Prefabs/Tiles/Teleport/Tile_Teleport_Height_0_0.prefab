@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: _type
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2248853364395507913, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
+      propertyPath: _curvedLineRendererPrefab
+      value: 
+      objectReference: {fileID: 4786082481362385473, guid: ad6f3012ae68e44938e51718ef88551e, type: 3}
     - target: {fileID: 2248853364395507914, guid: a9114e741f3314a8ead04403a48c9d88, type: 3}
       propertyPath: m_Icon
       value: 

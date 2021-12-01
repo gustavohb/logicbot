@@ -7,15 +7,21 @@ public class CurvedLineRenderer : MonoBehaviour
 	[Header("Settings")]
 	[SerializeField] private float _lineSegmentSize = 0.15f;
 	[SerializeField] private float _lineWidth = 0.1f;
+	[SerializeField] private bool _testMode = false;
+	[SerializeField] private float _glowLineWidth = .5f;
+	
+	[Header("References")]
+	[SerializeField] private LineRenderer _lineRenderer;
+	[SerializeField] private LineRenderer _glowLineRenderer;
 	
 	[Header("Gizmos")]
 	[SerializeField] private bool _showGizmos = true;
 	[SerializeField] private float _gizmoSize = 0.1f;
 	[SerializeField] private Color _gizmoColor = new Color(1,0,0,0.5f);
 	
-	private CurvedLinePoint _startPoint;
-	private CurvedLinePoint _middlePoint;
-	private CurvedLinePoint _endPoint;
+	[SerializeField] private CurvedLinePoint _startPoint;
+	[SerializeField] private CurvedLinePoint _middlePoint;
+	[SerializeField] private CurvedLinePoint _endPoint;
 
 	private Vector3 _startLinePosition;
 	private Vector3 _middleLinePosition;
@@ -25,13 +31,14 @@ public class CurvedLineRenderer : MonoBehaviour
 	private Vector3 _middleLinePositionOld;
 	private Vector3 _endLinePositionOld;
 
-	private LineRenderer _lineRenderer;
+	
+
 	private void Awake()
 	{
 		_lineRenderer = GetComponent<LineRenderer>();
 	}
 
-	public void Update () 
+	public void Update() 
 	{
 		GetPoints();
 		SetPointsToLine();
@@ -123,7 +130,7 @@ public class CurvedLineRenderer : MonoBehaviour
 		
 
 		//update if moved
-		if(moved)
+		if(moved || _testMode)
 		{
 			List<Vector3> linePositions = new List<Vector3>()
 			{
@@ -136,14 +143,24 @@ public class CurvedLineRenderer : MonoBehaviour
 			Vector3[] smoothedPoints = LineSmoother.SmoothLine(linePositions, _lineSegmentSize);
 
 			//set line settings
-			_lineRenderer.SetVertexCount(smoothedPoints.Length);
+			_lineRenderer.positionCount = smoothedPoints.Length;
 			_lineRenderer.SetPositions(smoothedPoints);
-			_lineRenderer.SetWidth(_lineWidth, _lineWidth);
+
+			if (_glowLineRenderer != null)
+			{
+				_glowLineRenderer.positionCount = smoothedPoints.Length;
+				_glowLineRenderer.SetPositions(smoothedPoints);
+				//_glowLineRenderer.startWidth = _glowLineWidth;
+				//_glowLineRenderer.endWidth = _glowLineWidth;
+			}
+
+			_lineRenderer.startWidth = _lineWidth;
+			_lineRenderer.endWidth = _lineWidth;
 		}
 	}
 
 	private void OnDrawGizmosSelected()
 	{
-		//Update();
+		Update();
 	}
 }
