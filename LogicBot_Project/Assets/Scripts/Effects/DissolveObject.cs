@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class DissolveObject : MonoBehaviour
 {
-    [SerializeField] private FloatVariable _duration;
+    [SerializeField] private FloatVariable _currentCommandDuration;
 
     [SerializeField] private GameEvent _dissolvePlayerGameEvent;
     [SerializeField] private GameEvent _condensePlayerGameEvent;
@@ -41,13 +41,13 @@ public class DissolveObject : MonoBehaviour
     private void Dissolve()
     {
         float to = _maxDissolveValue;
-        DOTween.To(() => _currentDissolveValue, x => _currentDissolveValue = x, to, _duration.Value);
+        DOTween.To(() => _currentDissolveValue, x => _currentDissolveValue = x, to, _currentCommandDuration.Value / 2);
     }
 
     private void Condense()
     {
         float to = _minDissolveValue;
-        DOTween.To(() => _currentDissolveValue, x => _currentDissolveValue = x, to, _duration.Value);
+        DOTween.To(() => _currentDissolveValue, x => _currentDissolveValue = x, to, _currentCommandDuration.Value / 2);
     }
 
     private void SetDissolveValue(float dissolveValue)

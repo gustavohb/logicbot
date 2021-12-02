@@ -39,7 +39,8 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private FloatVariable _animationDuration;
     [SerializeField] private FloatVariable _cellSize;
     [SerializeField] private ColorVariable _color;
-    [SerializeField] private FloatVariable _lifterMoveDuration;
+    //[SerializeField] private FloatVariable _lifterMoveDuration;
+    [SerializeField] private FloatVariable _currentCommandDuration;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
@@ -80,8 +81,8 @@ public class PlacedTile : MonoBehaviour
         if (_type == PlacedTileType.Lifter)
         {
             _currentHeight = _startHeight;
-            _lifterBarTransform.DOScaleY(_currentHeight, 0.2f);
-            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, 0.2f);
+            _lifterBarTransform.DOScaleY(_currentHeight, _currentCommandDuration.Value);
+            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, _currentCommandDuration.Value);
         }
     }
 
@@ -194,13 +195,13 @@ public class PlacedTile : MonoBehaviour
             PlayerController playerController = _playerControllerRuntimeSet.GetItemIndex(0);
             if (playerController != null)
             {
-                playerController.transform.DOMoveY(_currentHeight + 1.0f, _lifterMoveDuration.Value).OnComplete(() =>
+                playerController.transform.DOMoveY(_currentHeight + 1.0f, _currentCommandDuration.Value / 2).OnComplete(() =>
                 {
                     playerController.SetCurrentHeight(_currentHeight);
                 });
             }
-            _lifterBarTransform.DOScaleY(_currentHeight, _lifterMoveDuration.Value);
-            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, _lifterMoveDuration.Value);
+            _lifterBarTransform.DOScaleY(_currentHeight, _currentCommandDuration.Value /  2);
+            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, _currentCommandDuration.Value / 2);
         }
     }
     

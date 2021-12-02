@@ -12,6 +12,7 @@ public class SpeedButtonUI : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private FloatVariable _fastSpeedCommandExecutionDuration;
     [SerializeField] private FloatVariable _normalSpeedCommandExecutionDuration;
+    [SerializeField] private FloatVariable _currentCommandDuration;
     [SerializeField] private BoolVariable _isFastModeEnabled;
     
     [Header("Events")]
@@ -39,10 +40,15 @@ public class SpeedButtonUI : MonoBehaviour
     {
         _isFastModeEnabled.Value = !_isFastModeEnabled.Value;
 
+        _currentCommandDuration.Value = _isFastModeEnabled.Value
+            ? _fastSpeedCommandExecutionDuration.Value
+            : _normalSpeedCommandExecutionDuration.Value;
+        
+        /*
         _setCommandDurationEvent.Raise(_isFastModeEnabled.Value
             ? _fastSpeedCommandExecutionDuration.Value
             : _normalSpeedCommandExecutionDuration.Value);
-
+        */
         UpdateUI();
     }
 

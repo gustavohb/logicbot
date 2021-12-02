@@ -67,8 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a944baa0180245949e1992cf7c8c65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalSpeedCommandExecutionDuration: {fileID: 11400000, guid: 615c0dd0fcec34ceebbd5c25661a9798, type: 2}
-  _fastSpeedCommandExecutionDuration: {fileID: 11400000, guid: 65b566f478acf47c799c978e7b7205b0, type: 2}
+  _currentCommandDuration: {fileID: 11400000, guid: 609e8efef3fbe4daf8fdf31e842f05d8, type: 2}
   _isFastModeEnabled: {fileID: 11400000, guid: 530b27fab08504bbf9377837be4fe0b4, type: 2}
   _jumpPower: 0.7
   _normalAnimatorJumpSpeed: 2
@@ -80,7 +79,6 @@ MonoBehaviour:
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
   _pinkColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
-  _dissolveDuration: {fileID: 11400000, guid: fe22a7921c37c43e982a8413ad9d84d6, type: 2}
   _changeToDefaultColorEffect: {fileID: 4258450243717043135}
   _changeToGreenColorEffect: {fileID: 1535461829209538464}
   _changeToPinkColorEffect: {fileID: 1075135818757357150}
@@ -88,7 +86,6 @@ MonoBehaviour:
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _reloadLevelGameEvent: {fileID: 11400000, guid: 2cf8951ae67114e1c91735ba0d0ed229, type: 2}
   _setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
-  _setCommandDurationEvent: {fileID: 11400000, guid: b2a28c72c8d194e9ea9b6fcf832fbb04, type: 2}
   _dissolvePlayerGameEvent: {fileID: 11400000, guid: eb47abccdf6e146e2b298430644b6c7e, type: 2}
   _condensePlayerGameEvent: {fileID: 11400000, guid: 3915c1aaef91b42d380dfa5d771567f1, type: 2}
   _resetLifterTileHeightGameEvent: {fileID: 11400000, guid: 85d35ad3bc947422d8b59cf1ba8688c7, type: 2}
@@ -313,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19116786e2da40fa9426521d4685651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: {fileID: 11400000, guid: fe22a7921c37c43e982a8413ad9d84d6, type: 2}
+  _currentCommandDuration: {fileID: 11400000, guid: 609e8efef3fbe4daf8fdf31e842f05d8, type: 2}
   _dissolvePlayerGameEvent: {fileID: 11400000, guid: eb47abccdf6e146e2b298430644b6c7e, type: 2}
   _condensePlayerGameEvent: {fileID: 11400000, guid: 3915c1aaef91b42d380dfa5d771567f1, type: 2}
 --- !u!1001 &2801622395130063460

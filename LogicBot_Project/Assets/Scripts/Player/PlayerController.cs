@@ -15,9 +15,8 @@ public class PlayerController : MonoBehaviour
         Up,
     }
 
-    [Header("Settings/Variables")] 
-    [SerializeField] private FloatVariable _normalSpeedCommandExecutionDuration;
-    [SerializeField] private FloatVariable _fastSpeedCommandExecutionDuration;
+    [Header("Settings/Variables")]
+    [SerializeField] private FloatVariable _currentCommandDuration;
     [SerializeField] private BoolVariable _isFastModeEnabled;
     [SerializeField] private float _jumpPower = 0.7f;
 
@@ -33,8 +32,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ColorVariable _defaultColor;
     [SerializeField] private ColorVariable _greenColor;
     [SerializeField] private ColorVariable _pinkColor;
-
-    [SerializeField] private FloatVariable _dissolveDuration;
     
     [Header("Effects")]
     [SerializeField] private ParticleSystem _changeToDefaultColorEffect;
@@ -48,7 +45,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent _reloadLevelGameEvent;
     [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
-    [SerializeField] private FloatGameEvent _setCommandDurationEvent;
     [SerializeField] private GameEvent _dissolvePlayerGameEvent;
     [SerializeField] private GameEvent _condensePlayerGameEvent;
     [SerializeField] private GameEvent _resetLifterTileHeightGameEvent;
@@ -61,7 +57,6 @@ public class PlayerController : MonoBehaviour
     private Dir _startDir;
     private Dir _currentDir;
     private float _startHeight = 0;
-    private Vector3 _startPosition;
     private Vector3 _startLocalPosition;
     private Quaternion _startRotation;
     private float _currentHeight;
@@ -76,8 +71,6 @@ public class PlayerController : MonoBehaviour
     private ColorVariable _currentTileColor;
     private ProtagonistAudio _audio;
 
-    private float _currentCommandDuration;
-    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -90,17 +83,7 @@ public class PlayerController : MonoBehaviour
         _resetLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _reloadLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
-        _setCommandDurationEvent.AddListener(SetCommandDuration);
         SetPlayerColor(_defaultColor);
-
-        if (_isFastModeEnabled.Value)
-        {
-            SetCommandDuration(_fastSpeedCommandExecutionDuration.Value);
-        }
-        else
-        {
-            SetCommandDuration(_normalSpeedCommandExecutionDuration.Value);
-        }
     }
 
     private void SetPlayerColor(ColorVariable color)
@@ -109,22 +92,12 @@ public class PlayerController : MonoBehaviour
         _renderer.material.color = currentColor.Value;
     }
 
-    private void SetCommandDuration(float duration)
-    {
-        _currentCommandDuration = duration;
-    }
-    
     public void SetStartDir(Dir dir)
     {
         _startDir = dir;
         _currentDir = _startDir;
         _startRotation = CalculateRotationFromDir(_startDir);
         transform.rotation = _startRotation;
-    }
-
-    public void SetStartPosition(Vector3 startPosition)
-    {
-        _startPosition = startPosition;
     }
 
     public void SetStartLocalPosition(Vector3 position)
@@ -157,7 +130,7 @@ public class PlayerController : MonoBehaviour
     // Used to show current program execution
     public void DummyExecution(Action callback = null)
     {
-        this.Wait(_currentCommandDuration, () => callback?.Invoke());
+        this.Wait(_currentCommandDuration.Value, () => callback?.Invoke());
     }
     
     public void MoveForward(Action callback = null)
@@ -169,11 +142,11 @@ public class PlayerController : MonoBehaviour
         float tileHeight = endPosition.y - 1;
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration.Value + 0.1f);
         if (_currentHeight == tileHeight)
         {
             
-            transform.DOMove(endPosition, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(() =>
+            transform.DOMove(endPosition, _currentCommandDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _isWalking = false;
                 _animator.SetBool("isWalking", _isWalking);
@@ -218,11 +191,11 @@ public class PlayerController : MonoBehaviour
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration.Value + 0.1f);
         
         _currentDir = GetNextDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
+        transform.DORotate(currentRotation + new Vector3(0, 90, 0), _currentCommandDuration.Value).SetEase(Ease.Linear).OnComplete(
             () =>
             {
                 callback?.Invoke();
@@ -235,11 +208,11 @@ public class PlayerController : MonoBehaviour
         
         CancelInvoke();
         PlayWalkingAnimation();
-        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration + 0.1f);
+        Invoke(nameof(StopWalkingAnimation), _currentCommandDuration.Value + 0.1f);
         
         _currentDir = GetPreviousDir(_currentDir);
         Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
+        transform.DORotate(currentRotation + new Vector3(0, -90, 0), _currentCommandDuration.Value).SetEase(Ease.Linear).OnComplete(
             () =>
             {
                 callback?.Invoke();
@@ -250,7 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         StopAllCoroutines();
 
-        this.Wait(_currentCommandDuration, () =>
+        this.Wait(_currentCommandDuration.Value, () =>
         {
             _transform.localPosition = _startLocalPosition;
             _transform.rotation = _startRotation;
@@ -280,7 +253,7 @@ public class PlayerController : MonoBehaviour
         if ((tileHeight != _currentHeight) && (Mathf.Abs(tileHeight - _currentHeight) <= 0.5f) 
             || tileHeight < _currentHeight)
         {
-            _transform.DOJump(endPosition, _jumpPower, 1, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(() =>
+            _transform.DOJump(endPosition, _jumpPower, 1, _currentCommandDuration.Value).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _currentHeight = tileHeight;
                 _currentCallback?.Invoke();
@@ -288,7 +261,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _transform.DOJump(transform.position, _jumpPower, 1, _currentCommandDuration).SetEase(Ease.Linear).OnComplete(
+            _transform.DOJump(transform.position, _jumpPower, 1, _currentCommandDuration.Value).SetEase(Ease.Linear).OnComplete(
                 () =>
                 {
                     _currentCallback?.Invoke();
@@ -333,10 +306,10 @@ public class PlayerController : MonoBehaviour
     {
         PlacedTile teleportPlacedTileDestination = _currentPlacedTile.GetTeleportDestination();
         Vector3? teleportPosition = LevelManager.instance.GetCurrentTilePosition(teleportPlacedTileDestination.transform.position);
-        //yield return new WaitForSeconds(_currentCommandDuration / 2);
+
         _dissolvePlayerGameEvent.Raise();
         _audio.PlayTeleport();
-        yield return new WaitForSeconds(_dissolveDuration.Value);
+        yield return new WaitForSeconds(_currentCommandDuration.Value / 2);
         if (teleportPosition.HasValue)
         {
             transform.position = teleportPosition.Value;
@@ -344,14 +317,13 @@ public class PlayerController : MonoBehaviour
             _currentHeight = _currentPlacedTile.GetHeight();
         }
         _condensePlayerGameEvent.Raise();
-        yield return new WaitForSeconds(_dissolveDuration.Value);
-        //yield return new WaitForSeconds(_currentCommandDuration / 2);
+        yield return new WaitForSeconds(_currentCommandDuration.Value / 2);
         _currentCallback?.Invoke();
     }
     
     private IEnumerator ChangePlayerColorRoutine()
     {
-        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        yield return new WaitForSeconds(_currentCommandDuration.Value / 2);
         PlayChangeColorAnimation();
 
         if (_audio != null)
@@ -377,11 +349,11 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        yield return new WaitForSeconds(_currentCommandDuration / 2);
+        yield return new WaitForSeconds(_currentCommandDuration.Value / 2);
         
         _setCurrentPlayerColorGameEvent.Raise(currentColor);
         
-        yield return new WaitForSeconds(_currentCommandDuration);
+        yield return new WaitForSeconds(_currentCommandDuration.Value);
         _currentCallback?.Invoke();
     }
 
@@ -393,7 +365,7 @@ public class PlayerController : MonoBehaviour
         {
             _currentPlacedTile.TurnLightOn();
         }
-        yield return new WaitForSeconds(_currentCommandDuration);
+        yield return new WaitForSeconds(_currentCommandDuration.Value);
         _currentCallback?.Invoke();
     }
     
@@ -434,6 +406,5 @@ public class PlayerController : MonoBehaviour
         _resetLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
         _reloadLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.RemoveListener(SetPlayerColor);
-        _setCommandDurationEvent.RemoveListener(SetCommandDuration);
     }
 }

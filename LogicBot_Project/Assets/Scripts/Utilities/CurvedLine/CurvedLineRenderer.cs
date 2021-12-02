@@ -8,8 +8,7 @@ public class CurvedLineRenderer : MonoBehaviour
 	[SerializeField] private float _lineSegmentSize = 0.15f;
 	[SerializeField] private float _lineWidth = 0.1f;
 	[SerializeField] private bool _testMode = false;
-	[SerializeField] private float _glowLineWidth = .5f;
-	
+
 	[Header("References")]
 	[SerializeField] private LineRenderer _lineRenderer;
 	[SerializeField] private LineRenderer _glowLineRenderer;
@@ -30,8 +29,6 @@ public class CurvedLineRenderer : MonoBehaviour
 	private Vector3 _startLinePositionOld;
 	private Vector3 _middleLinePositionOld;
 	private Vector3 _endLinePositionOld;
-
-	
 
 	private void Awake()
 	{
@@ -122,7 +119,7 @@ public class CurvedLineRenderer : MonoBehaviour
 			moved = true;
 		}
 		
-		if (_endLinePositionOld != _endLinePositionOld)
+		if (_endLinePosition != _endLinePositionOld)
 		{
 			_endLinePositionOld = _endLinePosition;
 			moved = true;
@@ -150,8 +147,6 @@ public class CurvedLineRenderer : MonoBehaviour
 			{
 				_glowLineRenderer.positionCount = smoothedPoints.Length;
 				_glowLineRenderer.SetPositions(smoothedPoints);
-				//_glowLineRenderer.startWidth = _glowLineWidth;
-				//_glowLineRenderer.endWidth = _glowLineWidth;
 			}
 
 			_lineRenderer.startWidth = _lineWidth;

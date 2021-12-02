@@ -2341,6 +2341,7 @@ MonoBehaviour:
   _fastSpeedIcon: {fileID: 124392546}
   _fastSpeedCommandExecutionDuration: {fileID: 11400000, guid: 65b566f478acf47c799c978e7b7205b0, type: 2}
   _normalSpeedCommandExecutionDuration: {fileID: 11400000, guid: 615c0dd0fcec34ceebbd5c25661a9798, type: 2}
+  _currentCommandDuration: {fileID: 11400000, guid: 609e8efef3fbe4daf8fdf31e842f05d8, type: 2}
   _isFastModeEnabled: {fileID: 11400000, guid: 530b27fab08504bbf9377837be4fe0b4, type: 2}
   _setCommandDurationEvent: {fileID: 11400000, guid: b2a28c72c8d194e9ea9b6fcf832fbb04, type: 2}
 --- !u!114 &478209119
