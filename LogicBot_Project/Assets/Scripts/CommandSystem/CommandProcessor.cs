@@ -15,7 +15,6 @@ public class CommandProcessor : Singleton<CommandProcessor>
     [SerializeField] private GameEvent _resetLevelGameEvent;
     [SerializeField] private GameEvent _onFinishedExecutionGameEvent;
     
-    
     private void OnEnable()
     {
         ClearAllCommands();

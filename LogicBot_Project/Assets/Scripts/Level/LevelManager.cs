@@ -105,16 +105,6 @@ public class LevelManager : Singleton<LevelManager>
         CheckIfLevelIsCompleted();
     }
 
-    private void Start()
-    {
-        /*
-        this.Wait(1f, RaiseSetCurrentLevelDataGameEvent);
-        _isLevelCompleted.Value = false;
-        _currentLevelIndex.Value = 0; // Just for test
-        _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
-        */
-    }
-
     private void RaiseSetCurrentLevelDataGameEvent()
     {
         _setCurrentLevelDataGameEvent.Raise(_currentLevelData);
@@ -122,10 +112,12 @@ public class LevelManager : Singleton<LevelManager>
     
     private void ReloadLevel()
     {
-        if (_isLoadingLevel.Value)
+        if (_isLoadingLevel.Value || !_stopped.Value)
         {
             return;
         }
+        
+        _stopped.Value = true;
         _resetLevelGameEvent.Raise();
         _isLoadingLevel.Value = true;
         ShowGrid();
@@ -405,7 +397,8 @@ public class LevelManager : Singleton<LevelManager>
             
             PlayerController playerController = _playerTransform.GetComponent<PlayerController>();
             playerController.SetStartDir(_playerStartDir);
-            playerController.SetStartPosition(_playerStartTile.GetTileTopCenterWorldPosition());
+            playerController.SetStartLocalPosition(_playerStartTile.GetTileTopCenterLocalPosition());
+            //playerController.SetStartPosition(_playerStartTile.GetTileTopCenterWorldPosition());
             playerController.SetStartHeight(_playerStartTile.GetHeight());
         }
     }

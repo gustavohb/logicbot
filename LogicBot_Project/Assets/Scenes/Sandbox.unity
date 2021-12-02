@@ -485,7 +485,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 167.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 167.4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &110887729
@@ -1951,7 +1951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 167.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 167.4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &388163658
@@ -5090,7 +5090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 185, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &974909118
@@ -5619,7 +5619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 167.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 167.4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1033932751
@@ -5859,7 +5859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 185, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1053073542
@@ -8908,7 +8908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 185, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 335, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1587247985
@@ -10817,10 +10817,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1846487711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36569949c44ab4ad8928df1f2faef685, type: 3}
+  m_Script: {fileID: 11500000, guid: 35f97a11db8a74da0a7c54dab12cd69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 2cf8951ae67114e1c91735ba0d0ed229, type: 2}
+  _stopped: {fileID: 11400000, guid: 010009554fe5344aeb388d022a950c67, type: 2}
+  _reloadLevelGameEvent: {fileID: 11400000, guid: 2cf8951ae67114e1c91735ba0d0ed229, type: 2}
 --- !u!1 &1886548181
 GameObject:
   m_ObjectHideFlags: 0

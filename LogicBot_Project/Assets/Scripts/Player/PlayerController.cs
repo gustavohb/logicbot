@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
+    [SerializeField] private GameEvent _reloadLevelGameEvent;
     [SerializeField] private ColorVariableGameEvent _setCurrentPlayerColorGameEvent;
     [SerializeField] private FloatGameEvent _setCommandDurationEvent;
     [SerializeField] private GameEvent _dissolvePlayerGameEvent;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     private Dir _currentDir;
     private float _startHeight = 0;
     private Vector3 _startPosition;
+    private Vector3 _startLocalPosition;
     private Quaternion _startRotation;
     private float _currentHeight;
     private Transform _transform;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _resetLevelGameEvent.AddListener(ResetPositionRotationAndColor);
+        _reloadLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
         _setCommandDurationEvent.AddListener(SetCommandDuration);
         SetPlayerColor(_defaultColor);
@@ -123,6 +126,11 @@ public class PlayerController : MonoBehaviour
         _startPosition = startPosition;
     }
 
+    public void SetStartLocalPosition(Vector3 position)
+    {
+        _startLocalPosition = position;
+    }
+    
     public void SetStartHeight(float height)
     {
         _startHeight = height;
@@ -239,12 +247,19 @@ public class PlayerController : MonoBehaviour
 
     public void ResetPositionRotationAndColor()
     {
-        _transform.position = _startPosition;
-        _transform.rotation = _startRotation;
-        _currentDir = _startDir;
-        _currentHeight = _startHeight;
-        currentColor = _defaultColor;
-        _setCurrentPlayerColorGameEvent.Raise(currentColor);
+        StopAllCoroutines();
+
+        this.Wait(_currentCommandDuration, () =>
+        {
+            _transform.localPosition = _startLocalPosition;
+            _transform.rotation = _startRotation;
+            _currentDir = _startDir;
+            _currentHeight = _startHeight;
+            currentColor = _defaultColor;
+            _setCurrentPlayerColorGameEvent.Raise(currentColor);
+        });
+        
+        //_transform.position = _startPosition;
     }
 
     public void Jump(Action callback = null)
@@ -417,6 +432,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         _resetLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
+        _reloadLevelGameEvent.RemoveListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.RemoveListener(SetPlayerColor);
         _setCommandDurationEvent.RemoveListener(SetCommandDuration);
     }
