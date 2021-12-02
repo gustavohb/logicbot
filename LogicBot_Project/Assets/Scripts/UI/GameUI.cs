@@ -183,6 +183,7 @@ public class GameUI : Singleton<GameUI>
     public void StopExecution()
     {
         _stopped.Value = true;
+        _resetLevelGameEvent.Raise();
         ShowPlayButton();
     }
 
