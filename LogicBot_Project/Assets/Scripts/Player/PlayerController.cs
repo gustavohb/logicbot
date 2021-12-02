@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FloatGameEvent _setCommandDurationEvent;
     [SerializeField] private GameEvent _dissolvePlayerGameEvent;
     [SerializeField] private GameEvent _condensePlayerGameEvent;
+    [SerializeField] private GameEvent _resetLifterTileHeightGameEvent;
     
     //[HideInInspector]
     public ColorVariable currentColor;
@@ -257,9 +258,8 @@ public class PlayerController : MonoBehaviour
             _currentHeight = _startHeight;
             currentColor = _defaultColor;
             _setCurrentPlayerColorGameEvent.Raise(currentColor);
+            _resetLifterTileHeightGameEvent.Raise(); // Temporary
         });
-        
-        //_transform.position = _startPosition;
     }
 
     public void Jump(Action callback = null)

@@ -43,6 +43,7 @@ public class PlacedTile : MonoBehaviour
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
+    [SerializeField] private GameEvent _resetLifterTileHeightGameEvent;
     
     [Header("Runtime Sets")]
     [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
@@ -66,7 +67,8 @@ public class PlacedTile : MonoBehaviour
     private void OnEnable()
     {
         _resetLevelGameEvent.AddListener(TurnLightOff);
-        _resetLevelGameEvent.AddListener(ResetLifterHeight);
+        //_resetLevelGameEvent.AddListener(ResetLifterHeight);
+        _resetLifterTileHeightGameEvent.AddListener(ResetLifterHeight);
         if (_type == PlacedTileType.Light)
         {
             _lightTilesRuntimeSet.AddToList(this);
@@ -78,8 +80,8 @@ public class PlacedTile : MonoBehaviour
         if (_type == PlacedTileType.Lifter)
         {
             _currentHeight = _startHeight;
-            _lifterBarTransform.DOScaleY(_currentHeight, 0.01f);
-            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, 0.01f);
+            _lifterBarTransform.DOScaleY(_currentHeight, 0.2f);
+            _lifterTopTransform.DOLocalMoveY(_currentHeight + 0.5f, 0.2f);
         }
     }
 
@@ -222,7 +224,8 @@ public class PlacedTile : MonoBehaviour
     {
         _lightTilesRuntimeSet.RemoveFromList(this);
         _resetLevelGameEvent.RemoveListener(TurnLightOff);
-        _resetLevelGameEvent.RemoveListener(ResetLifterHeight);
+        //_resetLevelGameEvent.RemoveListener(ResetLifterHeight);
+        _resetLifterTileHeightGameEvent.RemoveListener(ResetLifterHeight);
     }
 
     public Vector3 GetTileTopCenterWorldPosition()

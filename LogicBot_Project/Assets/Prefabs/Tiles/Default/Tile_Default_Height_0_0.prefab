@@ -229,6 +229,7 @@ MonoBehaviour:
   _color: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _lifterMoveDuration: {fileID: 11400000, guid: 03a6374af448843ff8ea707d3c37216a, type: 2}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
+  _resetLifterTileHeightGameEvent: {fileID: 11400000, guid: 85d35ad3bc947422d8b59cf1ba8688c7, type: 2}
   _lightTilesRuntimeSet: {fileID: 11400000, guid: f8ad41a7ff15d4d6a9c9cebaab50634c, type: 2}
   _playerControllerRuntimeSet: {fileID: 11400000, guid: d0b026023f250459ab65f865a9c8d498, type: 2}
   curvedLineRenderer: {fileID: 0}

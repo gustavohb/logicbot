@@ -91,6 +91,7 @@ MonoBehaviour:
   _setCommandDurationEvent: {fileID: 11400000, guid: b2a28c72c8d194e9ea9b6fcf832fbb04, type: 2}
   _dissolvePlayerGameEvent: {fileID: 11400000, guid: eb47abccdf6e146e2b298430644b6c7e, type: 2}
   _condensePlayerGameEvent: {fileID: 11400000, guid: 3915c1aaef91b42d380dfa5d771567f1, type: 2}
+  _resetLifterTileHeightGameEvent: {fileID: 11400000, guid: 85d35ad3bc947422d8b59cf1ba8688c7, type: 2}
   currentColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
 --- !u!114 &29580650731182283
 MonoBehaviour:
