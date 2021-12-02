@@ -73,6 +73,12 @@ public class LevelManager : Singleton<LevelManager>
         _currentLevelIndex.Value = -1;
     }
 
+    private void Start()
+    {
+        _stopped.Value = false;
+        _stopped.Raise();
+    }
+
     private void SetCurrentLevelData(LevelDataSO levelData)
     {
         _currentLevelData = levelData;
@@ -116,7 +122,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             return;
         }
-        
+
         _stopped.Value = true;
         _resetLevelGameEvent.Raise();
         _isLoadingLevel.Value = true;
@@ -240,6 +246,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             _isShowingTiles.Value = false;
             _isLoadingLevel.Value = false;
+            _stopped.Value = true;
         });
     }
 
