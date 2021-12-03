@@ -74,8 +74,8 @@ MonoBehaviour:
   _fastAnimatorJumpSpeed: 4
   _normalAnimatorWalkingSpeed: 2
   _fastAnimatorWalkingSpeed: 4
-  _normalAnimatorTurnSpeed: 2
-  _fastAnimatorTurnSpeed: 4
+  _normalAnimatorTurnSpeed: 1.5
+  _fastAnimatorTurnSpeed: 3
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
   _pinkColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
@@ -209,6 +209,22 @@ PrefabInstance:
     - target: {fileID: 4027061475671472916, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
       propertyPath: m_Name
       value: P_ChangePinkColor_AuraEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421784, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421788, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421790, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451113674092672335, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a92b9f07ca77f4ba7944770a64cf4805, type: 3}
@@ -367,6 +383,22 @@ PrefabInstance:
     - target: {fileID: 4027061475671472916, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}
       propertyPath: m_Name
       value: P_ChangeDefaultColor_AuraEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421784, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421788, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027061475689421790, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451113674092672335, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00ae1b0592e274c8db9abdb8f9126bd9, type: 3}

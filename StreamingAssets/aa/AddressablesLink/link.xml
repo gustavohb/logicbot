@@ -1,0 +1,40 @@
+<linker>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.LineRenderer" preserve="all" />
+    <type fullname="UnityEngine.SpriteRenderer" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+  </assembly>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="PlacedTile" preserve="all" />
+    <type fullname="PlacedTileRuntimeSet" preserve="all" />
+    <type fullname="GlowLine" preserve="all" />
+    <type fullname="AddPlacedTileToRuntimeSet" preserve="all" />
+    <type fullname="LevelTiles" preserve="all" />
+    <type fullname="PlayerControllerRuntimeSet" preserve="all" />
+    <type fullname="CurvedLineRenderer" preserve="all" />
+    <type fullname="CurvedLinePoint" preserve="all" />
+  </assembly>
+  <assembly fullname="ScriptableObject-Architecture, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="ScriptableObjectArchitecture.FloatVariable" preserve="all" />
+    <type fullname="ScriptableObjectArchitecture.ColorVariable" preserve="all" />
+    <type fullname="ScriptableObjectArchitecture.GameEvent" preserve="all" />
+  </assembly>
+</linker>
