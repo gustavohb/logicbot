@@ -218,7 +218,7 @@ public class PlacedTile : MonoBehaviour
     
     public float GetHeight()
     {
-        return _startHeight;
+        return _currentHeight;
     }
 
     private void OnDisable()
