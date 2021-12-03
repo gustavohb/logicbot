@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using ScriptableObjectArchitecture;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -10,7 +12,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private FloatVariable _cellSize;
     [SerializeField] private Transform _gridOriginTransform;
     [SerializeField] private bool _showDebugLines = true;
-    
+
     [Header("References")]
     [SerializeField] private PlacedTileRuntimeSet _placedTileRuntimeSet;
     [SerializeField] private PlacedTileRuntimeSet _lightTilesRuntimeSet;
@@ -52,6 +54,10 @@ public class LevelManager : Singleton<LevelManager>
 
     private LevelTiles _currentLevelTiles;
     
+    private AsyncOperationHandle<GameObject> _asyncOperationHandle;
+
+    private AssetReference _currentLevelTilesLoadedReference;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -84,7 +90,7 @@ public class LevelManager : Singleton<LevelManager>
         _currentLevelData = levelData;
         _playerStartDir = levelData.playerStartDir; //TODO: Move to appropriated place
         this.Wait(1f, InstantiateLevelTiles); //TODO: Move to appropriated place
-        this.Wait(1.5f, ShowGrid); //TODO: Move to appropriated place
+        //this.Wait(1.5f, ShowGrid); //TODO: Move to appropriated place
     }
 
     private void CheckIfLevelIsCompleted()
@@ -156,12 +162,11 @@ public class LevelManager : Singleton<LevelManager>
             {
                 _currentLevelData = _levelRepository.levelList[_currentLevelIndex.Value];
                 RaiseSetCurrentLevelDataGameEvent();
-                ShowGrid();
+                //ShowGrid();
             }
         });
     }
-
-
+    
     public void ShowGrid()
     {
         if (_isShowingTiles.Value || _isHidingTiles.Value)
@@ -319,7 +324,6 @@ public class LevelManager : Singleton<LevelManager>
                 currentPlacedTile = _grid[row, col].GetPlacedTile();
                 if (currentPlacedTile != null)
                 {
-                    //currentPlacedTile.ShowTile(delayFactor * row * col);
                     currentPlacedTile.HideTile(delayFactor * row * col);
                 }
                 if (col == n - 1)
@@ -365,8 +369,8 @@ public class LevelManager : Singleton<LevelManager>
         
         this.Wait(delayFactor * m * n, () =>
         {
-            callback?.Invoke();
             _isHidingTiles.Value = false;
+            callback?.Invoke();
         });
     }
 
@@ -375,25 +379,63 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (_currentLevelTiles != null)
         {
-            Destroy(_currentLevelTiles.gameObject);
+            Addressables.ReleaseInstance(_currentLevelTiles.gameObject);
             _currentLevelTiles = null;
         }
 
+        if (_asyncOperationHandle.IsValid())
+        {
+            Addressables.Release(_asyncOperationHandle);
+        }
+        
+        /*
         if (_playerTransform != null)
         {
             Destroy(_playerTransform.gameObject);
             _playerTransform = null;
         }
+        */
         
-        _currentLevelTiles = Instantiate(_currentLevelData.levelTiles);
-        _playerStartTile = _currentLevelTiles.playerStartTile;
+        AssetReference assetReference = _currentLevelData.levelTiles;
 
-        if (_playerPrefab != null)
+        if (assetReference.RuntimeKeyIsValid() == false)
         {
-            _playerTransform = Instantiate(_playerPrefab, _playerStartTile.transform, true);
+            Debug.LogError("Invalid key " + assetReference.RuntimeKey);
+            return;
         }
         
-        ResetPlayerPosition();
+        LoadAndSpawnLevelTiles(assetReference);
+    }
+
+    private void LoadAndSpawnLevelTiles(AssetReference assetReference)
+    {
+        var op = Addressables.LoadAssetAsync<GameObject>(assetReference);
+        _asyncOperationHandle = op;
+        op.Completed += (operation) =>
+        {
+            SpawnLevelTilesFromLoadedReference(assetReference);
+        };
+    }
+
+    private void SpawnLevelTilesFromLoadedReference(AssetReference assetReference)
+    {
+        _currentLevelTilesLoadedReference = assetReference;
+        
+        _currentLevelTilesLoadedReference.InstantiateAsync().Completed += (asyncOperationHandle) =>
+        {
+            _currentLevelTiles = asyncOperationHandle.Result.GetComponent<LevelTiles>();
+            
+            _playerStartTile = _currentLevelTiles.playerStartTile;
+            
+            if (_playerPrefab != null && _playerTransform == null)
+            {
+                _playerTransform = Instantiate(_playerPrefab, _playerStartTile.transform, true);
+            }
+            
+            ResetPlayerPosition();
+
+            this.Wait(.2f, ShowGrid); 
+        };
     }
 
     private void ResetPlayerPosition()

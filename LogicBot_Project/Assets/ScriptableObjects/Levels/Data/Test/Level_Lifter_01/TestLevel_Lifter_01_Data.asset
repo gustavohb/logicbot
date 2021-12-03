@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: TestLevel_Lifter_01_Data
   m_EditorClassIdentifier: 
   solution: {fileID: 11400000, guid: 3820e3c5762f34f65a5499bea36946ec, type: 2}
-  levelTiles: {fileID: 716667781, guid: e41d0ba0e5d934b22ad4812aa8400146, type: 3}
+  levelTiles:
+    m_AssetGUID: e41d0ba0e5d934b22ad4812aa8400146
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   playerStartDir: 2
