@@ -74,8 +74,8 @@ MonoBehaviour:
   _fastAnimatorJumpSpeed: 4
   _normalAnimatorWalkingSpeed: 2
   _fastAnimatorWalkingSpeed: 4
-  _normalAnimatorTurnSpeed: 2
-  _fastAnimatorTurnSpeed: 4
+  _normalAnimatorTurnSpeed: 1
+  _fastAnimatorTurnSpeed: 3
   _defaultColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   _greenColor: {fileID: 11400000, guid: dd8deccc15d864c4bbd9a843bd05ed87, type: 2}
   _pinkColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
