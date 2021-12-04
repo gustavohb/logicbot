@@ -1,4 +1,6 @@
-# Logicbot
+![Logo01](https://user-images.githubusercontent.com/3193712/144711374-2099e6ef-0d75-449b-8b85-c4e1bdc75a84.png)
+
+---
 
 ![Screen Shot 2021-11-27 at 15 13 48](https://user-images.githubusercontent.com/3193712/143698970-70b615af-9346-4013-b608-a170890a420f.png)
 
