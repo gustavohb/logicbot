@@ -2,7 +2,7 @@
 
 ---
 
-![Screen Shot 2021-11-27 at 15 13 48](https://user-images.githubusercontent.com/3193712/143698970-70b615af-9346-4013-b608-a170890a420f.png)
+![Screen Shot 2021-12-04 at 13 08 48](https://user-images.githubusercontent.com/3193712/144716416-ce576b12-7b88-4a70-a41d-b016c1106359.png)
 
 ## About
 

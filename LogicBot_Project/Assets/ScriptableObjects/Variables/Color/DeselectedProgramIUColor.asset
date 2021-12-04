@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37f7adeea8d5df4aa3f5c6e8ff76260, type: 3}
   m_Name: DeselectedProgramIUColor
   m_EditorClassIdentifier: 
-  _value: {r: 1, g: 1, b: 1, a: 1}
+  _value: {r: 0.8196079, g: 0.9176471, b: 0.9607844, a: 1}
   _readOnly: 1
   _raiseWarning: 1
   _isClamped: 0
