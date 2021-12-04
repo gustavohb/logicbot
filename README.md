@@ -8,7 +8,7 @@
 
 This project is a learning exercise. I am trying to recreate the same mechanics seen in the mobile game [Lightbot](https://lightbot.com/).
 
-You can play the game that is still in development [here](https://gustavohb.github.io/logic-bot/).
+You can play the game that is still in development [here](https://gustavohb.github.io/logicbot/).
 
 Used Unity Version: 2020.3.22f1
 
