@@ -45,6 +45,6 @@ public class MusicSelectorUI : MonoBehaviour
             _tabGroupUI.Subscribe(tabButtonUI);
         }
         _tabGroupUI.ResetTabs();
-        _tabGroupUI.SelectTab(5);
+        _tabGroupUI.SelectTab(10);
     }
 }

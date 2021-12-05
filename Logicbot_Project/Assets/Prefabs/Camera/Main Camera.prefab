@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0db92751fea446acade8d5c548c87ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startColor: {r: 1, g: 1, b: 1, a: 0}
-  _endColor: {r: 1, g: 1, b: 1, a: 0.078431375}
+  _startColor: {r: 0.514151, g: 0.8152404, b: 1, a: 0}
+  _endColor: {r: 0.514151, g: 0.8152404, b: 1, a: 0.11764706}
   _gridCols: 25
   _gridRows: 20
   _cellSpacing: 7
