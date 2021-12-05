@@ -363,7 +363,7 @@ public class PlayerController : MonoBehaviour
         PlayTurnLightAnimation();
         if (_currentPlacedTile != null)
         {
-            _currentPlacedTile.TurnLightOn();
+            _currentPlacedTile.ToggleLight();
         }
         yield return new WaitForSeconds(_currentCommandDuration.Value);
         _currentCallback?.Invoke();

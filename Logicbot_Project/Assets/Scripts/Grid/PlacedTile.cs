@@ -39,7 +39,6 @@ public class PlacedTile : MonoBehaviour
     [SerializeField] private FloatVariable _animationDuration;
     [SerializeField] private FloatVariable _cellSize;
     [SerializeField] private ColorVariable _color;
-    //[SerializeField] private FloatVariable _lifterMoveDuration;
     [SerializeField] private FloatVariable _currentCommandDuration;
     
     [Header("Events")]
@@ -57,7 +56,7 @@ public class PlacedTile : MonoBehaviour
     private float _currentHeight;
     private Vector3 _endPosition;
     private Transform _transform;
-
+    private bool _isLightOn = false;
     private void Awake()
     {
         _transform = transform;
@@ -68,11 +67,11 @@ public class PlacedTile : MonoBehaviour
     private void OnEnable()
     {
         _resetLevelGameEvent.AddListener(TurnLightOff);
-        //_resetLevelGameEvent.AddListener(ResetLifterHeight);
         _resetLifterTileHeightGameEvent.AddListener(ResetLifterHeight);
+        
         if (_type == PlacedTileType.Light)
         {
-            _lightTilesRuntimeSet.AddToList(this);
+            TurnLightOff();
         }
     }
 
@@ -176,13 +175,23 @@ public class PlacedTile : MonoBehaviour
     {
         _transform.DOMoveY(_startYPosition, _animationDuration.Value).SetEase(Ease.InBack);
     }
-    
-    public void TurnLightOn()
+
+    public void ToggleLight()
     {
         if (_type == PlacedTileType.Light)
         {
-            _topSpriteRenderer.sprite = _lightOnSprite;
-            _lightTilesRuntimeSet.RemoveFromList(this);
+            if (!_isLightOn)
+            {
+                _topSpriteRenderer.sprite = _lightOnSprite;
+                _lightTilesRuntimeSet.RemoveFromList(this);
+                _isLightOn = true;
+            }
+            else
+            {
+                _topSpriteRenderer.sprite = _lightOffSprite;
+                _lightTilesRuntimeSet.AddToList(this);
+                _isLightOn = false;
+            }
         }
         else if (_type == PlacedTileType.Lifter)
         {
@@ -206,11 +215,11 @@ public class PlacedTile : MonoBehaviour
     }
     
     
-    
-    public void TurnLightOff()
+    private void TurnLightOff()
     {
         if (_type == PlacedTileType.Light)
         {
+            _isLightOn = false;
             _topSpriteRenderer.sprite = _lightOffSprite;
             _lightTilesRuntimeSet.AddToList(this);
         }
@@ -225,7 +234,6 @@ public class PlacedTile : MonoBehaviour
     {
         _lightTilesRuntimeSet.RemoveFromList(this);
         _resetLevelGameEvent.RemoveListener(TurnLightOff);
-        //_resetLevelGameEvent.RemoveListener(ResetLifterHeight);
         _resetLifterTileHeightGameEvent.RemoveListener(ResetLifterHeight);
     }
 
