@@ -470,6 +470,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8376572308116797957, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: m_Antialiasing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376572308116797957, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8376572308116798009, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
       propertyPath: m_Name
       value: Main Camera

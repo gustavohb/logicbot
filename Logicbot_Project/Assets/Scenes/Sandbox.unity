@@ -587,7 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 1}
+  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -849,7 +849,7 @@ MonoBehaviour:
   _placedTileRuntimeSet: {fileID: 11400000, guid: 34cfda671f64444f1a26583fe6d84714, type: 2}
   _lightTilesRuntimeSet: {fileID: 11400000, guid: f8ad41a7ff15d4d6a9c9cebaab50634c, type: 2}
   _levelRepository: {fileID: 11400000, guid: 6260d744a76fe45d7a062a07801fef68, type: 2}
-  _playerPrefab: {fileID: 568489346919038783, guid: 89a5a1bf210404c0586d8786ded727d8, type: 3}
+  _playerPrefab: {fileID: 568489346919038783, guid: 87a79de3e8efc403d92339944a5db0d0, type: 3}
   _isShowingTiles: {fileID: 11400000, guid: d60f0448b9143444097befa8d5ebc950, type: 2}
   _isHidingTiles: {fileID: 11400000, guid: 379e57a13bbb14400af6b14bf520f563, type: 2}
   _isLoadingLevel: {fileID: 11400000, guid: 37eb1a4f8edcf4dd7ba24eafe2abd65b, type: 2}
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 1}
+  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4349,6 +4349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 818508225}
+  - component: {fileID: 818508226}
   m_Layer: 5
   m_Name: Test
   m_TagString: Untagged
@@ -4377,6 +4378,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &818508226
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818508224}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &840570616
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,7 +5507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 1}
+  m_Color: {r: 0.82155573, g: 0.91788334, b: 0.9622642, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11856,13 +11869,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2338789528651015796, guid: 8f220a28896474de7861de0b4c1c095c, type: 3}
+      propertyPath: _gameMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: 86ee1ca7da30c4cb7aefe97b9867c743, type: 2}
     - target: {fileID: 2338789528651015797, guid: 8f220a28896474de7861de0b4c1c095c, type: 3}
       propertyPath: m_Name
       value: MusicPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 2338789528651015797, guid: 8f220a28896474de7861de0b4c1c095c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f220a28896474de7861de0b4c1c095c, type: 3}
