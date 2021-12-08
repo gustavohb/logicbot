@@ -470,6 +470,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _gridCols
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _gridRows
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _endColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _endColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _endColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _endColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _startColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _startColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _startColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _startColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _animateTileDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244598721, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: _animateSingleTileTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376572308116797957, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
+      propertyPath: m_Dithering
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8376572308116797957, guid: 622aad20f1641499a8000e73a7746e34, type: 3}
       propertyPath: m_Antialiasing
       value: 2
