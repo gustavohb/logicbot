@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f700e8bacd1473b8eb3e9fbd7d8b29, type: 3}
+  m_Name: Recursion_Level_07_Data
+  m_EditorClassIdentifier: 
+  solution: {fileID: 11400000, guid: af5a5d86aa7164217b58c3932bd510b7, type: 2}
+  levelTiles: {fileID: 716667781, guid: 55a3cf37a04094771bcadb4232e5f9b6, type: 3}
+  playerStartDir: 0

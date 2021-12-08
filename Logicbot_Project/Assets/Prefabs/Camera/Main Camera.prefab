@@ -182,14 +182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0db92751fea446acade8d5c548c87ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startColor: {r: 0.514151, g: 0.8152404, b: 1, a: 0}
-  _endColor: {r: 0.514151, g: 0.8152404, b: 1, a: 0.11764706}
-  _gridCols: 25
-  _gridRows: 20
+  _startColor: {r: 1, g: 1, b: 1, a: 0}
+  _endColor: {r: 1, g: 1, b: 1, a: 0.078431375}
+  _gridCols: 20
+  _gridRows: 15
   _cellSpacing: 7
   _delayFactor: 0.03
-  _animateTileDuration: 0.5
-  _animateSingleTileTime: 0.5
+  _animateTileDuration: 0.25
+  _animateSingleTileTime: 0.25
   _minBlinkTileCol: 2
   _minBlinkTileRow: 2
   _maxBlinkTileCol: 20
@@ -242,7 +242,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.06341223, g: 0.39819285, b: 0.7075472, a: 0}
+  m_BackGroundColor: {r: 0.06341223, g: 0.39819285, b: 0.7075472, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -306,11 +306,11 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
-  m_Dithering: 0
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0

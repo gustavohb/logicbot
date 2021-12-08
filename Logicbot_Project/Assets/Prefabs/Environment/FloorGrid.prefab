@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976457728787972998}
   - component: {fileID: 976457728787972997}
+  - component: {fileID: 1027687648}
   m_Layer: 0
   m_Name: FloorGrid
   m_TagString: Untagged
@@ -82,3 +83,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1027687648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976457728787972996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba37d12bd987048b0a071fa25ce7d7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
