@@ -1,4 +1,4 @@
-![Readme_Logo_01](https://user-images.githubusercontent.com/3193712/145221870-029a3bc9-041b-4978-8898-f3585b456f1d.png)
+![Readme_Logo_01](https://user-images.githubusercontent.com/3193712/145222101-345f7870-ebf6-4958-b5d6-a7b7acaf9a1c.png)
 
 ---
 
