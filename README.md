@@ -1,8 +1,8 @@
-![Readme_Logo_01](https://user-images.githubusercontent.com/3193712/145222101-345f7870-ebf6-4958-b5d6-a7b7acaf9a1c.png)
+![Readme_Logo_01_Yellow_Robot](https://user-images.githubusercontent.com/3193712/145719383-591f1457-c84a-465a-a949-809d50e045a9.png)
 
 ---
 
-![Screen Shot 2021-12-07 at 14 45 17](https://user-images.githubusercontent.com/3193712/145080257-610f80e5-3758-441d-8c76-df56733a635c.png)
+![Screen Shot 2021-12-12 at 11 56 15](https://user-images.githubusercontent.com/3193712/145719428-71a02ec2-d50d-4535-a44c-bebf020ca7f6.png)
 
 ## About
 
