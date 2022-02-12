@@ -106,8 +106,6 @@ public class CommandSelectionUI : MonoBehaviour
             {
                 _pinkPaintBrushTabButton.SetActive(true);
             }
-
-            return;
         }
 
         // Move forward - always appear
@@ -124,8 +122,7 @@ public class CommandSelectionUI : MonoBehaviour
             _currentLevelSolution.proc1Commands.Contains(_turnRightCommandDefault) ||
             _currentLevelSolution.proc2Commands.Contains(_turnRightCommandDefault))
         {
-            _turnLeftButtonDefault.gameObject.SetActive(true);
-            _turnRightButtonDefault.gameObject.SetActive(true);
+            EnableDefaultTurnButtons();
         }
         
         // Jump
@@ -133,23 +130,79 @@ public class CommandSelectionUI : MonoBehaviour
             _currentLevelSolution.proc1Commands.Contains(_jumpCommandDefault) ||
             _currentLevelSolution.proc2Commands.Contains(_jumpCommandDefault))
         {
+            EnableDefaultTurnButtons();
             _jumpButtonDefault.gameObject.SetActive(true);
         }
         
         // Proc1
         if (_currentLevelSolution.proc1Commands.Count > 0 || _currentLevelSolution.possibleCommandQtyInProc1Commands > 0)
         {
+            EnableAllDefaultMovementButtons();
             _proc1ButtonDefault.gameObject.SetActive(true);
+        }
+        else
+        {
+            DisableAllProc1Buttons();
+            DisableAllProc2Buttons();
         }
         
         // Proc2
         if (_currentLevelSolution.proc2Commands.Count > 0 || _currentLevelSolution.possibleCommandQtyInProc2Commands > 0)
         {
+            EnableAllDefaultMovementButtons();
             _proc2ButtonDefault.gameObject.SetActive(true);
         }
+        else
+        {
+            DisableAllProc2Buttons();
+        }
+    }
+
+
+    private void EnableDefaultTurnButtons()
+    {
+        _turnLeftButtonDefault.gameObject.SetActive(true);
+        _turnRightButtonDefault.gameObject.SetActive(true);
     }
     
     
+    
+    private void EnableAllDefaultMovementButtons()
+    {
+        // Default
+        _moveForwardButtonDefault.gameObject.SetActive(true);
+        _turnLeftButtonDefault.gameObject.SetActive(true);
+        _turnRightButtonDefault.gameObject.SetActive(true);
+        _jumpButtonDefault.gameObject.SetActive(true);
+        _turnLightOnButtonDefault.gameObject.SetActive(true);
+        //_proc1ButtonDefault.gameObject.SetActive(true);
+        //_proc2ButtonDefault.gameObject.SetActive(true);
+    }
+
+    private void EnableAllGreenMovementButtons()
+    {
+        // Green
+        _moveForwardButtonGreen.gameObject.SetActive(true);
+        _turnLeftButtonGreen.gameObject.SetActive(true);
+        _turnRightButtonGreen.gameObject.SetActive(true);
+        _jumpButtonGreen.gameObject.SetActive(true);
+        _turnLightOnButtonGreen.gameObject.SetActive(true);
+        //_proc1ButtonGreen.gameObject.SetActive(true);
+        //_proc2ButtonGreen.gameObject.SetActive(true);
+    }
+
+    private void EnableAllPinkMovementButtons()
+    {
+        // Pink
+        _moveForwardButtonPink.gameObject.SetActive(true);
+        _turnLeftButtonPink.gameObject.SetActive(true);
+        _turnRightButtonPink.gameObject.SetActive(true);
+        _jumpButtonPink.gameObject.SetActive(true);
+        _turnLightOnButtonPink.gameObject.SetActive(true);
+        //_proc1ButtonPink.gameObject.SetActive(true);
+        //_proc2ButtonPink.gameObject.SetActive(true);
+    }
+
     private void DisableAllButtons()
     {
         _greenPaintBrushTabButton.SetActive(false);
@@ -172,30 +225,48 @@ public class CommandSelectionUI : MonoBehaviour
     private void EnableAllButtonsButBreakOnes()
     {
         // Default
-        _moveForwardButtonDefault.gameObject.SetActive(true);
-        _turnLeftButtonDefault.gameObject.SetActive(true);
-        _turnRightButtonDefault.gameObject.SetActive(true);
-        _jumpButtonDefault.gameObject.SetActive(true);
-        _turnLightOnButtonDefault.gameObject.SetActive(true);
-        _proc1ButtonDefault.gameObject.SetActive(true);
-        _proc2ButtonDefault.gameObject.SetActive(true);
+        EnableAllDefaultMovementButtons();
         
         // Green
-        _moveForwardButtonGreen.gameObject.SetActive(true);
-        _turnLeftButtonGreen.gameObject.SetActive(true);
-        _turnRightButtonGreen.gameObject.SetActive(true);
-        _jumpButtonGreen.gameObject.SetActive(true);
-        _turnLightOnButtonGreen.gameObject.SetActive(true);
-        _proc1ButtonGreen.gameObject.SetActive(true);
-        _proc2ButtonGreen.gameObject.SetActive(true);
+        EnableAllGreenMovementButtons();
+        
         
         // Pink
-        _moveForwardButtonPink.gameObject.SetActive(true);
-        _turnLeftButtonPink.gameObject.SetActive(true);
-        _turnRightButtonPink.gameObject.SetActive(true);
-        _jumpButtonPink.gameObject.SetActive(true);
-        _turnLightOnButtonPink.gameObject.SetActive(true);
+        EnableAllPinkMovementButtons();
+        
+        // PROC1
+        EnableAllProc1Buttons();
+        
+        // PROC2
+        EnableAllProc2Buttons();
+    }
+
+    private void EnableAllProc1Buttons()
+    {
+        _proc1ButtonDefault.gameObject.SetActive(true);
+        _proc1ButtonGreen.gameObject.SetActive(true);
         _proc1ButtonPink.gameObject.SetActive(true);
+    }
+    
+    private void DisableAllProc1Buttons()
+    {
+        _proc1ButtonDefault.gameObject.SetActive(false);
+        _proc1ButtonGreen.gameObject.SetActive(false);
+        _proc1ButtonPink.gameObject.SetActive(false);
+    }
+
+    private void EnableAllProc2Buttons()
+    {
+        _proc2ButtonDefault.gameObject.SetActive(true);
+        _proc2ButtonGreen.gameObject.SetActive(true);
         _proc2ButtonPink.gameObject.SetActive(true);
     }
+
+    private void DisableAllProc2Buttons()
+    {
+        _proc2ButtonDefault.gameObject.SetActive(false);
+        _proc2ButtonGreen.gameObject.SetActive(false);
+        _proc2ButtonPink.gameObject.SetActive(false);
+    }
+    
 }

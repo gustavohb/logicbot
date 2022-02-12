@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleCommandQtyInMainCommands: 12
   possibleCommandQtyInProc1Commands: 8
-  possibleCommandQtyInProc2Commands: 8
+  possibleCommandQtyInProc2Commands: 0
   mainCommands:
   - {fileID: 11400000, guid: 5913d72e7a64f4abc82866d2cc04c610, type: 2}
   - {fileID: 11400000, guid: 7693d6ccf1bad4b8189fc4c66cd4ac61, type: 2}
