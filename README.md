@@ -8,6 +8,10 @@
 
 This project is a learning exercise. I am trying to recreate the same mechanics seen in the mobile game [Lightbot](https://lightbot.com/).
 
+Logicbot is a programming puzzle game - a game whose game mechanics require using programming logic to solve levels. This game is meant to introduce players to programming who may have little to no experience.
+
+Your job is to program your bot to move and light up the blue tiles!
+
 You can play the game that is still in development [here](https://gustavohb.github.io/logicbot/).
 
 Used Unity Version: 2020.3.22f1
