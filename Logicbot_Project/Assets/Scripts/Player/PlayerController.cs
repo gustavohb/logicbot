@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     
     [Header("References")] 
     [SerializeField] private Renderer _renderer;
+    [SerializeField] private Texture2D _defaultTexture;
+    [SerializeField] private Texture2D _greenTexture;
+    [SerializeField] private Texture2D _pinkTexture;
     
     [Header("Events")]
     [SerializeField] private GameEvent _resetLevelGameEvent;
@@ -51,7 +54,8 @@ public class PlayerController : MonoBehaviour
     
     //[HideInInspector]
     public ColorVariable currentColor;
-
+    private Texture2D _currentTexture;
+    
     private Animator _animator;
     
     private Dir _startDir;
@@ -71,6 +75,8 @@ public class PlayerController : MonoBehaviour
     private ColorVariable _currentTileColor;
     private ProtagonistAudio _audio;
 
+    private static int s_mainTextureId = Shader.PropertyToID("_DissolveTexture");
+    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -84,12 +90,34 @@ public class PlayerController : MonoBehaviour
         _reloadLevelGameEvent.AddListener(ResetPositionRotationAndColor);
         _setCurrentPlayerColorGameEvent.AddListener(SetPlayerColor);
         SetPlayerColor(_defaultColor);
+        SetPlayerTexture(_defaultTexture);
     }
 
+    private void SetPlayerTexture(Texture2D texture)
+    {
+        _currentTexture = texture;
+        _renderer.material.SetTexture(s_mainTextureId, _currentTexture);
+    }
+    
     private void SetPlayerColor(ColorVariable color)
     {
         currentColor = color;
-        _renderer.material.color = currentColor.Value;
+        //_renderer.material.color = currentColor.Value;
+
+        if (color == _greenColor)
+        {
+            SetPlayerTexture(_greenTexture);
+        }
+        else if (color == _pinkColor)
+        {
+            SetPlayerTexture(_pinkTexture);
+        }
+        else
+        {
+            SetPlayerTexture(_defaultTexture);
+        }
+        
+        
     }
 
     public void SetStartDir(Dir dir)
@@ -330,6 +358,7 @@ public class PlayerController : MonoBehaviour
         {
             _audio.PlayChangeColor();
         }
+
         
         if (currentColor != _defaultColor)
         {
@@ -348,6 +377,7 @@ public class PlayerController : MonoBehaviour
                 _changeToPinkColorEffect.Play();
             }
         }
+        
         
         yield return new WaitForSeconds(_currentCommandDuration.Value / 2);
         
