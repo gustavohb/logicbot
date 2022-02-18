@@ -8,7 +8,7 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _stopButton;
     [SerializeField] private Button _rewindButton;
-    
+    [SerializeField] private Button _settingsButton;
     
     [Header("Program UI")]
     [SerializeField] private ProgramUI _mainProgramUI;
@@ -18,7 +18,7 @@ public class GameUI : Singleton<GameUI>
     [Header("References")] 
     [SerializeField] private VerticalLayoutGroup _programVerticalLayoutGroup;
     [SerializeField] private GameObject _levelCompletedPanel;
-    
+    [SerializeField] private CanvasGroup _testUICanvasGroup;
     
     [Header("Variables")]
     [SerializeField] private BoolVariable _stopped;
@@ -53,6 +53,7 @@ public class GameUI : Singleton<GameUI>
     
     private void OnEnable()
     {
+        _settingsButton.onClick.AddListener(ToggleTestUI);
         _onFinishedExecutionGameEvent.AddListener(OnFinishedExecutionHandler);
         _reloadLevelGameEvent.AddListener(OnReloadLevel);
         _levelCompletedGameEvent.AddListener(OnLevelCompleted);
@@ -100,6 +101,13 @@ public class GameUI : Singleton<GameUI>
     {
         DisableAllButtons();
         _levelCompletedPanel.SetActive(true);
+    }
+    
+    private void ToggleTestUI()
+    {
+        bool isEnable = _testUICanvasGroup.alpha > 0;             
+        _testUICanvasGroup.alpha =  isEnable ? 0f : 1f;
+        _testUICanvasGroup.interactable = !isEnable;
     }
 
     private void Start()
@@ -314,6 +322,7 @@ public class GameUI : Singleton<GameUI>
 
     private void OnDisable()
     {
+        _settingsButton.onClick.RemoveListener(ToggleTestUI);
         _onFinishedExecutionGameEvent.RemoveListener(OnFinishedExecutionHandler);
         _reloadLevelGameEvent.RemoveListener(OnReloadLevel);
         _levelCompletedGameEvent.RemoveListener(OnLevelCompleted);

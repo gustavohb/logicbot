@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f700e8bacd1473b8eb3e9fbd7d8b29, type: 3}
   m_Name: Recursion_Level_06_Data
   m_EditorClassIdentifier: 
-  solution: {fileID: 11400000, guid: 9afece2ddb1b34e44985bc3f4d005b9a, type: 2}
-  levelTiles: {fileID: 716667781, guid: fd665ce28987441d99abb21ea23a0bbd, type: 3}
-  playerStartDir: 1
+  solution: {fileID: 11400000, guid: 5d7099db1cf914320a23aac0a827ba70, type: 2}
+  levelTiles: {fileID: 716667781, guid: 66f6577e8f8fc4a9cafa40c392442186, type: 3}
+  playerStartDir: 3

@@ -83,6 +83,9 @@ MonoBehaviour:
   _changeToGreenColorEffect: {fileID: 1535461829209538464}
   _changeToPinkColorEffect: {fileID: 1075135818757357150}
   _renderer: {fileID: 4621826872103021879}
+  _defaultTexture: {fileID: 2800000, guid: fa5b4b40dee7c4443af50820a546d0eb, type: 3}
+  _greenTexture: {fileID: 2800000, guid: cd5893f8aa3804a689ad184635f63515, type: 3}
+  _pinkTexture: {fileID: 2800000, guid: 15ccb71361bde45c2a3efd1e1ebf443f, type: 3}
   _resetLevelGameEvent: {fileID: 11400000, guid: 66ca8e539635c46f1b7168e8235b7b61, type: 2}
   _reloadLevelGameEvent: {fileID: 11400000, guid: 2cf8951ae67114e1c91735ba0d0ed229, type: 2}
   _setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}

@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: TurnLeftCommand_Pink
   m_EditorClassIdentifier: 
   isCommandList: 0
+  isBreakCommand: 0
   parentListCommand: {fileID: 0}
   stopped: {fileID: 11400000, guid: 010009554fe5344aeb388d022a950c67, type: 2}
   commandColor: {fileID: 11400000, guid: 7a81c27af65d048ea8cf5a2e8d5e01a4, type: 2}
   currentPlayerColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
   defaultPlayerColor: {fileID: 11400000, guid: 221661db4b3ec45f883c4705b1c13f08, type: 2}
+  commandTexture: {fileID: 11400000, guid: a92b33a45ffbc446ab60328583991c69, type: 2}
+  currentPlayerTexture: {fileID: 11400000, guid: d57a895edc00e48198583572dbb7c1bf, type: 2}
+  defaultPlayerTexture: {fileID: 11400000, guid: d57a895edc00e48198583572dbb7c1bf, type: 2}
   setCurrentPlayerColorGameEvent: {fileID: 11400000, guid: 92d578386d40441f9801df1efca8672a, type: 2}
+  setCurrentPlayerTexture2DGameEvent: {fileID: 11400000, guid: 09cb5771c41ff49e3b9f7d5918e6c20a, type: 2}
   playerControllerRuntimeSet: {fileID: 11400000, guid: d0b026023f250459ab65f865a9c8d498, type: 2}

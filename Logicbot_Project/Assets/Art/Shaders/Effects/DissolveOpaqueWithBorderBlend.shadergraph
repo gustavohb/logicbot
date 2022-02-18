@@ -500,7 +500,7 @@
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"fileID\":-5523277661179574252,\"guid\":\"ad32c51ee87844b6e8966b56fd4d388d\",\"type\":3}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":6385160460782503386,\"guid\":\"447f7bb15c1754995b69821f21bf4f2a\",\"type\":3}}",
             "m_Guid": ""
         }
     },
@@ -1592,7 +1592,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"97cb70a752b31497db7cc73d57033e4f\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"fa5b4b40dee7c4443af50820a546d0eb\",\"type\":3}}",
         "m_Guid": ""
     },
     "m_Modifiable": true,
