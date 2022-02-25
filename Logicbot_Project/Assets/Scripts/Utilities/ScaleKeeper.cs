@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ScaleKepper : MonoBehaviour
+public class ScaleKeeper : MonoBehaviour
 {
     private Vector3 _originalScale;
     private Transform _transform;
