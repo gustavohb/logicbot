@@ -51,6 +51,8 @@ public class LevelManager : Singleton<LevelManager>
     private GridXZ<GridObject> _grid;
 
     private LevelTiles _currentLevelTiles;
+
+    private float _delayFactor = 0.075f;
     
     protected override void Awake()
     {
@@ -172,77 +174,37 @@ public class LevelManager : Singleton<LevelManager>
         _isShowingTiles.Value = true;
         
         ResetPlayerPosition();
-        
-        int n = _grid.GetWidth();
-        int m = _grid.GetHeight();
-        
-        int row = 0, col = 0;
-        bool up = true;
-        
-        float delayFactor = 0.01f;
 
-        while (row < m && col < n)
-        {
-            PlacedTile currentPlacedTile = null;
-            if (up)
+        int gridCols = _grid.GetWidth();
+        int gridRows = _grid.GetHeight();
+        
+        int startCol = 0;
+        int startRow = 0;
+
+        int maxDist = 0;
+        
+        PlacedTile currentPlacedTile = null;
+        
+        for (int col = 0; col < gridCols; col++) {
+            for (int row = 0; row < gridRows; row++)
             {
-                while (row > 0 && col < n - 1)
+                int dist = Mathf.Abs(startCol - col) + Mathf.Abs(startRow - row); // calculate distance
+                if (maxDist < dist)
                 {
-                    currentPlacedTile = _grid[row, col].GetPlacedTile();
-                    if (currentPlacedTile != null)
-                    {
-                        currentPlacedTile.ShowTile(delayFactor * row * col);
-                    }
-                    row--;
-                    col++;
+                    maxDist = dist;
                 }
+                
                 currentPlacedTile = _grid[row, col].GetPlacedTile();
                 if (currentPlacedTile != null)
                 {
-                    currentPlacedTile.ShowTile(delayFactor * row * col);
-                }
-                if (col == n - 1)
-                {
-                    row++;
-                }
-                else
-                {
-                    col++;
+                    currentPlacedTile.ShowTile(_delayFactor * dist);
                 }
             }
-            else
-            {
-                while (col > 0 && row < m - 1)
-                {
-                    currentPlacedTile = _grid[row, col].GetPlacedTile();
-                    if (currentPlacedTile != null)
-                    {
-                        currentPlacedTile.ShowTile(delayFactor * row * col);
-                    }
-                    row++;
-                    col--;
-                }
-                currentPlacedTile = _grid[row, col].GetPlacedTile();
-                if (currentPlacedTile != null)
-                {
-                    currentPlacedTile.ShowTile(delayFactor * row * col);
-                }
-                if (row == m - 1)
-                {
-                    col++;
-                }
-                else
-                {
-                    row++;
-                }
-            }
-
-            up = !up;
         }
-        
+
         this.Wait(0.3f, PlayShowTilesSound);
         
-        this.Wait(delayFactor * m * n + 1f, () =>
+        this.Wait(_delayFactor * maxDist + 1f, () =>
         {
             _isShowingTiles.Value = false;
             _isLoadingLevel.Value = false;
@@ -293,77 +255,36 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         
-        int n = _grid.GetWidth();
-        int m = _grid.GetHeight();
+        int gridCols = _grid.GetWidth();
+        int gridRows = _grid.GetHeight();
         
-        int row = 0, col = 0;
-        bool up = true;
-        
-        float delayFactor = 0.01f;
+        int startCol = gridCols;
+        int startRow = gridRows;
 
-        while (row < m && col < n)
-        {
-            PlacedTile currentPlacedTile = null;
-            if (up)
+        int maxDist = 0;
+        
+        PlacedTile currentPlacedTile = null;
+        
+        for (int col = 0; col < gridCols; col++) {
+            for (int row = 0; row < gridRows; row++)
             {
-                while (row > 0 && col < n - 1)
+                int dist = Mathf.Abs(startCol - col) + Mathf.Abs(startRow - row); // calculate distance
+                if (maxDist < dist)
                 {
-                    currentPlacedTile = _grid[row, col].GetPlacedTile();
-                    if (currentPlacedTile != null)
-                    {
-                        currentPlacedTile.HideTile(delayFactor * row * col);
-                    }
-                    row--;
-                    col++;
+                    maxDist = dist;
                 }
+                
                 currentPlacedTile = _grid[row, col].GetPlacedTile();
                 if (currentPlacedTile != null)
                 {
-                    //currentPlacedTile.ShowTile(delayFactor * row * col);
-                    currentPlacedTile.HideTile(delayFactor * row * col);
-                }
-                if (col == n - 1)
-                {
-                    row++;
-                }
-                else
-                {
-                    col++;
+                    currentPlacedTile.HideTile(_delayFactor * dist);
                 }
             }
-            else
-            {
-                while (col > 0 && row < m - 1)
-                {
-                    currentPlacedTile = _grid[row, col].GetPlacedTile();
-                    if (currentPlacedTile != null)
-                    {
-                        currentPlacedTile.HideTile(delayFactor * row * col);
-                    }
-                    row++;
-                    col--;
-                }
-                currentPlacedTile = _grid[row, col].GetPlacedTile();
-                if (currentPlacedTile != null)
-                {
-                    currentPlacedTile.HideTile(delayFactor * row * col);
-                }
-                if (row == m - 1)
-                {
-                    col++;
-                }
-                else
-                {
-                    row++;
-                }
-            }
-
-            up = !up;
         }
 
-        this.Wait(0.3f, PlayHideTilesSound);
+        this.Wait(0.5f * maxDist * _delayFactor, PlayHideTilesSound);
         
-        this.Wait(delayFactor * m * n, () =>
+        this.Wait(_delayFactor * maxDist, () =>
         {
             callback?.Invoke();
             _isHidingTiles.Value = false;
@@ -545,5 +466,4 @@ public class LevelManager : Singleton<LevelManager>
         base.OnDestroy();
         _setCurrentLevelDataGameEvent.RemoveListener(SetCurrentLevelData);
     }
-    
 }
